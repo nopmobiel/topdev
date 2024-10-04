@@ -1,0 +1,128 @@
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variables */
+:root {
+    --primary-color: #00008B;
+    --secondary-color: #B22222;
+    --text-color: #FFFFFF;
+    --link-color: #FFFFE0;
+    --link-hover-color: #FFFF00;
+    --background-color: #00008B;
+    --font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+/* Global Styles */
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 0 12%;
+}
+
+/* Typography */
+h1, h3, h4, h5 {
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border: 2px solid #4169E1;
+    background-color: var(--secondary-color);
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Forms */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.form-header {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 1rem;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 1.5rem;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #4169E1;
+    border-color: #4169E1;
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #27408B;
+    border-color: #27408B;
+}
+
+/* Navigation */
+.list-group-item {
+    background-color: transparent;
+    border: none;
+    color: var(--link-color);
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--link-hover-color);
+}
+
+/* Links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--link-hover-color);
+    background: transparent;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+th, td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Footer */
+.footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
