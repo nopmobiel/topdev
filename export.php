@@ -75,7 +75,7 @@ function exporteerNoodBestand($outputfile, $dienstID) {
         return true;
     } catch (Exception $e) {
         error_log("Error in exporteerNoodBestand: " . $e->getMessage());
-        return "Fout bij het exporteren van het Nood bestand: " . $e->getMessage();
+        return "Fout bij het exporteren van het noodbestand: " . $e->getMessage();
     }
 }
 
@@ -179,5 +179,63 @@ function factureer($dienstnaam, $aantal) {
     } catch (PDOException $e) {
         error_log("Database Error in factureer: " . $e->getMessage());
         return "Fout bij het factureren: " . $e->getMessage();
+    }
+}
+
+function Zethelerecordintabelprint($inputfile, $outputfile, $dienstID) {
+    $pdo = getDatabaseConnection();
+
+    if (!$pdo) {
+        return "Communicatiefout met de database.";
+    }
+
+    try {
+        $pdo->exec("SET NAMES latin1");
+        $pdo->exec("SET CHARACTER SET latin1");
+        $pdo->exec("SET character_set_connection=latin1");
+
+        $fpInput = fopen($inputfile, "r");
+        if (!$fpInput) {
+            throw new Exception("Kon het invoerbestand niet openen: $inputfile");
+        }
+
+        $fpOutput = fopen($outputfile, "w");
+        if (!$fpOutput) {
+            fclose($fpInput);
+            throw new Exception("Kon het uitvoerbestand niet openen: $outputfile");
+        }
+
+        $rownum = 1;
+        $tableName = "tblPrint" . $dienstID;
+
+        $pdo->beginTransaction();
+
+        $stmt = $pdo->prepare("UPDATE $tableName SET record = :record WHERE teller = :rownum");
+
+        while (($buffer = fgets($fpInput)) !== false) {
+            $record = rtrim($buffer);
+            $record = str_replace('"', '""', $record);
+            $record = '"' . $record . '"';
+
+            $result = $stmt->execute([':record' => $record, ':rownum' => $rownum]);
+
+            if ($result === false) {
+                throw new Exception("Fout bij het updaten van record $rownum: " . implode(", ", $stmt->errorInfo()));
+            }
+
+            $rownum++;
+            fwrite($fpOutput, $buffer);
+        }
+
+        $pdo->commit();
+
+        fclose($fpInput);
+        fclose($fpOutput);
+
+        return true;
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        error_log("Error in Zethelerecordintabelprint: " . $e->getMessage());
+        return false;
     }
 }

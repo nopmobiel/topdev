@@ -2,6 +2,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// Make sure to include settings.php at the top of this file
+require_once 'settings.php';
+
 function generateOTP() {
     return rand(100000, 999999);
 }
@@ -10,14 +13,14 @@ function sendOTPEmail($email, $otp) {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
-        $mail->Host       = 'vps.transip.email';
+        $mail->Host       = SMTP_HOST;
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'ddcare@vps.transip.email';
-        $mail->Password   = 'gskvfkzqTRKfGbKQ';
+        $mail->Username   = SMTP_USERNAME;
+        $mail->Password   = SMTP_PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->Port       = SMTP_PORT;
 
-        $mail->setFrom('ddcare@ddcare.nl', 'Trombose.net webmaster');
+        $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
         $mail->addAddress($email);
 
         $mail->isHTML(true);
@@ -78,7 +81,30 @@ function CreateBarcode($werknummer) {
     return $barcode . ")";
 }
 
+function scp_the_file($localFile, $remoteFile) {
+    if (!function_exists('ssh2_connect')) {
+        error_log("SSH2 functions are not available. Make sure the SSH2 extension is installed.");
+        return false;
+    }
 
+    $connection = ssh2_connect(SCP_HOST, SCP_PORT);
+    if ($connection === false) {
+        error_log("Failed to connect to SSH server");
+        return false;
+    }
 
+    if (!ssh2_auth_password($connection, SCP_USERNAME, SCP_PASSWORD)) {
+        error_log("SSH authentication failed");
+        return false;
+    }
+
+    if (!ssh2_scp_send($connection, $localFile, $remoteFile, 0644)) {
+        error_log("Failed to transfer file: " . basename($localFile));
+        return false;
+    }
+
+    error_log("Successfully transferred " . basename($localFile) . " to remote server");
+    return true;
+}
 
 ?>

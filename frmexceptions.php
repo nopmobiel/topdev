@@ -156,7 +156,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <nav class="list-group list-group-flush">
                     <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Upload</a>
                     <a href="frmexceptions.php" class="list-group-item list-group-item-action bg-dark text-white">Uitzonderingen</a>
-                    <a href="rapporten.php" class="list-group-item list-group-item-action bg-dark text-white">Rapporten</a>
                     <a href="service.php" class="list-group-item list-group-item-action bg-dark text-white">Service</a>
                     <a href="download.php" class="list-group-item list-group-item-action bg-dark text-white">Download</a>
                     <a href="logout.php" class="list-group-item list-group-item-action bg-dark text-white">Afmelden</a>
@@ -166,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- Main Content -->
             <main class="col-md-10">
                 <div class="container mt-4">
-                    <h2>Uitzonderingenbestand Bewerken</h2>
+                    <h2>Uitzonderingenbestand bewerken</h2>
 
                     <?php if (!empty($error)): ?>
                         <div class="alert alert-danger" role="alert">

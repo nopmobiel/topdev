@@ -150,28 +150,127 @@ if (!exporteerNoodBestand($noodfile, $dienstID)) {
 }
 verwijderSlashes($noodfile);
 
-// Step 16: Export Print file
+// Step 16: Add the Zethelerecordintabelprint function call
+$result = Zethelerecordintabelprint($destinationPath, $printfile, $dienstID);
+if ($result !== true) {
+    $message = "Fout bij het verwerken van het bestand voor tabelprint: " . $result;
+    goto end_processing;
+}
+
+// Step 17: Export Print file
 if (!exporteerNaarDefinitiefPrintBestand($printfile, $dienstID)) {
     $message = "Export gedeeltelijk succesvol. Fout bij exporteren print bestand.";
     goto end_processing;
 }
 
-// Step 17: Add counter to Print file
+// Step 18: Add counter to Print file
 if (!addCounter2PrintFile($uploadDir, basename($printfile), $dienstID)) {
     $message = "Export gedeeltelijk succesvol. Fout bij toevoegen teller aan print bestand.";
     goto end_processing;
 }
 
-// Step 18: Facturering (Invoicing)
+// Step 19: Facturering (Invoicing)
 $factuurResult = factureer($dienstnaam, $lineCount);
 if ($factuurResult !== true) {
     $message = "Bestand succesvol geüpload, verwerkt en geëxporteerd, maar er was een fout bij het factureren: " . $factuurResult;
     goto end_processing;
 }
 
+// Step 20: Remove all CSV and .org files except for specific ones
+$filesToKeep = [
+    basename($noodfile),
+    basename($wordfile),
+    'nood.csv',
+    'uitzonderingen.csv'
+];
+
+$files = glob($uploadDir . '{*.csv,*.org}', GLOB_BRACE);
+
+foreach ($files as $file) {
+    $basename = basename($file);
+    if (!in_array($basename, $filesToKeep)) {
+        if (unlink($file)) {
+            error_log("File removed: " . $file);
+        } else {
+            error_log("Failed to remove file: " . $file);
+        }
+    }
+}
+
+// Remove the original uploaded file if it still exists
+if (file_exists($destinationPath) && unlink($destinationPath)) {
+    error_log("Original uploaded file removed: " . $destinationPath);
+} else {
+    error_log("Failed to remove original uploaded file: " . $destinationPath);
+}
+
+// Step 21: Rename files as specified
+// Rename $noodfile to nood.csv
+if (file_exists($noodfile) && basename($noodfile) !== 'nood.csv') {
+    if (rename($noodfile, $uploadDir . 'nood.csv')) {
+        error_log("Renamed noodfile to: nood.csv");
+    } else {
+        error_log("Failed to rename noodfile to nood.csv");
+    }
+} else {
+    error_log("Noodfile already named correctly or doesn't exist");
+}
+
+// Rename $wordfile to uitzonderingen.csv if not empty
+if (file_exists($wordfile)) {
+    $lineCount = 0;
+    $handle = fopen($wordfile, "r");
+    while(!feof($handle)){
+        $line = fgets($handle);
+        if (trim($line) !== '') {
+            $lineCount++;
+        }
+    }
+    fclose($handle);
+
+    if ($lineCount > 0) {
+        $newWordFile = $uploadDir . 'uitzonderingen.csv';
+        if (basename($wordfile) !== 'uitzonderingen.csv') {
+            if (rename($wordfile, $newWordFile)) {
+                error_log("Renamed wordfile to: uitzonderingen.csv");
+                $wordfile = $newWordFile; // Update $wordfile variable
+            } else {
+                error_log("Failed to rename wordfile to uitzonderingen.csv");
+            }
+        } else {
+            error_log("Wordfile already named correctly");
+        }
+    } else {
+        error_log("Wordfile is empty, not renaming");
+        // Optionally, you might want to delete the empty file
+        unlink($wordfile);
+        error_log("Deleted empty wordfile");
+    }
+} else {
+    error_log("Wordfile doesn't exist");
+}
+
+// Rename the .dat file to <user>.dat
+$datFiles = glob($uploadDir . '*.dat');
+if (!empty($datFiles)) {
+    $oldDatFile = $datFiles[0];  // Assume there's only one .dat file
+    $newDatFile = $uploadDir . $dienstkortenaam . '.dat';
+    if (basename($oldDatFile) !== $dienstkortenaam . '.dat') {
+        if (rename($oldDatFile, $newDatFile)) {
+            error_log("Renamed .dat file to: " . basename($newDatFile));
+        } else {
+            error_log("Failed to rename .dat file");
+        }
+    } else {
+        error_log(".dat file already correctly named");
+    }
+} else {
+    error_log("No .dat file found to rename");
+}
+
 $message = "Bestand succesvol geüpload, verwerkt, geëxporteerd en gefactureerd. " . 
            "Het bestand bevat " . $lineCount . " regels. " .
-           "Word, Nood en Print bestanden zijn geëxporteerd.";
+           "Word, Nood en printbestanden (indien beschikbaar) zijn geëxporteerd.";
 
 end_processing:
 ?>
