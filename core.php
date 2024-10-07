@@ -268,8 +268,50 @@ if (!empty($datFiles)) {
     error_log("No .dat file found to rename");
 }
 
+// After creating the files, set the correct permissions
+$filesToAdjust = [
+    $uploadDir . $dienstkortenaam . '.dat',
+    $uploadDir . 'nood.csv',
+    $uploadDir . 'uitzonderingen.csv'
+];
+
+foreach ($filesToAdjust as $file) {
+    if (file_exists($file)) {
+        // Set file permissions to 644 (owner read/write, group read, others read)
+        chmod($file, 0644);
+
+        error_log("Adjusted permissions for $file");
+    }
+}
+
+// Ensure the upload directory has correct permissions
+chmod($uploadDir, 0755);
+
+// Step 22: Transfer files to remote server
+$remoteUploadDir = "/home/trombose/public_html/diensten-test/" . $dienstkortenaam . "/upload/";
+
+$filesToTransfer = [
+    $uploadDir . $dienstkortenaam . '.dat',
+    $uploadDir . 'nood.csv',
+    $uploadDir . 'uitzonderingen.csv'
+];
+
+foreach ($filesToTransfer as $file) {
+    if (file_exists($file)) {
+        $remoteFile = $remoteUploadDir . basename($file);
+        error_log("Attempting to transfer: $file to $remoteFile");
+        if (scp_the_file($file, $remoteFile)) {
+            error_log("Successfully transferred $file to $remoteFile");
+        } else {
+            error_log("Failed to transfer $file to $remoteFile");
+        }
+    } else {
+        error_log("File not found for transfer: $file");
+    }
+}
+
 $message = "Bestand succesvol geüpload, verwerkt, geëxporteerd en gefactureerd. " . 
-           "Het bestand bevat " . $lineCount . " regels. " .
+           "Het bestand bevat " . $lineCount . " regels: " .    
            "Word, Nood en printbestanden (indien beschikbaar) zijn geëxporteerd.";
 
 end_processing:

@@ -82,13 +82,16 @@ function CreateBarcode($werknummer) {
 }
 
 function scp_the_file($localFile, $remoteFile) {
-    if (!function_exists('ssh2_connect')) {
-        error_log("SSH2 functions are not available. Make sure the SSH2 extension is installed.");
+    // Remove leading './' if present
+    $localFile = ltrim($localFile, './');
+
+    if (!file_exists($localFile)) {
+        error_log("Local file does not exist: $localFile");
         return false;
     }
 
     $connection = ssh2_connect(SCP_HOST, SCP_PORT);
-    if ($connection === false) {
+    if (!$connection) {
         error_log("Failed to connect to SSH server");
         return false;
     }
@@ -98,12 +101,20 @@ function scp_the_file($localFile, $remoteFile) {
         return false;
     }
 
+    // Try to create the remote directory if it doesn't exist
+    $remoteDir = dirname($remoteFile);
+    $sftp = ssh2_sftp($connection);
+    ssh2_sftp_mkdir($sftp, $remoteDir, 0755, true);
+
     if (!ssh2_scp_send($connection, $localFile, $remoteFile, 0644)) {
-        error_log("Failed to transfer file: " . basename($localFile));
+        $error = error_get_last();
+        error_log("SCP transfer failed: " . $error['message']);
+        error_log("Local file: $localFile");
+        error_log("Remote file: $remoteFile");
         return false;
     }
 
-    error_log("Successfully transferred " . basename($localFile) . " to remote server");
+    error_log("Successfully transferred: $localFile to $remoteFile");
     return true;
 }
 
