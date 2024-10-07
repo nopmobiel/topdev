@@ -47,7 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['fopmerking'])) {
 $systeemdatum = date("Y-m-d");
 
 // Fetch records for the current date
-$selectQuery = "SELECT datum, dienst, aantal, tijd, opmerking FROM tblFactuur WHERE datum = ? ORDER BY tijd DESC";
+$selectQuery = "SELECT f.dienst AS factuur_dienst, d.User AS dienst_user, f.datum, f.aantal, f.tijd, f.opmerking 
+                FROM tblFactuur f
+                LEFT JOIN tblDienst d ON f.dienst = d.Dienstnaam
+                WHERE f.datum = ? 
+                ORDER BY f.tijd DESC";
 if ($stmt = $mysqli->prepare($selectQuery)) {
     $stmt->bind_param("s", $systeemdatum);
     $stmt->execute();
@@ -123,18 +127,19 @@ $versie = $_SESSION["versie"] ?? '1.0';
         
             <?php while ($row = $result->fetch_assoc()): ?>
                 <?php
-                    $dienst = $row['dienst'];
+                    // Use User from tblDienst if available, otherwise use dienst from tblFactuur
+                    $dienst = $row['dienst_user'] ?? $row['factuur_dienst'];
                     $datum = $row['datum'];
                     $tijd = $row['tijd'];
                     $opmerking = $row['opmerking'];
-                    $aantal = (int)$row['aantal'];
+                    $aantal = $row['aantal'];
 
                     // Format date
                     $formattedDate = date("d-m-Y", strtotime($datum));
 
                     // Determine cell color based on time and service
                     $cellColor = "";
-                    if ((int)$tijd >= 17 && $dienst !== "td-amsterdam") {
+                    if (strtotime($tijd) >= strtotime('17:00:00') && $dienst !== "td-amsterdam") {
                         $cellColor = " style='background-color: red;'";
                     }
                 ?>
@@ -145,7 +150,7 @@ $versie = $_SESSION["versie"] ?? '1.0';
                     <td>
                         <form method="post" action="topwatch.php">
                             <input type="text" size="20" name="fopmerking" value="<?php echo escape($opmerking); ?>">
-                            <input type="hidden" name="fdienst" value="<?php echo escape($dienst); ?>">
+                            <input type="hidden" name="fdienst" value="<?php echo escape($row['factuur_dienst']); ?>">
                             <input type="hidden" name="fdatum" value="<?php echo escape($datum); ?>">
                             <input type="hidden" name="ftijd" value="<?php echo escape($tijd); ?>">
                             <input type="submit" value="OK">

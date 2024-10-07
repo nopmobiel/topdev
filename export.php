@@ -150,7 +150,7 @@ function verwijderSlashes($fileworddata) {
     return true;
 }
 
-function factureer($dienst, $aantal) {
+function factureer($dienstnaam, $aantal) {
     $pdo = getDatabaseConnection();
 
     if (!$pdo) {
@@ -158,16 +158,21 @@ function factureer($dienst, $aantal) {
     }
 
     try {
-        $datum = date('Ymd');
+        $datum = date('Y-m-d');
         $tijd = date('H:i:s');
+        $prijs = 0;
+        $opmerking = ""; // Empty string for opmerking
 
-        $query = "INSERT INTO tblFactuur (DienstID, Datum, Aantal, Status, Tijd) VALUES (:dienst, :datum, :aantal, '0', :tijd)";
+        $query = "INSERT INTO tblFactuur (dienst, datum, aantal, prijs, tijd, opmerking) 
+                  VALUES (:dienst, :datum, :aantal, :prijs, :tijd, :opmerking)";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
-            ':dienst' => $dienst,
+            ':dienst' => $dienstnaam,
             ':datum' => $datum,
             ':aantal' => $aantal,
-            ':tijd' => $tijd
+            ':prijs' => $prijs,
+            ':tijd' => $tijd,
+            ':opmerking' => $opmerking
         ]);
 
         return true;

@@ -162,7 +162,14 @@ if (!addCounter2PrintFile($uploadDir, basename($printfile), $dienstID)) {
     goto end_processing;
 }
 
-$message = "Bestand succesvol geüpload, verwerkt en geëxporteerd. " . 
+// Step 18: Facturering (Invoicing)
+$factuurResult = factureer($dienstnaam, $lineCount);
+if ($factuurResult !== true) {
+    $message = "Bestand succesvol geüpload, verwerkt en geëxporteerd, maar er was een fout bij het factureren: " . $factuurResult;
+    goto end_processing;
+}
+
+$message = "Bestand succesvol geüpload, verwerkt, geëxporteerd en gefactureerd. " . 
            "Het bestand bevat " . $lineCount . " regels. " .
            "Word, Nood en Print bestanden zijn geëxporteerd.";
 
