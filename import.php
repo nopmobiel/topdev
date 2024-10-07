@@ -1,6 +1,5 @@
 <?php
 require_once("settings.php");
-require_once("trodis2tdas.php");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -151,6 +150,24 @@ function processWordTableBarcodes($dienstID, $system) {
         return false;
     } catch (Exception $e) {
         error_log("Error: " . $e->getMessage());
+        return false;
+    }
+}
+
+function insertOnlineRecord($dienstID) {
+    $wordTableName = "tblWord" . $dienstID;
+    $onlineTableName = "tblOnline" . $dienstID;
+    
+    try {
+        $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $query = "INSERT IGNORE INTO `$onlineTableName` SELECT * FROM `$wordTableName`";
+        $pdo->exec($query);
+
+        return true;
+    } catch (PDOException $e) {
+        error_log("Database Error in insertOnlineRecord: " . $e->getMessage());
         return false;
     }
 }

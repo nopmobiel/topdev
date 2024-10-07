@@ -44,13 +44,13 @@ function patdec($s)
 
 
 
+// Format the Trodis file
 
 
 
 
 
-
-function trodis2tdas($filenaam) 
+function format_trodis($filenaam) 
 {
 
 

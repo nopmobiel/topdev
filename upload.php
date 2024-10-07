@@ -56,7 +56,6 @@ try {
                 <nav class="list-group list-group-flush">
                     <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Upload</a>
                     <a href="frmexceptions.php" class="list-group-item list-group-item-action bg-dark text-white">Uitzonderingen</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Rapporten</a>
                     <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Service</a>
                     <a href="#" class="list-group-item list-group-item-action bg-dark text-white">Download</a>
                     <a href="logout.php" class="list-group-item list-group-item-action bg-dark text-white">Afmelden</a>

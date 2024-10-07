@@ -10,9 +10,11 @@ if (!isset($_SESSION['DienstID']) || !isset($_SESSION['Systeem'])) {
     exit();
 }
 
-require_once("settings.php");
+require_once("settings.php");   
+require_once("format_trodis.php");
 require_once("import.php");
 require_once("functions.php");
+require_once("export.php");  // Add this line to include the export functions
 
 // CSRF protection
 if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
@@ -35,103 +37,136 @@ if (!file_exists($uploadDir)) {
 
 $message = "";
 
-// Check if file was uploaded without errors
-if (isset($_FILES['fileToUpload']) && $_FILES['fileToUpload']['error'] == 0) {
-    $uploadedFile = $_FILES['fileToUpload']['tmp_name'];
-    $originalFileName = basename($_FILES['fileToUpload']['name']);
-    $fileExtension = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
-
-    // Validate file extension
-    $allowedExtensions = array('csv');
-    if (!in_array($fileExtension, $allowedExtensions)) {
-        $message = "Fout: Alleen csv-bestanden zijn toegestaan.";
-    } else {
-        // Check filename format
-        $filenamePattern = '/^(ED|ed)(\d{6})\.csv$/';
-        if (!preg_match($filenamePattern, $originalFileName, $matches)) {
-            $message = "Fout: Ongeldige bestandsnaamindeling. Het moet EDjjmmdd.csv of edjjmmdd.csv zijn";
-        } else {
-            $fileDate = $matches[2];
-            $currentDate = date('ymd');
-            
-            if ($fileDate !== $currentDate) {
-                $message = "Fout: De bestandsdatum komt niet overeen met de datum van vandaag. Verwacht: ED{$currentDate}.csv";
-            } else {
-                // Generate a unique filename
-                $newFileName = uniqid() . '.' . $fileExtension;
-                $destinationPath = $uploadDir . $newFileName;
-
-                // Move the uploaded file to the destination
-                if (move_uploaded_file($uploadedFile, $destinationPath)) {
-                    // File uploaded successfully
-                    $orgFileName = $uploadDir . $originalFileName . '.org';
-
-                    // Create a copy of the original file
-                    if (copy($destinationPath, $orgFileName)) {
-                        $lineCount = countLines($destinationPath);
-                        
-                        // Determine the correct import type and table name
-                        $importType = strtolower($systeem);
-                        $tableName = "tblPrint" . $dienstID;
-                        
-                        // Process the file based on the import type and table name
-                        if ($importType === 'trodis') {
-                            trodis2tdas($destinationPath);
-
-                            $importResult = importTrodis($destinationPath, $tableName);
-                        } elseif ($importType === 'porta2') {
-                            $importResult = importAvita($destinationPath, $tableName);
-                        } else {
-                            $importResult = false;
-                            $message = "Onbekend importtype: " . $importType;
-                        }
-                        
-                        if ($importResult === true) {
-                            // Insert the header record
-                            insertHeaderRecord($dienstID, $systeem);
-
-                            // Import the rest of the records into tblWord<dienstId>
-                            $wordTableName = "tblWord" . $dienstID;
-                            
-                            if ($importType === 'trodis') {
-                                $wordImportResult = importTrodis($destinationPath, $wordTableName);
-                            } elseif ($importType === 'porta2') {
-                                $wordImportResult = importAvita($destinationPath, $wordTableName);
-                            } else {
-                                $wordImportResult = false;
-                                $message .= " Onbekend importtype voor word tabel: " . $importType;
-                            }
-
-                            if ($wordImportResult === true) {
-                                // Process barcodes for the word table
-                                $barcodeProcessResult = processWordTableBarcodes($dienstID, $systeem);
-
-                                if ($barcodeProcessResult === true) {
-                                    $message = "Bestand succesvol geüpload en verwerkt. " . 
-                                               "Het bestand bevat " . $lineCount . " regels. " .
-                                               "Header record en word tabel succesvol geïmporteerd. " .
-                                               "Barcodes zijn bijgewerkt.";
-                                } else {
-                                    $message = "Bestand geüpload, word tabel geïmporteerd, maar er was een fout bij het bijwerken van de barcodes. Controleer de error log voor details.";
-                                }
-                            } else {
-                                $message = "Bestand geüpload en header record ingevoegd, maar er was een fout bij het importeren van de word tabel. Controleer de error log voor details.";
-                            }
-                        } else {
-                            $message = "Bestand geüpload, maar er was een fout bij het verwerken. Controleer de error log voor details.";
-                        }
-                    } else {
-                        $message = "Bestand geüpload, maar het maken van een kopie van het originele bestand is mislukt.";
-                    }
-                } else {
-                    $message = "Sorry, er is een fout opgetreden bij het uploaden van uw bestand.";
-                }
-            }
-        }
-    }
-} else {
+// Step 1: Check if file was uploaded without errors
+if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] != 0) {
     $message = "Fout: " . $_FILES['fileToUpload']['error'];
+    goto end_processing;
 }
+
+$uploadedFile = $_FILES['fileToUpload']['tmp_name'];
+$originalFileName = basename($_FILES['fileToUpload']['name']);
+$fileExtension = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
+
+// Step 2: Validate file extension
+$allowedExtensions = array('csv');
+if (!in_array($fileExtension, $allowedExtensions)) {
+    $message = "Fout: Alleen csv-bestanden zijn toegestaan.";
+    goto end_processing;
+}
+
+// Step 3: Check filename format
+$filenamePattern = '/^(ED|ed)(\d{6})\.csv$/';
+if (!preg_match($filenamePattern, $originalFileName, $matches)) {
+    $message = "Fout: Ongeldige bestandsnaamindeling. Het moet EDjjmmdd.csv of edjjmmdd.csv zijn";
+    goto end_processing;
+}
+
+// Step 4: Validate file date
+$fileDate = $matches[2];
+$currentDate = date('ymd');
+if ($fileDate !== $currentDate) {
+    $message = "Fout: De bestandsdatum komt niet overeen met de datum van vandaag. Verwacht: ED{$currentDate}.csv";
+    goto end_processing;
+}
+
+// Step 5: Generate a unique filename and move the uploaded file
+$newFileName = uniqid() . '.' . $fileExtension;
+$destinationPath = $uploadDir . $newFileName;
+if (!move_uploaded_file($uploadedFile, $destinationPath)) {
+    $message = "Sorry, er is een fout opgetreden bij het uploaden van uw bestand.";
+    goto end_processing;
+}
+
+// Step 6: Create a copy of the original file
+$orgFileName = $uploadDir . $originalFileName . '.org';
+if (!copy($destinationPath, $orgFileName)) {
+    $message = "Bestand geüpload, maar het maken van een kopie van het originele bestand is mislukt.";
+    goto end_processing;
+}
+
+// Step 7: Count lines and determine import type
+$lineCount = countLines($destinationPath);
+$importType = strtolower($systeem);
+$tableName = "tblPrint" . $dienstID;
+
+// Step 8: Process the file based on the import type and table name
+$importResult = false;
+if ($importType === 'trodis') {
+    format_trodis($destinationPath);
+    $importResult = importTrodis($destinationPath, $tableName);
+} elseif ($importType === 'porta2') {
+    $importResult = importAvita($destinationPath, $tableName);
+} else {
+    $message = "Onbekend importtype: " . $importType;
+    goto end_processing;
+}
+
+if ($importResult !== true) {
+    $message = "Bestand geüpload, maar er was een fout bij het verwerken. Controleer de error log voor details.";
+    goto end_processing;
+}
+
+// Step 9: Insert the header record
+insertHeaderRecord($dienstID, $systeem);
+
+// Step 10: Import the rest of the records into tblWord<dienstId>
+$wordTableName = "tblWord" . $dienstID;
+$wordImportResult = ($importType === 'trodis') ? importTrodis($destinationPath, $wordTableName) : importAvita($destinationPath, $wordTableName);
+
+if ($wordImportResult !== true) {
+    $message = "Bestand geüpload en header record ingevoegd, maar er was een fout bij het importeren van de word tabel. Export niet uitgevoerd.";
+    goto end_processing;
+}
+
+// Step 11: Process barcodes for the word table
+if (!processWordTableBarcodes($dienstID, $systeem)) {
+    $message = "Bestand geüpload, word tabel geïmporteerd, maar er was een fout bij het bijwerken van de barcodes. Export niet uitgevoerd.";
+    goto end_processing;
+}
+
+// Step 12: Insert online record
+if (!insertOnlineRecord($dienstID, $originalFileName, $lineCount)) {
+    $message = "Bestand geüpload en verwerkt, maar er was een fout bij het opslaan van het online record. Export niet uitgevoerd.";
+    goto end_processing;
+}
+
+// Step 13: Export processing starts here
+$uploadDir = "./diensten/" . $dienstkortenaam . "/upload/";
+$wordfile = $uploadDir . "word_" . date("Ymd_His") . ".csv";
+$noodfile = $uploadDir . "nood_" . date("Ymd_His") . ".csv";
+$printfile = $uploadDir . "print_" . date("Ymd_His") . ".csv";
+
+// Step 14: Export Word file
+if (!exporteerWordBestand($wordfile, $dienstID)) {
+    $message = "Export mislukt. Fout bij exporteren word bestand.";
+    goto end_processing;
+}
+verwijderSlashes($wordfile);
+
+// Step 15: Export Nood file
+if (!exporteerNoodBestand($noodfile, $dienstID)) {
+    $message = "Export gedeeltelijk succesvol. Fout bij exporteren nood bestand.";
+    goto end_processing;
+}
+verwijderSlashes($noodfile);
+
+// Step 16: Export Print file
+if (!exporteerNaarDefinitiefPrintBestand($printfile, $dienstID)) {
+    $message = "Export gedeeltelijk succesvol. Fout bij exporteren print bestand.";
+    goto end_processing;
+}
+
+// Step 17: Add counter to Print file
+if (!addCounter2PrintFile($uploadDir, basename($printfile), $dienstID)) {
+    $message = "Export gedeeltelijk succesvol. Fout bij toevoegen teller aan print bestand.";
+    goto end_processing;
+}
+
+$message = "Bestand succesvol geüpload, verwerkt en geëxporteerd. " . 
+           "Het bestand bevat " . $lineCount . " regels. " .
+           "Word, Nood en Print bestanden zijn geëxporteerd.";
+
+end_processing:
 ?>
 
 <!DOCTYPE html>
