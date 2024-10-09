@@ -54,10 +54,10 @@ try {
             <div class="col-md-2 bg-dark text-white">
                 <h3 class="text-center py-3">Menu</h3>
                 <nav class="list-group list-group-flush">
-                    <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Upload</a>
+                    <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Dagelijkse upload</a>
                     <a href="frmexceptions.php" class="list-group-item list-group-item-action bg-dark text-white">Uitzonderingen</a>
-                    <a href="download.php?file=samenvoegen.csv" class="list-group-item list-group-item-action bg-dark text-white">Download samenvoegbestand</a>
                     <a href="download.php?file=nood.csv" class="list-group-item list-group-item-action bg-dark text-white">Download noodbestand</a>
+                    <a href="download.php?file=uitzonderingen.csv" class="list-group-item list-group-item-action bg-dark text-white">Download uitzonderingen</a>
                     <a href="logout.php" class="list-group-item list-group-item-action bg-dark text-white">Afmelden</a>
                 </nav>
             </div>

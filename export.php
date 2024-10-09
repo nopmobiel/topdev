@@ -21,7 +21,7 @@ function getDatabaseConnection() {
     }
 }
 
-function exporteerWordBestand($outputfile, $dienstID) {
+function exporteerWordUitzonderingenBestand($outputfile, $dienstID) {
     $pdo = getDatabaseConnection();
 
     if (!$pdo) {
@@ -237,5 +237,35 @@ function Zethelerecordintabelprint($inputfile, $outputfile, $dienstID) {
         $pdo->rollBack();
         error_log("Error in Zethelerecordintabelprint: " . $e->getMessage());
         return false;
+    }
+}
+
+function processUitzonderingen($dienstID) {
+    $pdo = getDatabaseConnection();
+
+    if (!$pdo) {
+        return "Communicatiefout met de database.";
+    }
+
+    try {
+        $wordTable = "tblWord$dienstID";
+        $uitzonderingenTable = "tblUitzonderingen$dienstID";
+
+        $query = "UPDATE $wordTable w
+                  SET w.uitzondering = 'J'
+                  WHERE EXISTS (
+                      SELECT 1
+                      FROM $uitzonderingenTable u
+                      WHERE w.postcode = u.postcode
+                      AND w.patientnummer = u.patientnummer
+                  )";
+
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+
+        $affectedRows = $stmt->rowCount();
+
+    } catch (Exception $e) {
+        echo "Fout bij het verwerken van uitzonderingen: " . $e->getMessage() . "<br>";
     }
 }

@@ -124,6 +124,9 @@ if (!processWordTableBarcodes($dienstID, $systeem)) {
     goto end_processing;
 }
 
+// New Step: Process uitzonderingen
+processUitzonderingen($dienstID);
+
 // Step 12: Insert online record
 if (!insertOnlineRecord($dienstID, $originalFileName, $lineCount)) {
     $message = "Bestand geüpload en verwerkt, maar er was een fout bij het opslaan van het online record. Export niet uitgevoerd.";
@@ -137,8 +140,8 @@ $noodfile = $uploadDir . "nood_" . date("Ymd_His") . ".csv";
 $printfile = $uploadDir . "print_" . date("Ymd_His") . ".csv";
 
 // Step 14: Export Word file
-if (!exporteerWordBestand($wordfile, $dienstID)) {
-    $message = "Export mislukt. Fout bij exporteren word bestand.";
+if (!exporteerWordUitzonderingenBestand($wordfile, $dienstID)) {
+    $message = "Export mislukt. Fout bij exporteren word uitzonderingen bestand.";
     goto end_processing;
 }
 verwijderSlashes($wordfile);
@@ -175,6 +178,11 @@ if ($factuurResult !== true) {
     $message = "Bestand succesvol geüpload, verwerkt en geëxporteerd, maar er was een fout bij het factureren: " . $factuurResult;
     goto end_processing;
 }
+
+// Set success message here, before file deletion
+$message = "Bestand succesvol geüpload, verwerkt, geëxporteerd en gefactureerd. " . 
+           "Het bestand bevat " . $lineCount . " regels: " .    
+           "Word, Nood en printbestanden (indien beschikbaar) zijn geëxporteerd.";
 
 // Step 20: Remove all CSV and .org files except for specific ones
 $filesToKeep = [
@@ -268,7 +276,7 @@ if (!empty($datFiles)) {
     error_log("No .dat file found to rename");
 }
 
-// After creating the files, set the correct permissions
+// After creating the files, set the correct permissions and log file existence
 $filesToAdjust = [
     $uploadDir . $dienstkortenaam . '.dat',
     $uploadDir . 'nood.csv',
@@ -279,13 +287,15 @@ foreach ($filesToAdjust as $file) {
     if (file_exists($file)) {
         // Set file permissions to 644 (owner read/write, group read, others read)
         chmod($file, 0644);
-
-        error_log("Adjusted permissions for $file");
+        error_log("File exists and permissions set for: $file");
+    } else {
+        error_log("File does not exist: $file");
     }
 }
 
 // Ensure the upload directory has correct permissions
 chmod($uploadDir, 0755);
+error_log("Upload directory permissions set to 0755: $uploadDir");
 
 // Step 22: Transfer files to remote server
 $remoteUploadDir = "/home/trombose/public_html/diensten-test/" . $dienstkortenaam . "/upload/";
@@ -310,10 +320,6 @@ foreach ($filesToTransfer as $file) {
     }
 }
 
-$message = "Bestand succesvol geüpload, verwerkt, geëxporteerd en gefactureerd. " . 
-           "Het bestand bevat " . $lineCount . " regels: " .    
-           "Word, Nood en printbestanden (indien beschikbaar) zijn geëxporteerd.";
-
 end_processing:
 ?>
 
@@ -333,10 +339,10 @@ end_processing:
             <div class="col-md-2 bg-dark text-white">
                 <h3 class="text-center py-3">Menu</h3>
                 <nav class="list-group list-group-flush">
-                    <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Upload</a>
+                    <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Dagelijkse upload</a>
                     <a href="frmexceptions.php" class="list-group-item list-group-item-action bg-dark text-white">Uitzonderingen</a>
-                    <a href="download.php?file=samenvoegen.csv" class="list-group-item list-group-item-action bg-dark text-white">Download samenvoegbestand</a>
                     <a href="download.php?file=nood.csv" class="list-group-item list-group-item-action bg-dark text-white">Download noodbestand</a>
+                    <a href="download.php?file=uitzonderingen.csv" class="list-group-item list-group-item-action bg-dark text-white">Download uitzonderingen</a>
                     <a href="logout.php" class="list-group-item list-group-item-action bg-dark text-white">Afmelden</a>
                 </nav>
             </div>

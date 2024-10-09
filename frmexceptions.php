@@ -75,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Retrieve and sanitize POST data
+    $uitzonderingID = isset($_POST['uitzonderingID']) ? intval($_POST['uitzonderingID']) : 0;
     $patientnummer = trim($_POST['patientnummer'] ?? '');
     $postcode = trim($_POST['postcode'] ?? '');
     $extra = trim($_POST['extra'] ?? '');
@@ -95,28 +96,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             switch ($action) {
                 case 'add':
                     $stmt = $pdo->prepare("INSERT INTO `$table` (patientnummer, postcode, extra, Paragon, DienstID) VALUES (:patientnummer, :postcode, :extra, :paragon, :dienstID)");
+                    $stmt->bindParam(':patientnummer', $patientnummer, PDO::PARAM_STR);
+                    $stmt->bindParam(':postcode', $postcode, PDO::PARAM_STR);
+                    $stmt->bindParam(':extra', $extra, PDO::PARAM_STR);
+                    $stmt->bindParam(':paragon', $paragon, PDO::PARAM_STR);
                     $stmt->bindParam(':dienstID', $_SESSION['DienstID'], PDO::PARAM_INT);
                     $success = "Record succesvol toegevoegd.";
                     break;
                 case 'update':
-                    $stmt = $pdo->prepare("UPDATE `$table` SET postcode = :postcode, extra = :extra, Paragon = :paragon WHERE patientnummer = :patientnummer AND DienstID = :dienstID");
+                    $stmt = $pdo->prepare("UPDATE `$table` SET patientnummer = :patientnummer, postcode = :postcode, extra = :extra, Paragon = :paragon WHERE UitzonderingID = :uitzonderingID AND DienstID = :dienstID");
+                    $stmt->bindParam(':patientnummer', $patientnummer, PDO::PARAM_STR);
+                    $stmt->bindParam(':postcode', $postcode, PDO::PARAM_STR);
+                    $stmt->bindParam(':extra', $extra, PDO::PARAM_STR);
+                    $stmt->bindParam(':paragon', $paragon, PDO::PARAM_STR);
+                    $stmt->bindParam(':uitzonderingID', $uitzonderingID, PDO::PARAM_INT);
                     $stmt->bindParam(':dienstID', $_SESSION['DienstID'], PDO::PARAM_INT);
                     $success = "Record succesvol bijgewerkt.";
                     break;
                 case 'delete':
-                    $stmt = $pdo->prepare("DELETE FROM `$table` WHERE patientnummer = :patientnummer AND DienstID = :dienstID");
+                    $stmt = $pdo->prepare("DELETE FROM `$table` WHERE UitzonderingID = :uitzonderingID AND DienstID = :dienstID");
+                    $stmt->bindParam(':uitzonderingID', $uitzonderingID, PDO::PARAM_INT);
                     $stmt->bindParam(':dienstID', $_SESSION['DienstID'], PDO::PARAM_INT);
                     $success = "Record succesvol verwijderd.";
                     break;
                 default:
                     throw new Exception("Ongeldige actie.");
-            }
-
-            $stmt->bindParam(':patientnummer', $patientnummer, PDO::PARAM_STR);
-            if ($action !== 'delete') {
-                $stmt->bindParam(':postcode', $postcode, PDO::PARAM_STR);
-                $stmt->bindParam(':extra', $extra, PDO::PARAM_STR);
-                $stmt->bindParam(':paragon', $paragon, PDO::PARAM_STR);
             }
 
             $stmt->execute();
@@ -154,10 +158,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-md-2 bg-dark text-white">
                 <h3 class="text-center py-3">Menu</h3>
                 <nav class="list-group list-group-flush">
-                    <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Upload</a>
+                    <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Dagelijkse upload</a>
                     <a href="frmexceptions.php" class="list-group-item list-group-item-action bg-dark text-white">Uitzonderingen</a>
-                    <a href="download.php?file=samenvoegen.csv" class="list-group-item list-group-item-action bg-dark text-white">Download samenvoegbestand</a>
                     <a href="download.php?file=nood.csv" class="list-group-item list-group-item-action bg-dark text-white">Download noodbestand</a>
+                    <a href="download.php?file=uitzonderingen.csv" class="list-group-item list-group-item-action bg-dark text-white">Download uitzonderingen</a>
                     <a href="logout.php" class="list-group-item list-group-item-action bg-dark text-white">Afmelden</a>
                 </nav>
             </div>
@@ -187,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <form action="frmexceptions.php" method="post" id="patientForm" style="display: none;">
                         <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                         <input type="hidden" name="action" id="formAction" value="add">
+                        <input type="hidden" id="uitzonderingID" name="uitzonderingID" value="">
 
                         <div class="form-group" id="existingPatientGroup" style="display: none;">
                             <label for="existing_patient">Selecteer bestaande patiënt:</label>
@@ -195,10 +200,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <?php
                                 try {
                                     $table = "tblUitzonderingen" . intval($_SESSION['DienstID']);
-                                    $stmt = $pdo->prepare("SELECT patientnummer, postcode, extra FROM `$table` ORDER BY patientnummer");
+                                    $stmt = $pdo->prepare("SELECT UitzonderingID, patientnummer, postcode, extra FROM `$table` ORDER BY patientnummer");
                                     $stmt->execute();
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                        echo "<option value='" . escape($row['patientnummer']) . "'>" . 
+                                        echo "<option value='" . escape($row['UitzonderingID']) . "'>" . 
                                              escape($row['patientnummer']) . " - " . 
                                              escape($row['postcode']) . " - " . 
                                              escape($row['extra']) . "</option>";
@@ -217,8 +222,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="form-group">
-                            <label for="postcode">Postcode Patient (bijv. 1234 AB):</label> 
-                            <input type="text" class="form-control" id="postcode" name="postcode" maxlength="7" pattern="[1-9][0-9]{3}\s?[A-Za-z]{2}" title="Geldige postcode (bijv. 1234 AB)">
+                            <label for="postcode">Postcode Patient (bijv. 1234AB):</label> 
+                            <input type="text" class="form-control" id="postcode" name="postcode" maxlength="6" pattern="[1-9][0-9]{3}[A-Za-z]{2}" title="Geldige postcode (bijv. 1234AB)">
                         </div>
 
                         <div class="form-group">
@@ -236,7 +241,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <button type="button" class="btn btn-secondary" id="clearBtn">Formulier wissen</button>
                     </form>
 
-                    <p class="mt-3">Voor een uitgebreid overzicht en geavanceerde opties, bekijk de <a href="rptexceptions.php">volledige rapportpagina</a>.</p>
                 </div>
 
                 <div class="mt-5">
@@ -247,7 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <th>Patientnummer</th>
                                 <th>Postcode</th>
                                 <th>Extra</th>
-                                <th>PGN</th>
+                                <th>Printen bij PGN</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -301,11 +305,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         var patientData = <?php
             $table = "tblUitzonderingen" . intval($_SESSION['DienstID']);
-            $stmt = $pdo->prepare("SELECT patientnummer, postcode, extra, Paragon FROM `$table`");
+            $stmt = $pdo->prepare("SELECT UitzonderingID, patientnummer, postcode, extra, Paragon FROM `$table`");
             $stmt->execute();
             $data = [];
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $data[$row['patientnummer']] = $row;
+                $data[$row['UitzonderingID']] = $row;
             }
             echo json_encode($data);
         ?>;
@@ -327,12 +331,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
 
         existingPatientSelect.addEventListener('change', function() {
-            var selectedPatient = this.value;
-            if (selectedPatient && patientData[selectedPatient]) {
-                document.getElementById('patientnummer').value = selectedPatient;
-                document.getElementById('postcode').value = patientData[selectedPatient].postcode;
-                document.getElementById('extra').value = patientData[selectedPatient].extra;
-                document.getElementById('Paragon').checked = patientData[selectedPatient].Paragon === 'J';
+            var selectedUitzonderingID = this.value;
+            if (selectedUitzonderingID && patientData[selectedUitzonderingID]) {
+                document.getElementById('patientnummer').value = patientData[selectedUitzonderingID].patientnummer;
+                document.getElementById('postcode').value = patientData[selectedUitzonderingID].postcode;
+                document.getElementById('extra').value = patientData[selectedUitzonderingID].extra;
+                document.getElementById('Paragon').checked = patientData[selectedUitzonderingID].Paragon === 'J';
+                document.getElementById('uitzonderingID').value = selectedUitzonderingID;
                 
                 deleteBtn.style.display = 'inline-block';
             } else {
