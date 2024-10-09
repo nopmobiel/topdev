@@ -68,16 +68,135 @@ try {
 function generateTrodisLayout($patientData) {
     ob_start();
     ?>
+    <style>
+        .trodis-layout {
+            background-color: white;
+            color: black;
+            padding: 20px;
+        }
+        .trodis-layout table {
+            background-color: white;
+            color: black;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .trodis-layout th, .trodis-layout td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            position: relative;
+        }
+        .trodis-layout th {
+            background-color: #f2f2f2;
+        }
+        .trodis-layout .patient-info {
+            margin-bottom: 20px;
+        }
+        .trodis-layout .additional-info {
+            margin-top: 20px;
+        }
+        .trodis-layout .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .trodis-layout .past-date {
+            text-decoration: line-through;
+            color: #999;
+        }
+        .trodis-layout .today-date {
+            background-color: #ffeb3b;
+        }
+        .phone-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .date-label {
+            font-size: 0.7em;
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            color: #666;
+        }
+    </style>
     <div class="trodis-layout">
-        <h2>Trodis Kalender</h2>
+        <h2><?php echo htmlspecialchars($_SESSION['Dienstnaam'] ?? ''); ?></h2>
         <div class="patient-info">
-            <p>Naam: <?php echo htmlspecialchars($patientData['naam'] ?? ''); ?></p>
-            <p>Patientnummer: <?php echo htmlspecialchars($patientData['patientnummer'] ?? ''); ?></p>
-            <p>Telefoon: <a href="tel:<?php echo htmlspecialchars($patientData['telno'] ?? ''); ?>" style="color: #007bff; text-decoration: none;">
+            <p><?php echo htmlspecialchars($patientData['aanroep'] . ' ' . $patientData['naam']); ?><br>
+            <?php echo htmlspecialchars($patientData['straat']); ?><br>
+            <?php echo htmlspecialchars($patientData['postcode'] . ' ' . $patientData['plaats']); ?></p>
+            <p>Telefoon: <a href="tel:<?php echo htmlspecialchars($patientData['telno'] ?? ''); ?>" class="phone-link">
                 <i class="fas fa-phone"></i> <?php echo htmlspecialchars($patientData['telno'] ?? ''); ?></a></p>
-            <!-- Add more patient info as needed -->
         </div>
-        <!-- Add calendar layout specific to Trodis here -->
+
+        <table class="table table-bordered mt-4">
+            <tr>
+                <th>Begindatum</th>
+                <th>Anticoagulans</th>
+                <th>Hercontrole datum</th>
+            </tr>
+            <tr>
+                <td><?php echo htmlspecialchars($patientData['begindatum']); ?></td>
+                <td><?php echo htmlspecialchars($patientData['anticoagulans']); ?></td>
+                <td><?php echo htmlspecialchars($patientData['herc-datum']); ?></td>
+            </tr>
+        </table>
+
+        <table class="table table-bordered mt-4">
+            <tr>
+                <th></th>
+                <?php for ($week = 1; $week <= 8; $week++) : ?>
+                    <th>Week <?php echo $week; ?></th>
+                <?php endfor; ?>
+            </tr>
+            <?php
+            $days = ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'];
+            $startDate = DateTime::createFromFormat('d-m-Y', $patientData['begindatum']);
+            if ($startDate === false) {
+                $startDate = DateTime::createFromFormat('Y-m-d', $patientData['begindatum']);
+            }
+            if ($startDate === false) {
+                $startDate = new DateTime();
+            }
+            $today = new DateTime();
+            $today->setTime(0, 0, 0);
+
+            foreach ($days as $dayIndex => $day) {
+                echo "<tr><th>" . ucfirst($day) . "</th>";
+                for ($week = 1; $week <= 8; $week++) {
+                    $key = "w{$week}-{$day}";
+                    $value = $patientData[$key] ?? '';
+
+                    $cellDate = clone $startDate;
+                    $cellDate->modify('+' . (($week - 1) * 7 + $dayIndex) . ' days');
+                    
+                    $class = $cellDate < $today ? 'past-date' : '';
+                    if ($cellDate == $today) {
+                        $class = 'today-date';
+                    }
+                    $dateLabel = !empty($value) ? $cellDate->format('d-m') : '';
+
+                    echo "<td class='$class'>";
+                    if (!empty($dateLabel)) {
+                        echo "<span class='date-label'>$dateLabel</span>";
+                    }
+                    echo htmlspecialchars($value) . "</td>";
+                }
+                echo "</tr>";
+            }
+            ?>
+        </table>
+
+        <div class="additional-info mt-4">
+            <p>Patientnummer: <?php echo htmlspecialchars($patientData['patientnummer']); ?></p>
+            <p>INR: <?php echo htmlspecialchars($patientData['inr']); ?></p>
+            <p>INR bereik: <?php echo htmlspecialchars($patientData['inrbereik']); ?></p>
+            <p>Werknr: <?php echo htmlspecialchars($patientData['werknr']); ?></p>
+        </div>
+
+        <button onclick="printCalendar()" class="btn btn-primary mt-3">Deze brief afdrukken</button>
     </div>
     <?php
     return ob_get_clean();
@@ -140,7 +259,8 @@ function generatePorta2Layout($patientData) {
         }
     </style>
     <div class="porta2-layout">
-        <h2> <?php echo htmlspecialchars($_SESSION['Dienstnaam'] ?? ''); ?></h2>
+        <h2><?php echo htmlspecialchars($_SESSION['Dienstnaam'] ?? ''); ?></h2>
+        <!-- Debug: <?php echo htmlspecialchars(print_r($_SESSION, true)); ?> -->
         <div class="patient-info">
             <p><?php echo htmlspecialchars($patientData['aanroep'] . ' ' . $patientData['naam']); ?><br>
             <?php echo htmlspecialchars($patientData['strhuisnotoev']); ?><br>
@@ -286,35 +406,20 @@ function generatePorta2Layout($patientData) {
         }
 
         function generatePDF() {
-            // Clone the calendar element
-            var element = document.querySelector('.porta2-layout').cloneNode(true);
-            
-            // Remove buttons and other unnecessary elements
-            element.querySelectorAll('button').forEach(el => el.remove());
-            
-            // Apply PDF-specific styles
-            element.style.padding = '20px';
-            element.style.fontSize = '14px';
-            
-            // Clear and populate the PDF content div
-            var pdfContent = document.getElementById('pdf-content');
-            pdfContent.innerHTML = '';
-            pdfContent.appendChild(element);
+            // Get the calendar element
+            var element = document.querySelector('.porta2-layout');
             
             // Configure the PDF options
             var opt = {
-                margin:       10,
+                margin:       1,
                 filename:     'calendar.pdf',
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
             
             // Generate and save the PDF
-            html2pdf().set(opt).from(pdfContent).save().then(() => {
-                // Clear the PDF content div after generation
-                pdfContent.innerHTML = '';
-            });
+            html2pdf().set(opt).from(element).save();
         }
     </script>
 </body>

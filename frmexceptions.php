@@ -51,17 +51,19 @@ function escape($html) {
     return htmlspecialchars($html, ENT_QUOTES, 'UTF-8');
 }
 
+// Add this function at the top of the file
+function getTableName($dienstID) {
+    return "tblUitzonderingen" . $dienstID;
+}
+
 // Function to clean the tblUitzonderingen table by removing records with empty patientnummer
 function zuiver($pdo, $dienstnummer) {
-    // Prepare the table name safely
-    $table = "tblUitzonderingen" . intval($dienstnummer);
+    $table = getTableName($dienstnummer);
 
     try {
-        // Prepare the DELETE statement
         $stmt = $pdo->prepare("DELETE FROM `$table` WHERE patientnummer = ''");
         $stmt->execute();
     } catch (PDOException $e) {
-        // Log error or handle accordingly
         error_log("Failed to clean table $table: " . $e->getMessage());
     }
 }
@@ -89,8 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // If no errors, proceed to process the data
     if (empty($error)) {
-        // Prepare the table name safely
-        $table = "tblUitzonderingen" . intval($_SESSION['DienstID']);
+        $table = getTableName($_SESSION['DienstID']);
 
         try {
             switch ($action) {
@@ -200,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <option value="">-- Selecteer een patiënt --</option>
                                 <?php
                                 try {
-                                    $table = "tblUitzonderingen" . intval($_SESSION['DienstID']);
+                                    $table = getTableName($_SESSION['DienstID']);
                                     $stmt = $pdo->prepare("SELECT UitzonderingID, patientnummer, postcode, extra FROM `$table` ORDER BY patientnummer");
                                     $stmt->execute();
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -258,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <tbody>
                             <?php
                             try {
-                                $table = "tblUitzonderingen" . intval($_SESSION['DienstID']);
+                                $table = getTableName($_SESSION['DienstID']);
                                 $stmt = $pdo->prepare("SELECT patientnummer, postcode, extra, Paragon FROM `$table` ORDER BY patientnummer");
                                 $stmt->execute();
                                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -305,7 +306,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         var existingPatientSelect = document.getElementById('existing_patient');
 
         var patientData = <?php
-            $table = "tblUitzonderingen" . intval($_SESSION['DienstID']);
+            $table = getTableName($_SESSION['DienstID']);
             $stmt = $pdo->prepare("SELECT UitzonderingID, patientnummer, postcode, extra, Paragon FROM `$table`");
             $stmt->execute();
             $data = [];
