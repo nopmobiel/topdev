@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <nav class="list-group list-group-flush">
                     <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Dagelijkse upload</a>
                     <a href="frmexceptions.php" class="list-group-item list-group-item-action bg-dark text-white">Uitzonderingen</a>
-                    <a href="zoekpat.php" class="list-group-item list-group-item-action bg-dark text-white">Zoek Patient</a>
+                    <a href="zoekpat.php" class="list-group-item list-group-item-action bg-dark text-white">Kalender opvragen</a>
                     <a href="download.php?file=nood.csv" class="list-group-item list-group-item-action bg-dark text-white">Download noodbestand</a>
                     <a href="download.php?file=uitzonderingen.csv" class="list-group-item list-group-item-action bg-dark text-white">Download uitzonderingen</a>
                     <a href="logout.php" class="list-group-item list-group-item-action bg-dark text-white">Afmelden</a>
@@ -109,9 +109,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <td><?php echo escape($row['naam']); ?></td>
                                             <td><?php echo escape($row['begindatum']); ?></td>
                                             <td>
-                                                <a href="calendar_view.php?id=<?php echo escape($row['patientnummer']); ?>" class="btn btn-sm btn-primary">
+                                                <button onclick="openCalendarInNewWindow('<?php echo escape($row['patientnummer']); ?>')" class="btn btn-sm btn-primary">
                                                     <i class="fas fa-calendar-alt"></i> Bekijk Kalender
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -136,5 +136,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function openCalendarInNewWindow(patientId) {
+            const calendarUrl = `calendar_view.php?id=${patientId}`;
+            const newWindow = window.open(calendarUrl, 'Calendar', 'width=1000  ,height=600');
+            
+            if (newWindow === null || typeof newWindow === 'undefined') {
+                alert('Pop-up geblokkeerd. Sta pop-ups toe voor deze site om de kalender in een nieuw venster te openen.');
+            } else {
+                newWindow.focus();
+            }
+        }
+    </script>
 </body>
 </html>

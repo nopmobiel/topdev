@@ -241,6 +241,11 @@ function generatePorta2Layout($patientData) {
         </div>
 
         <button onclick="printCalendar()" class="btn btn-primary mt-3">Deze brief afdrukken</button>
+
+        <div id="pdf-content" style="display: none;">
+            <!-- This will be populated with a clone of the calendar content -->
+        </div>
+
     </div>
     <?php
     return ob_get_clean();
@@ -257,6 +262,7 @@ function generatePorta2Layout($patientData) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/site.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -277,6 +283,38 @@ function generatePorta2Layout($patientData) {
     <script>
         function printCalendar() {
             window.print();
+        }
+
+        function generatePDF() {
+            // Clone the calendar element
+            var element = document.querySelector('.porta2-layout').cloneNode(true);
+            
+            // Remove buttons and other unnecessary elements
+            element.querySelectorAll('button').forEach(el => el.remove());
+            
+            // Apply PDF-specific styles
+            element.style.padding = '20px';
+            element.style.fontSize = '14px';
+            
+            // Clear and populate the PDF content div
+            var pdfContent = document.getElementById('pdf-content');
+            pdfContent.innerHTML = '';
+            pdfContent.appendChild(element);
+            
+            // Configure the PDF options
+            var opt = {
+                margin:       10,
+                filename:     'calendar.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+            };
+            
+            // Generate and save the PDF
+            html2pdf().set(opt).from(pdfContent).save().then(() => {
+                // Clear the PDF content div after generation
+                pdfContent.innerHTML = '';
+            });
         }
     </script>
 </body>
