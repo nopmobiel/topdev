@@ -126,3 +126,96 @@ th, td {
     color: rgba(255, 255, 255, 0.7);
 }
 
+/* Porta2 Layout Styles */
+.porta2-layout {
+    background-color: white;
+    color: black;
+    padding: 20px;
+}
+
+.porta2-layout h2,
+.porta2-layout p,
+.porta2-layout th,
+.porta2-layout td {
+    color: black;
+}
+
+.porta2-layout table {
+    background-color: white;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.porta2-layout th, 
+.porta2-layout td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.porta2-layout th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.porta2-layout .patient-info {
+    margin-bottom: 20px;
+}
+
+.porta2-layout .additional-info {
+    margin-top: 20px;
+}
+
+.porta2-layout .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.porta2-layout .today {
+    background-color: #ffff00;
+}
+
+.porta2-layout .past {
+    text-decoration: line-through;
+    color: #888;
+}
+
+/* Overriding Bootstrap styles for better readability */
+.porta2-layout .table-bordered {
+    border: 2px solid #ddd;
+}
+
+.porta2-layout .table-bordered th,
+.porta2-layout .table-bordered td {
+    border: 1px solid #ddd;
+}
+
+.porta2-layout .table-bordered thead th {
+    border-bottom: 2px solid #ddd;
+}
+
+/* New styles for porta2-table */
+.porta2-table {
+    background-color: white;
+    color: black;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.porta2-table th, 
+.porta2-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.porta2-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
