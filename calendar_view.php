@@ -127,8 +127,6 @@ function generateTrodisLayout($patientData) {
             <p><?php echo htmlspecialchars($patientData['aanroep'] . ' ' . $patientData['naam']); ?><br>
             <?php echo htmlspecialchars($patientData['straat']); ?><br>
             <?php echo htmlspecialchars($patientData['postcode'] . ' ' . $patientData['plaats']); ?></p>
-            <p>Telefoon: <a href="tel:<?php echo htmlspecialchars($patientData['telno'] ?? ''); ?>" class="phone-link">
-                <i class="fas fa-phone"></i> <?php echo htmlspecialchars($patientData['telno'] ?? ''); ?></a></p>
         </div>
 
         <table class="table table-bordered mt-4">
@@ -153,34 +151,47 @@ function generateTrodisLayout($patientData) {
             </tr>
             <?php
             $days = ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'];
+
             $startDate = DateTime::createFromFormat('d-m-Y', $patientData['begindatum']);
             if ($startDate === false) {
-                $startDate = DateTime::createFromFormat('Y-m-d', $patientData['begindatum']);
+                $startDate = new DateTime($patientData['begindatum']);
             }
-            if ($startDate === false) {
-                $startDate = new DateTime();
-            }
+
             $today = new DateTime();
             $today->setTime(0, 0, 0);
 
+            // Get the day of the week for the start date (0=Sunday, 1=Monday, ..., 6=Saturday)
+            $startDayIndex = (int)$startDate->format('w');
+
+            // Adjust calendar start to Sunday before or on the begindatum
+            $calendarStartDate = clone $startDate;
+            $calendarStartDate->modify('-' . $startDayIndex . ' days');
+
+            // Iterate through each day of the week and each week column
             foreach ($days as $dayIndex => $day) {
                 echo "<tr><th>" . ucfirst($day) . "</th>";
                 for ($week = 1; $week <= 8; $week++) {
-                    $key = "w{$week}-{$day}";
-                    $value = $patientData[$key] ?? '';
+                    $key = "w$week-$day";
 
-                    $cellDate = clone $startDate;
+                    // Calculate the date for this cell
+                    $cellDate = clone $calendarStartDate;
                     $cellDate->modify('+' . (($week - 1) * 7 + $dayIndex) . ' days');
-                    
-                    $class = $cellDate < $today ? 'past-date' : '';
-                    if ($cellDate == $today) {
+
+                    // Determine if the cell should be filled with a value
+                    $value = ($cellDate >= $startDate) ? ($patientData[$key] ?? '') : '';
+
+                    // Determine the class for past, present, or future dates
+                    $class = '';
+                    if ($cellDate < $today) {
+                        $class = 'past-date';
+                    } elseif ($cellDate == $today) {
                         $class = 'today-date';
                     }
-                    $dateLabel = !empty($value) ? $cellDate->format('d-m') : '';
 
                     echo "<td class='$class'>";
-                    if (!empty($dateLabel)) {
-                        echo "<span class='date-label'>$dateLabel</span>";
+                    // Only display the date label if there's a value in the cell
+                    if (!empty($value)) {
+                        echo "<span class='date-label'>" . $cellDate->format('d-m') . "</span>";
                     }
                     echo htmlspecialchars($value) . "</td>";
                 }
@@ -193,7 +204,6 @@ function generateTrodisLayout($patientData) {
             <p>Patientnummer: <?php echo htmlspecialchars($patientData['patientnummer']); ?></p>
             <p>INR: <?php echo htmlspecialchars($patientData['inr']); ?></p>
             <p>INR bereik: <?php echo htmlspecialchars($patientData['inrbereik']); ?></p>
-            <p>Werknr: <?php echo htmlspecialchars($patientData['werknr']); ?></p>
         </div>
 
         <button onclick="printCalendar()" class="btn btn-primary mt-3">Deze brief afdrukken</button>
@@ -201,6 +211,8 @@ function generateTrodisLayout($patientData) {
     <?php
     return ob_get_clean();
 }
+
+
 
 function generatePorta2Layout($patientData) {
     ob_start();
