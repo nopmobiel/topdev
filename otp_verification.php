@@ -39,11 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: upload.php"); // Redirect to the dashboard
                 exit();
             } else {
-                echo "<div class='alert alert-danger'>Ongeldige of verlopen PIN.</div>";
+                echo "<div class='alert alert-danger'>Ongeldige of verlopen PIN. <a href='index.php'>Klik hier om terug te gaan naar de startpagina</a></div>";
             }
         }
     } catch (PDOException $e) {
-        echo "<div class='alert alert-danger'>Connection error: " . $e->getMessage() . "</div>";
+        echo "<div class='alert alert-danger'>Verbindingsfout: " . $e->getMessage() . "</div>";
     }
 }
 ?>

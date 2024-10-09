@@ -269,7 +269,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     echo "</tr>";
                                 }
                             } catch (PDOException $e) {
-                                echo "<tr><td colspan='4'>Fout bij het ophalen van uitzonderingen</td></tr>";
+                                echo "<tr><td colspan='4'>Geen uitzonderingen gevonden</td></tr>";
                                 error_log("Database Error: " . $e->getMessage());
                             }
                             ?>

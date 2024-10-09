@@ -14,8 +14,7 @@ $dienstkortenaam = $_SESSION['User'];
 $filename = filter_input(INPUT_GET, 'file', FILTER_SANITIZE_STRING);
 
 if (!$filename || !preg_match('/^[a-zA-Z0-9_\-\.]+$/', $filename)) {
-    header("HTTP/1.1 400 Bad Request");
-    exit("Invalid filename");
+    showErrorAndExit('Ongeldige bestandsnaam. Probeer het opnieuw.');
 }
 
 // Set the path to the protected directory
@@ -26,14 +25,12 @@ $filepath = $uploadDir . $filename;
 $realpath = realpath($filepath);
 
 if ($realpath === false || strpos($realpath, realpath($uploadDir)) !== 0) {
-    header("HTTP/1.1 404 Not Found");
-    exit("File not found");
+    showErrorAndExit('Bestand niet gevonden. Het kan zijn dat het bestand is verlopen of nog niet is aangemaakt.');
 }
 
 // Check if file is readable
 if (!is_readable($filepath)) {
-    header("HTTP/1.1 403 Forbidden");
-    exit("File is not readable");
+    showErrorAndExit('Het bestand kan niet worden gelezen.');
 }
 
 // Set headers for file download
@@ -45,4 +42,28 @@ header('Content-Length: ' . filesize($filepath));
 // Output file contents
 readfile($filepath);
 exit;
+
+function showErrorAndExit($message) {
+    ?>
+    <!DOCTYPE html>
+    <html lang="nl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Foutmelding</title>
+        <link rel="stylesheet" href="site.css">
+    </head>
+    <body>
+    <h2>Uitzonderingen downloaden</h2>
+        <div class="container">
+            <div class="alert alert-danger" role="alert">
+                <?php echo htmlspecialchars($message); ?>
+            </div>
+            <button onclick="window.history.back()" class="btn-primary">Ga terug</button>
+        </div>
+    </body>
+    </html>
+    <?php
+    exit;
+}
 ?>
