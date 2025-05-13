@@ -2113,3 +2113,8 @@
 )
 
 [13-May-2025 10:55:35 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 80
+[13-May-2025 10:58:27 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer\PHPMailer\PHPMailer" not found in /Users/norbertschmidt/Documents/GitHub/topdev/change_password.php:36
+Stack trace:
+#0 /Users/norbertschmidt/Documents/GitHub/topdev/change_password.php(119): sendPasswordChangeEmail('nop@ddq.nl', 'td-test')
+#1 {main}
+  thrown in /Users/norbertschmidt/Documents/GitHub/topdev/change_password.php on line 36

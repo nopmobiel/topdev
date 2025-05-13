@@ -2,12 +2,6 @@
 // change_password.php - Allow users to change their password
 session_start();
 
-// Redirect if not logged in
-if (!isset($_SESSION['DienstID'])) {
-    header("Location: index.php");
-    exit;
-}
-
 // Error handling
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -15,8 +9,20 @@ ini_set('display_startup_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/error.log');
 
+// Include required files
 require_once 'settings.php';
 require_once 'functions.php';
+require 'vendor/autoload.php'; // This is crucial for PHPMailer
+
+// Use PHPMailer classes
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Redirect if not logged in
+if (!isset($_SESSION['DienstID'])) {
+    header("Location: index.php");
+    exit;
+}
 
 // Generate CSRF token if not exists
 if (!isset($_SESSION['csrf_token'])) {
@@ -26,6 +32,36 @@ $token = $_SESSION['csrf_token'];
 
 $error = '';
 $success = '';
+
+// Function to send password change notification email
+function sendPasswordChangeEmail($email, $username) {
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host       = SMTP_HOST;
+        $mail->SMTPAuth   = true;
+        $mail->Username   = SMTP_USERNAME;
+        $mail->Password   = SMTP_PASSWORD;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = SMTP_PORT;
+
+        $mail->setFrom(SMTP_FROM_EMAIL, SMTP_FROM_NAME);
+        $mail->addAddress($email);
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Wachtwoord gewijzigd - TOP';
+        $mail->Body    = "Beste gebruiker,<br><br>Uw wachtwoord voor account <b>$username</b> is zojuist gewijzigd.<br><br>
+                         Als u dit niet heeft gedaan, neem dan direct contact op met de beheerder.<br><br>
+                         Met vriendelijke groet,<br>
+                         TOP Systeem";
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        error_log("Email Error: {$mail->ErrorInfo}");
+        return false;
+    }
+}
 
 // Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -64,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $user_id = $_SESSION['DienstID'];
                     $username = $_SESSION['User'];
                     
-                    $stmt = $pdo->prepare("SELECT Hash FROM tblDienst WHERE DienstID = :id AND User = :username");
+                    $stmt = $pdo->prepare("SELECT Hash, Email FROM tblDienst WHERE DienstID = :id AND User = :username");
                     $stmt->execute([':id' => $user_id, ':username' => $username]);
                     $user = $stmt->fetch(PDO::FETCH_ASSOC);
                     
@@ -79,6 +115,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $update_stmt->execute([':hash' => $hashed_password, ':id' => $user_id]);
                             
                             $success = "Wachtwoord is succesvol gewijzigd.";
+                            
+                            // Send email notification if email is available
+                            if (!empty($user['Email'])) {
+                                if (sendPasswordChangeEmail($user['Email'], $username)) {
+                                    $success .= " Een bevestiging is verzonden naar uw e-mailadres.";
+                                } else {
+                                    error_log("Failed to send password change email to: " . $user['Email']);
+                                }
+                            }
                         } else {
                             $error = "Huidig wachtwoord is onjuist.";
                         }
