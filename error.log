@@ -1873,3 +1873,51 @@
 )
 
 [13-May-2025 10:12:38 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 97
+[13-May-2025 10:28:00 UTC] Current cookies: Array
+(
+    [PHPSESSID] => b5v7imv4o1lbugrli3ucc51kqa
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:28:00 UTC] Generated new CSRF token: 3e4b8a0a4e226293257445aae168808876a44175c4124e6c01ff52f9a757b1a7
+[13-May-2025 10:28:00 UTC] Using session CSRF token: 3e4b8a0a4e226293257445aae168808876a44175c4124e6c01ff52f9a757b1a7
+[13-May-2025 10:28:00 UTC] Session ID: 3f0iu17nvmm219q9il6smuind2
+[13-May-2025 10:28:00 UTC] Session Data: Array
+(
+    [csrf_token] => 3e4b8a0a4e226293257445aae168808876a44175c4124e6c01ff52f9a757b1a7
+)
+
+[13-May-2025 10:28:05 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 3f0iu17nvmm219q9il6smuind2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:28:05 UTC] Using session CSRF token: 3e4b8a0a4e226293257445aae168808876a44175c4124e6c01ff52f9a757b1a7
+[13-May-2025 10:28:05 UTC] Session ID: 3f0iu17nvmm219q9il6smuind2
+[13-May-2025 10:28:05 UTC] Session Data: Array
+(
+    [csrf_token] => 3e4b8a0a4e226293257445aae168808876a44175c4124e6c01ff52f9a757b1a7
+)
+
+[13-May-2025 10:28:05 UTC] POST request received
+[13-May-2025 10:28:05 UTC] All cookies: Array
+(
+    [PHPSESSID] => 3f0iu17nvmm219q9il6smuind2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:28:05 UTC] All POST data: Array
+(
+    [csrf_token] => 3e4b8a0a4e226293257445aae168808876a44175c4124e6c01ff52f9a757b1a7
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:28:05 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 80

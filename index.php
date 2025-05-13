@@ -1,4 +1,7 @@
 <?php
+// Include deployment configuration (handles environment-specific settings)
+require_once 'deploy_config.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -22,26 +25,6 @@ function handleError($message, $error = null) {
 require 'vendor/autoload.php';
 require_once 'settings.php';
 require_once 'functions.php';
-
-// Set session save path
-$sessionPath = sys_get_temp_dir() . '/php_sessions';
-if (!file_exists($sessionPath)) {
-    mkdir($sessionPath, 0777, true);
-}
-ini_set('session.save_path', $sessionPath);
-
-// Explicitly set session cookie parameters before session_start()
-ini_set('session.cookie_lifetime', 0);
-ini_set('session.cookie_path', '/');
-ini_set('session.cookie_domain', 'localhost'); // Or use '' if preferred for localhost
-
-// Secure session settings (cookie_secure is conditional, httponly is true)
-ini_set('session.cookie_secure', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? '1' : '0');
-ini_set('session.cookie_httponly', '1');
-ini_set('session.gc_maxlifetime', 3600);
-ini_set('session.cookie_lifetime', 3600); // This might be redundant now, consider removing if cookie_lifetime 0 is desired for the session cookie itself
-ini_set('session.use_strict_mode', 1);
-ini_set('session.use_only_cookies', 1);
 
 // Simple token storage
 function getTokenFile() {
@@ -199,13 +182,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
-    <footer class="footer">
-        <div class="container text-center">
-            <span>Software versie 2.0 <a href="https://www.ddcare.nl" target="_blank">DDCare B.V.</a> ism PGN</span>
-        </div>
-    </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="site.js"></script>
 </body>
 </html>

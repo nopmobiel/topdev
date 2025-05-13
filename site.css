@@ -13,95 +13,308 @@
     --link-color: #FFFFE0;
     --link-hover-color: #FFFF00;
     --background-color: #00008B;
-    --font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    --form-bg-color: rgba(255, 255, 255, 0.15);
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    --transition: all 0.3s ease;
 }
 
 /* Global Styles */
 body {
     font-family: var(--font-family);
     background-color: var(--background-color);
+    background-image: linear-gradient(to bottom, #000099, #00008B);
     color: var(--text-color);
     line-height: 1.6;
-    padding: 0 12%;
+    padding: 0;
+    min-height: 100vh;
 }
 
 /* Typography */
 h1, h3, h4, h5 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
 }
 
 h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
 }
 
 h3 {
-    font-size: 1.2rem;
-    padding: 0.5rem;
-    border: 2px solid #4169E1;
+    font-size: 1.3rem;
+    padding: 0.75rem 1rem;
+    border: none;
     background-color: var(--secondary-color);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.top {
+    margin-bottom: 0;
 }
 
 /* Layout */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 0;
+    display: flex;
+}
+
+.container-fluid {
+    width: 100%;
+    padding: 0 12%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    padding-top: 20px; /* Add space at the top */
+}
+
+.content-area {
+    flex: 1;
+    padding-left: 20px;
+}
+
+/* Row for menu and content alignment */
+.row {
+    display: flex;
+    width: 100%;
+}
+
+.col-menu {
+    width: 240px; /* Fixed width for menu */
+}
+
+.col-content {
+    flex: 1;
 }
 
 /* Forms */
 .form-container {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 1.5rem;
-    border-radius: 8px;
+    background-color: var(--form-bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    margin-top: 0;
+    transition: var(--transition);
+}
+
+.form-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .form-header {
     background-color: var(--secondary-color);
     color: var(--text-color);
-    padding: 1rem;
-    border-radius: 8px 8px 0 0;
+    padding: 0;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    margin: 0;
+    text-align: center;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 50px;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.form-group {
     margin-bottom: 1.5rem;
 }
 
+.form-control {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.75rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    background-color: white;
+    border-color: #4169E1;
+    box-shadow: 0 0 0 0.2rem rgba(65, 105, 225, 0.25);
+}
+
+.form-label {
+    margin-bottom: 0.5rem;
+    display: block;
+    font-weight: 500;
+}
+
 /* Buttons */
+.btn {
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: var(--transition);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border: none;
+    margin: 0.25rem;
+    font-size: 1rem;
+}
+
 .btn-primary {
     background-color: #4169E1;
-    border-color: #4169E1;
     color: var(--text-color);
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 .btn-primary:hover {
     background-color: #27408B;
-    border-color: #27408B;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Secondary button style for less important actions */
+.btn-secondary {
+    background-color: #6c757d;
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Outline button style for alternative actions */
+.btn-outline {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-outline:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Success button style */
+.btn-success {
+    background-color: #28a745;
+    color: var(--text-color);
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-success:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Danger button style */
+.btn-danger {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.btn-danger:hover {
+    background-color: #a01c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-lg {
+    font-size: 1.1rem;
+    padding: 0.75rem 1.75rem;
+}
+
+.btn-sm {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+
+.btn-block {
+    width: 100%;
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.button-container {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
 }
 
 /* Navigation */
 .list-group-item {
-    background-color: transparent;
+    padding: 0.7rem 1.25rem;
+    margin-bottom: 2px;
+    background-color: #3a3a3a;
+    color: var(--text-color);
+    border-radius: 0;
     border: none;
-    color: var(--link-color);
-    padding: 0.5rem 1rem;
-    transition: background-color 0.3s ease;
+    transition: var(--transition);
+    text-align: left;
+    display: block;
+    width: 100%;
 }
 
 .list-group-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.2);
     color: var(--link-hover-color);
+    transform: translateX(5px);
+}
+
+.list-group-item.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-left: 4px solid var(--secondary-color);
+    font-weight: bold;
+    box-shadow: none;
 }
 
 /* Links */
 a {
     color: var(--link-color);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: var(--transition);
 }
 
 a:hover {
     color: var(--link-hover-color);
+    text-decoration: underline;
     background: transparent;
 }
 
@@ -109,30 +322,120 @@ a:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    background-color: var(--form-bg-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
 }
 
 th, td {
-    padding: 0.5rem;
+    padding: 0.75rem;
     text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+th {
+    background-color: rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+}
+
+tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Alerts */
+.alert {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.2);
+    border-color: rgba(220, 53, 69, 0.3);
+    color: #fff;
 }
 
 /* Footer */
 .footer {
-    margin-top: 2rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
+    display: none; /* Hide all footers */
 }
 
-/* Porta2 Layout Styles */
+/* File upload input styling */
+input[type="file"] {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background-color: #4169E1;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #27408B;
+}
+
+/* Menu styling */
+#menu {
+    background-color: var(--secondary-color);
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#menu h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.3rem;
+    line-height: 50px;
+    height: 100%;
+}
+
+.menu-title {
+    display: block;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.menu-title:hover {
+    color: var(--link-hover-color);
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.list-group {
+    margin-bottom: 0;
+    background-color: #3a3a3a;
+    padding: 0;
+}
+
+/* Porta2 Layout Styles - Keep as is but adjust for consistency */
 .porta2-layout {
     background-color: white;
     color: black;
     padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
 }
 
+/* Rest of porta2 styles remain unchanged */
 .porta2-layout h2,
 .porta2-layout p,
 .porta2-layout th,
@@ -217,5 +520,27 @@ th, td {
 .porta2-table th {
     background-color: #f2f2f2;
     font-weight: bold;
+}
+
+/* Bootstrap Overrides and Adjustments */
+.container-fluid {
+    padding: 0 12%;
+}
+
+/* Adjust menu and main content columns */
+.col-md-2 {
+    padding-right: 0;
+    margin-top: 20px; /* Add top margin to the menu column */
+}
+
+.col-md-10 {
+    padding-left: 20px;
+    margin-top: 20px; /* Add top margin to the content column */
+}
+
+/* Remove padding from main to align with menu */
+main.py-2 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 

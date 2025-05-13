@@ -11,7 +11,9 @@ if (!isset($_SESSION['User'])) {
 $dienstkortenaam = $_SESSION['User'];
 
 // Validate and sanitize the requested filename
-$filename = filter_input(INPUT_GET, 'file', FILTER_SANITIZE_STRING);
+// Using filter_var instead of deprecated FILTER_SANITIZE_STRING
+$filename = filter_input(INPUT_GET, 'file', FILTER_DEFAULT);
+$filename = $filename ? trim(filter_var($filename, FILTER_UNSAFE_RAW)) : '';
 
 if (!$filename || !preg_match('/^[a-zA-Z0-9_\-\.]+$/', $filename)) {
     showErrorAndExit('Ongeldige bestandsnaam. Probeer het opnieuw.');
@@ -50,17 +52,34 @@ function showErrorAndExit($message) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Foutmelding</title>
-        <link rel="stylesheet" href="site.css">
+        <title>Uitzonderingen downloaden</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="site.css">
     </head>
     <body>
-    <h2>Uitzonderingen downloaden</h2>
         <div class="container">
-            <div class="alert alert-danger" role="alert">
-                <?php echo htmlspecialchars($message); ?>
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-8">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h3>Uitzonderingen downloaden</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo htmlspecialchars($message); ?>
+                            </div>
+                            <div class="text-center mt-4">
+                                <button onclick="window.history.back()" class="btn btn-primary">Ga terug</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button onclick="window.history.back()" class="btn-primary">Ga terug</button>
         </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="site.js"></script>
     </body>
     </html>
     <?php

@@ -155,22 +155,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-2 bg-dark text-white">
-                <h3 class="text-center py-3">Menu</h3>
-                <nav class="list-group list-group-flush">
-                    <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Dagelijkse upload</a>
-                    <a href="frmexceptions.php" class="list-group-item list-group-item-action bg-dark text-white">Uitzonderingen</a>
-                    <a href="zoekpat.php" class="list-group-item list-group-item-action bg-dark text-white">Kalender opvragen</a>
-                    <a href="download.php?file=nood.csv" class="list-group-item list-group-item-action bg-dark text-white">Download noodbestand</a>
-                    <a href="download.php?file=uitzonderingen.csv" class="list-group-item list-group-item-action bg-dark text-white">Download uitzonderingen</a>
-                    <a href="logout.php" class="list-group-item list-group-item-action bg-dark text-white">Afmelden</a>
-                </nav>
-            </div>
+            <!-- Include common menu -->
+            <?php include 'menu.php'; ?>
 
             <!-- Main Content -->
-            <main class="col-md-10">
-                <div class="container mt-4">
+            <main class="col-md-10 py-2 pl-4 pr-4">
+                <div class="container-fluid mt-3">
                     <h2>Uitzonderingenbestand bewerken</h2>
 
                     <?php if (!empty($error)): ?>
@@ -281,12 +271,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </main>
         </div>
     </div>
-
-    <footer >
-        <div class="container text-center">
-            <span class="text-muted">TOP versie 3.0</span>
-        </div>
-    </footer>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

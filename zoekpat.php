@@ -55,45 +55,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Zoek Patient</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/site.css">
+    <style>
+        .table-bordered-bottom td, .table-bordered-bottom th {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px 8px;
+            color: white;
+        }
+        .results-header {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            margin-bottom: 0;
+            text-align: left;
+        }
+        .results-header h3 {
+            margin: 0;
+            background-color: transparent;
+            box-shadow: none;
+            border-radius: 0;
+            padding: 0;
+        }
+        .form-group label {
+            color: white;
+        }
+        .card-body {
+            color: white;
+        }
+        .alert-info {
+            background-color: rgba(23, 162, 184, 0.2);
+            color: white;
+            border-color: rgba(23, 162, 184, 0.3);
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-2 bg-dark text-white">
-                <h3 class="text-center py-3">Menu</h3>
-                <nav class="list-group list-group-flush">
-                    <a href="upload.php" class="list-group-item list-group-item-action bg-dark text-white">Dagelijkse upload</a>
-                    <a href="frmexceptions.php" class="list-group-item list-group-item-action bg-dark text-white">Uitzonderingen</a>
-                    <a href="download.php?file=nood.csv" class="list-group-item list-group-item-action bg-dark text-white">Download noodbestand</a>
-                    <a href="download.php?file=uitzonderingen.csv" class="list-group-item list-group-item-action bg-dark text-white">Download uitzonderingen</a>
-                    <a href="logout.php" class="list-group-item list-group-item-action bg-dark text-white">Afmelden</a>
-                </nav>
-            </div>
+            <!-- Include common menu -->
+            <?php include 'menu.php'; ?>
 
             <!-- Main Content -->
-            <main class="col-md-10 bg-light text-dark">
-                <div class="container mt-4">
-                    <h2 class="text-dark">Zoek op patiëntnummer</h2>
+            <main class="col-md-10 py-2 pl-4 pr-4">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h1>Zoek op patiëntnummer in huidige bestand</h1>
+                    </div>
+                    <div class="card-body">
+                        <?php if (!empty($error)): ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo $error; ?>
+                            </div>
+                        <?php endif; ?>
 
-                    <?php if (!empty($error)): ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?php echo $error; ?>
+                        <div class="mb-4">
+                            <form action="zoekpat.php" method="post">
+                                <div class="form-group">
+                                    <label for="searchTerm">Patientnummer:</label>
+                                    <input type="text" class="form-control" id="searchTerm" name="searchTerm" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Zoeken</button>
+                            </form>
                         </div>
-                    <?php endif; ?>
 
-                    <form action="zoekpat.php" method="post">
-                        <div class="form-group">
-                            <label for="searchTerm" class="text-dark">Patientnummer:</label>
-                            <input type="text" class="form-control" id="searchTerm" name="searchTerm" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Zoeken</button>
-                    </form>
-
-                    <?php if ($searchResult !== null): ?>
-                        <?php if (count($searchResult) > 0): ?>
-                            <table class="table mt-4 table-striped">
-                                <thead class="thead-dark">
+                        <?php if ($searchResult !== null && count($searchResult) > 0): ?>
+                            <div class="results-header">
+                                <h3>Resultaten</h3>
+                            </div>
+                            
+                            <table class="table table-bordered-bottom">
+                                <thead>
                                     <tr>
                                         <th>Patientnummer</th>
                                         <th>Naam</th>
@@ -108,28 +140,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <td><?php echo escape($row['naam']); ?></td>
                                             <td><?php echo escape($row['begindatum']); ?></td>
                                             <td>
-                                                <button onclick="openCalendarInNewWindow('<?php echo escape($row['patientnummer']); ?>')" class="btn btn-sm btn-primary">
-                                                    <i class="fas fa-calendar-alt"></i> Bekijk Kalender
+                                                <button onclick="openCalendarInNewWindow('<?php echo escape($row['patientnummer']); ?>')" class="btn btn-primary">
+                                                    Bekijk kalender
                                                 </button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
-                        <?php else: ?>
-                            <p class="mt-4 text-dark">Geen resultaten gevonden.</p>
+                        <?php elseif ($searchResult !== null): ?>
+                            <div class="alert alert-info mt-4" role="alert">
+                                Geen resultaten gevonden.
+                            </div>
                         <?php endif; ?>
-                    <?php endif; ?>
+                    </div>
                 </div>
             </main>
         </div>
     </div>
-
-    <footer>
-        <div class="container text-center">
-            <span class="text-muted">TOP versie 3.0</span>
-        </div>
-    </footer>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -138,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script>
         function openCalendarInNewWindow(patientId) {
             const calendarUrl = `calendar_view.php?id=${patientId}`;
-            const newWindow = window.open(calendarUrl, 'Calendar', 'width=1000  ,height=600');
+            const newWindow = window.open(calendarUrl, 'Calendar', 'width=1000,height=600');
             
             if (newWindow === null || typeof newWindow === 'undefined') {
                 alert('Pop-up geblokkeerd. Sta pop-ups toe voor deze site om de kalender in een nieuw venster te openen.');
