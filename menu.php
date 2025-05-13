@@ -26,6 +26,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="change_password.php" class="list-group-item <?php echo ($current_page == 'change_password.php') ? 'active' : ''; ?>">
             Wachtwoord wijzigen
         </a>
+        <a href="about.php" class="list-group-item <?php echo ($current_page == 'about.php') ? 'active' : ''; ?>">
+            Over TOP
+        </a>
         <a href="logout.php" class="list-group-item <?php echo ($current_page == 'logout.php') ? 'active' : ''; ?>">
             Afmelden
         </a>

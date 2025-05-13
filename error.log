@@ -2171,3 +2171,50 @@ Stack trace:
   thrown in /Users/norbertschmidt/Documents/GitHub/topdev/google_auth_setup.php on line 31
 [13-May-2025 11:09:58 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /Users/norbertschmidt/Documents/GitHub/topdev/vendor/phpgangsta/googleauthenticator/PHPGangsta/GoogleAuthenticator.php on line 112
 [13-May-2025 11:09:58 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /Users/norbertschmidt/Documents/GitHub/topdev/vendor/phpgangsta/googleauthenticator/PHPGangsta/GoogleAuthenticator.php on line 112
+[13-May-2025 12:34:50 UTC] Current cookies: Array
+(
+    [PHPSESSID] => joqdjd49sde9t5a379lrnkk3ne
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:34:50 UTC] Generated new CSRF token: a65f248908384eca494d912e583c77f381ebe9051f6ba6a4838ada85a269d633
+[13-May-2025 12:34:50 UTC] Using session CSRF token: a65f248908384eca494d912e583c77f381ebe9051f6ba6a4838ada85a269d633
+[13-May-2025 12:34:50 UTC] Session ID: f1o2v70pcq8k0mvrkafsmehltt
+[13-May-2025 12:34:50 UTC] Session Data: Array
+(
+    [csrf_token] => a65f248908384eca494d912e583c77f381ebe9051f6ba6a4838ada85a269d633
+)
+
+[13-May-2025 12:34:53 UTC] Current cookies: Array
+(
+    [PHPSESSID] => f1o2v70pcq8k0mvrkafsmehltt
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:34:53 UTC] Using session CSRF token: a65f248908384eca494d912e583c77f381ebe9051f6ba6a4838ada85a269d633
+[13-May-2025 12:34:53 UTC] Session ID: f1o2v70pcq8k0mvrkafsmehltt
+[13-May-2025 12:34:53 UTC] Session Data: Array
+(
+    [csrf_token] => a65f248908384eca494d912e583c77f381ebe9051f6ba6a4838ada85a269d633
+)
+
+[13-May-2025 12:34:53 UTC] POST request received
+[13-May-2025 12:34:53 UTC] All cookies: Array
+(
+    [PHPSESSID] => f1o2v70pcq8k0mvrkafsmehltt
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:34:53 UTC] All POST data: Array
+(
+    [csrf_token] => a65f248908384eca494d912e583c77f381ebe9051f6ba6a4838ada85a269d633
+    [username] => td-test
+    [password] => Inimini3!
+)
+
