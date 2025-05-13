@@ -1,9 +1,14 @@
 {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "f974c0d6727b30cb27f703945cb95ce7",
     "packages": [
         {
             "name": "phpgangsta/googleauthenticator",
             "version": "dev-master",
-            "version_normalized": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPGangsta/GoogleAuthenticator.git",
@@ -18,10 +23,8 @@
             "require": {
                 "php": ">=5.3"
             },
-            "time": "2019-03-20T00:55:58+00:00",
             "default-branch": true,
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "classmap": [
                     "PHPGangsta/GoogleAuthenticator.php"
@@ -49,12 +52,11 @@
                 "issues": "https://github.com/PHPGangsta/GoogleAuthenticator/issues",
                 "source": "https://github.com/PHPGangsta/GoogleAuthenticator"
             },
-            "install-path": "../phpgangsta/googleauthenticator"
+            "time": "2019-03-20T00:55:58+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
             "version": "v6.10.0",
-            "version_normalized": "6.10.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
@@ -93,9 +95,7 @@
                 "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
                 "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
             },
-            "time": "2025-04-24T15:19:31+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "PHPMailer\\PHPMailer\\": "src/"
@@ -133,9 +133,18 @@
                     "type": "github"
                 }
             ],
-            "install-path": "../phpmailer/phpmailer"
+            "time": "2025-04-24T15:19:31+00:00"
         }
     ],
-    "dev": true,
-    "dev-package-names": []
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "phpgangsta/googleauthenticator": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }

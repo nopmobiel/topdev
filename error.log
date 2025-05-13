@@ -2118,3 +2118,56 @@ Stack trace:
 #0 /Users/norbertschmidt/Documents/GitHub/topdev/change_password.php(119): sendPasswordChangeEmail('nop@ddq.nl', 'td-test')
 #1 {main}
   thrown in /Users/norbertschmidt/Documents/GitHub/topdev/change_password.php on line 36
+[13-May-2025 11:07:52 UTC] Current cookies: Array
+(
+    [PHPSESSID] => i971usgrlhkc0tc7vrrda95hr8
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 11:07:52 UTC] Generated new CSRF token: fd3916a9b0a414133c648d2bb27bf000ef3952fe6426bf60efa2d00e1bb311b7
+[13-May-2025 11:07:52 UTC] Using session CSRF token: fd3916a9b0a414133c648d2bb27bf000ef3952fe6426bf60efa2d00e1bb311b7
+[13-May-2025 11:07:52 UTC] Session ID: 88gisvbe98ofh82vtoaktjbsmm
+[13-May-2025 11:07:52 UTC] Session Data: Array
+(
+    [csrf_token] => fd3916a9b0a414133c648d2bb27bf000ef3952fe6426bf60efa2d00e1bb311b7
+)
+
+[13-May-2025 11:07:56 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 88gisvbe98ofh82vtoaktjbsmm
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 11:07:56 UTC] Using session CSRF token: fd3916a9b0a414133c648d2bb27bf000ef3952fe6426bf60efa2d00e1bb311b7
+[13-May-2025 11:07:56 UTC] Session ID: 88gisvbe98ofh82vtoaktjbsmm
+[13-May-2025 11:07:56 UTC] Session Data: Array
+(
+    [csrf_token] => fd3916a9b0a414133c648d2bb27bf000ef3952fe6426bf60efa2d00e1bb311b7
+)
+
+[13-May-2025 11:07:56 UTC] POST request received
+[13-May-2025 11:07:56 UTC] All cookies: Array
+(
+    [PHPSESSID] => 88gisvbe98ofh82vtoaktjbsmm
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 11:07:56 UTC] All POST data: Array
+(
+    [csrf_token] => fd3916a9b0a414133c648d2bb27bf000ef3952fe6426bf60efa2d00e1bb311b7
+    [username] => td-test
+    [password] => Inimini3!
+)
+
+[13-May-2025 11:08:10 UTC] PHP Fatal error:  Uncaught Error: Class "PHPGangsta_GoogleAuthenticator" not found in /Users/norbertschmidt/Documents/GitHub/topdev/google_auth_setup.php:31
+Stack trace:
+#0 {main}
+  thrown in /Users/norbertschmidt/Documents/GitHub/topdev/google_auth_setup.php on line 31
+[13-May-2025 11:09:58 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /Users/norbertschmidt/Documents/GitHub/topdev/vendor/phpgangsta/googleauthenticator/PHPGangsta/GoogleAuthenticator.php on line 112
+[13-May-2025 11:09:58 UTC] PHP Deprecated:  Using ${var} in strings is deprecated, use {$var} instead in /Users/norbertschmidt/Documents/GitHub/topdev/vendor/phpgangsta/googleauthenticator/PHPGangsta/GoogleAuthenticator.php on line 112

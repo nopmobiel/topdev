@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Sanitize input
-        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $password = $_POST['password'];
 
         if (empty($username) || empty($password)) {
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $stmt = $pdo->prepare("SELECT DienstID, Systeem, Dienstnaam, User, Email, Hash FROM tblDienst WHERE User = :username");
+            $stmt = $pdo->prepare("SELECT DienstID, Systeem, Dienstnaam, User, Email, Hash, GoogleAuth FROM tblDienst WHERE User = :username");
             $stmt->execute([':username' => $username]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -100,8 +100,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 throw new Exception("Ongeldige gebruikersnaam of wachtwoord.");
             }
 
-            if (!empty($user['Email'])) {
-                // Handle 2FA
+            // Check if user has Google Authenticator enabled
+            if (!empty($user['GoogleAuth']) && $user['GoogleAuth'] == 1) {
+                // Store username in session
+                $_SESSION['temp_user'] = $user['User'];
+                $_SESSION['ga_required'] = true;
+                
+                // Redirect to Google Authenticator verification
+                header("Location: google_auth_verify.php");
+                exit();
+            } else if (!empty($user['Email'])) {
+                // Handle 2FA with email OTP
                 $otp = generateOTP();
                 $currentDateTime = date('Y-m-d H:i:s');
                 
@@ -124,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: otp_verification.php?sid=" . urlencode(session_id()) . "&user=" . urlencode($user['User']));
                 exit();
             } else {
-                // Direct login for users without email
+                // Direct login for users without email or Google Auth
                 $_SESSION['DienstID'] = $user['DienstID'];
                 $_SESSION['Dienstnaam'] = $user['Dienstnaam'];
                 $_SESSION['Systeem'] = $user['Systeem'];

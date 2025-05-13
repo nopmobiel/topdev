@@ -17,9 +17,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="frmexceptions.php" class="list-group-item <?php echo ($current_page == 'frmexceptions.php') ? 'active' : ''; ?>">
             Uitzonderingen
         </a>
-        <a href="zoekpat.php" class="list-group-item <?php echo ($current_page == 'zoekpat.php') ? 'active' : ''; ?>">
-            Kalender opvragen
-        </a>
         <a href="download.php?file=nood.csv" class="list-group-item <?php echo (($current_page == 'download.php') && ($_GET['file'] ?? '') == 'nood.csv') ? 'active' : ''; ?>">
             Download noodbestand
         </a>
