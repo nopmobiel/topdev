@@ -2218,3 +2218,141 @@ Stack trace:
     [password] => Inimini3!
 )
 
+[13-May-2025 12:44:31 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 2pbj7von7vhtnmmnuf24d42j34
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:44:31 UTC] Generated new CSRF token: 2d1e9586fd7d2164be40b76220a2745ccce27b8dcf788eaa4ef36bd23f8aa5a4
+[13-May-2025 12:44:31 UTC] Using session CSRF token: 2d1e9586fd7d2164be40b76220a2745ccce27b8dcf788eaa4ef36bd23f8aa5a4
+[13-May-2025 12:44:31 UTC] Session ID: s9j37b5u8mlbplqaf27f66u2ic
+[13-May-2025 12:44:31 UTC] Session Data: Array
+(
+    [csrf_token] => 2d1e9586fd7d2164be40b76220a2745ccce27b8dcf788eaa4ef36bd23f8aa5a4
+)
+
+[13-May-2025 12:44:45 UTC] Current cookies: Array
+(
+    [PHPSESSID] => s9j37b5u8mlbplqaf27f66u2ic
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:44:45 UTC] Using session CSRF token: 2d1e9586fd7d2164be40b76220a2745ccce27b8dcf788eaa4ef36bd23f8aa5a4
+[13-May-2025 12:44:45 UTC] Session ID: s9j37b5u8mlbplqaf27f66u2ic
+[13-May-2025 12:44:45 UTC] Session Data: Array
+(
+    [csrf_token] => 2d1e9586fd7d2164be40b76220a2745ccce27b8dcf788eaa4ef36bd23f8aa5a4
+)
+
+[13-May-2025 12:44:53 UTC] Current cookies: Array
+(
+    [PHPSESSID] => s9j37b5u8mlbplqaf27f66u2ic
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:44:53 UTC] Using session CSRF token: 2d1e9586fd7d2164be40b76220a2745ccce27b8dcf788eaa4ef36bd23f8aa5a4
+[13-May-2025 12:44:53 UTC] Session ID: s9j37b5u8mlbplqaf27f66u2ic
+[13-May-2025 12:44:53 UTC] Session Data: Array
+(
+    [csrf_token] => 2d1e9586fd7d2164be40b76220a2745ccce27b8dcf788eaa4ef36bd23f8aa5a4
+)
+
+[13-May-2025 12:45:19 UTC] Current cookies: Array
+(
+    [PHPSESSID] => s9j37b5u8mlbplqaf27f66u2ic
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:45:19 UTC] Using session CSRF token: 2d1e9586fd7d2164be40b76220a2745ccce27b8dcf788eaa4ef36bd23f8aa5a4
+[13-May-2025 12:45:19 UTC] Session ID: s9j37b5u8mlbplqaf27f66u2ic
+[13-May-2025 12:45:19 UTC] Session Data: Array
+(
+    [csrf_token] => 2d1e9586fd7d2164be40b76220a2745ccce27b8dcf788eaa4ef36bd23f8aa5a4
+)
+
+[13-May-2025 12:45:19 UTC] POST request received
+[13-May-2025 12:45:19 UTC] All cookies: Array
+(
+    [PHPSESSID] => s9j37b5u8mlbplqaf27f66u2ic
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:45:19 UTC] All POST data: Array
+(
+    [csrf_token] => 2d1e9586fd7d2164be40b76220a2745ccce27b8dcf788eaa4ef36bd23f8aa5a4
+    [username] => td-test
+    [password] => Inimini3!
+)
+
+[13-May-2025 12:45:33 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 9uecnprpv6624sh6kbcn2pi9cu
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:45:33 UTC] Generated new CSRF token: 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+[13-May-2025 12:45:33 UTC] Using session CSRF token: 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+[13-May-2025 12:45:33 UTC] Session ID: 6t34c488e2jgu86m01dmu18q7o
+[13-May-2025 12:45:33 UTC] Session Data: Array
+(
+    [csrf_token] => 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+)
+
+[13-May-2025 12:45:38 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 6t34c488e2jgu86m01dmu18q7o
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:45:38 UTC] Using session CSRF token: 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+[13-May-2025 12:45:38 UTC] Session ID: 6t34c488e2jgu86m01dmu18q7o
+[13-May-2025 12:45:38 UTC] Session Data: Array
+(
+    [csrf_token] => 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+)
+
+[13-May-2025 12:45:42 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 6t34c488e2jgu86m01dmu18q7o
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:45:42 UTC] Using session CSRF token: 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+[13-May-2025 12:45:42 UTC] Session ID: 6t34c488e2jgu86m01dmu18q7o
+[13-May-2025 12:45:42 UTC] Session Data: Array
+(
+    [csrf_token] => 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+)
+
+[13-May-2025 12:45:45 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 6t34c488e2jgu86m01dmu18q7o
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:45:45 UTC] Using session CSRF token: 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+[13-May-2025 12:45:45 UTC] Session ID: 6t34c488e2jgu86m01dmu18q7o
+[13-May-2025 12:45:45 UTC] Session Data: Array
+(
+    [csrf_token] => 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+)
+

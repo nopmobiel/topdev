@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+// Redirect if not logged in or if DienstID is not set
+if (!isset($_SESSION['DienstID'])) {
+    header("Location: index.php");
+    exit;
+}
+
 // Include required files
 require_once 'settings.php';
 require_once 'version.php';  // Include the version file
@@ -15,6 +21,7 @@ if (!isset($_SESSION['csrf_token'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-itunes-app" content="app-id=none">  <!-- This will disable Reader View -->
     <title>Over TOP</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/site.css">
@@ -85,6 +92,12 @@ if (!isset($_SESSION['csrf_token'])) {
 
                         <h4>Contact</h4>
                         <p>Voor vragen en ondersteuning over het TOP systeem kunt u contact opnemen met Printing Group Netherlands via de contactgegevens op hun website.</p>
+                        
+                        <!-- Version information section -->
+                        <div class="version-info">
+                            <p>Versie: <?php echo APP_VERSION; ?><br>
+                            Uitgebracht: <?php echo APP_VERSION_DATE; ?></p>
+                        </div>
                     </div>
                 </div>
             </main>
