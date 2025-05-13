@@ -1921,3 +1921,195 @@
 )
 
 [13-May-2025 10:28:05 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 80
+[13-May-2025 10:52:39 UTC] Current cookies: Array
+(
+    [PHPSESSID] => jsnpjcfhab6kpi4gh7vn7joc85
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:52:39 UTC] Generated new CSRF token: 4e4073a80e3b291ad8a0581ada117cc8980a177c38a016231f0bb3b8f4891010
+[13-May-2025 10:52:39 UTC] Using session CSRF token: 4e4073a80e3b291ad8a0581ada117cc8980a177c38a016231f0bb3b8f4891010
+[13-May-2025 10:52:39 UTC] Session ID: jsnpjcfhab6kpi4gh7vn7joc85
+[13-May-2025 10:52:39 UTC] Session Data: Array
+(
+    [csrf_token] => 4e4073a80e3b291ad8a0581ada117cc8980a177c38a016231f0bb3b8f4891010
+)
+
+[13-May-2025 10:52:45 UTC] Current cookies: Array
+(
+    [PHPSESSID] => jsnpjcfhab6kpi4gh7vn7joc85
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:52:45 UTC] Using session CSRF token: 4e4073a80e3b291ad8a0581ada117cc8980a177c38a016231f0bb3b8f4891010
+[13-May-2025 10:52:45 UTC] Session ID: jsnpjcfhab6kpi4gh7vn7joc85
+[13-May-2025 10:52:45 UTC] Session Data: Array
+(
+    [csrf_token] => 4e4073a80e3b291ad8a0581ada117cc8980a177c38a016231f0bb3b8f4891010
+)
+
+[13-May-2025 10:52:45 UTC] POST request received
+[13-May-2025 10:52:45 UTC] All cookies: Array
+(
+    [PHPSESSID] => jsnpjcfhab6kpi4gh7vn7joc85
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:52:45 UTC] All POST data: Array
+(
+    [csrf_token] => 4e4073a80e3b291ad8a0581ada117cc8980a177c38a016231f0bb3b8f4891010
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:52:45 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 80
+[13-May-2025 10:52:55 UTC] Current cookies: Array
+(
+    [PHPSESSID] => ecuq5549f90o9elt9mhtll3mlq
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:52:55 UTC] Generated new CSRF token: d93df18b61f78634d03dc192303f3b6d42ae0c39583d443b2429e360ef4b9fa7
+[13-May-2025 10:52:55 UTC] Using session CSRF token: d93df18b61f78634d03dc192303f3b6d42ae0c39583d443b2429e360ef4b9fa7
+[13-May-2025 10:52:55 UTC] Session ID: ecuq5549f90o9elt9mhtll3mlq
+[13-May-2025 10:52:55 UTC] Session Data: Array
+(
+    [csrf_token] => d93df18b61f78634d03dc192303f3b6d42ae0c39583d443b2429e360ef4b9fa7
+)
+
+[13-May-2025 10:53:15 UTC] Current cookies: Array
+(
+    [PHPSESSID] => ecuq5549f90o9elt9mhtll3mlq
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:53:15 UTC] Using session CSRF token: d93df18b61f78634d03dc192303f3b6d42ae0c39583d443b2429e360ef4b9fa7
+[13-May-2025 10:53:15 UTC] Session ID: ecuq5549f90o9elt9mhtll3mlq
+[13-May-2025 10:53:15 UTC] Session Data: Array
+(
+    [csrf_token] => d93df18b61f78634d03dc192303f3b6d42ae0c39583d443b2429e360ef4b9fa7
+)
+
+[13-May-2025 10:53:15 UTC] POST request received
+[13-May-2025 10:53:15 UTC] All cookies: Array
+(
+    [PHPSESSID] => ecuq5549f90o9elt9mhtll3mlq
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:53:15 UTC] All POST data: Array
+(
+    [csrf_token] => d93df18b61f78634d03dc192303f3b6d42ae0c39583d443b2429e360ef4b9fa7
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:53:15 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 80
+[13-May-2025 10:53:26 UTC] Current cookies: Array
+(
+    [PHPSESSID] => erjpncpmj3g2d25os46547fvll
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:53:26 UTC] Generated new CSRF token: 48a90db945622f329de2c1f3550b9d2a0571d5c35f11a50d0658b011535c0818
+[13-May-2025 10:53:26 UTC] Using session CSRF token: 48a90db945622f329de2c1f3550b9d2a0571d5c35f11a50d0658b011535c0818
+[13-May-2025 10:53:26 UTC] Session ID: erjpncpmj3g2d25os46547fvll
+[13-May-2025 10:53:26 UTC] Session Data: Array
+(
+    [csrf_token] => 48a90db945622f329de2c1f3550b9d2a0571d5c35f11a50d0658b011535c0818
+)
+
+[13-May-2025 10:54:12 UTC] Current cookies: Array
+(
+    [PHPSESSID] => erjpncpmj3g2d25os46547fvll
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:54:12 UTC] Using session CSRF token: 48a90db945622f329de2c1f3550b9d2a0571d5c35f11a50d0658b011535c0818
+[13-May-2025 10:54:12 UTC] Session ID: erjpncpmj3g2d25os46547fvll
+[13-May-2025 10:54:12 UTC] Session Data: Array
+(
+    [csrf_token] => 48a90db945622f329de2c1f3550b9d2a0571d5c35f11a50d0658b011535c0818
+)
+
+[13-May-2025 10:54:12 UTC] POST request received
+[13-May-2025 10:54:12 UTC] All cookies: Array
+(
+    [PHPSESSID] => erjpncpmj3g2d25os46547fvll
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:54:12 UTC] All POST data: Array
+(
+    [csrf_token] => 48a90db945622f329de2c1f3550b9d2a0571d5c35f11a50d0658b011535c0818
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:54:12 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 80
+[13-May-2025 10:55:32 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 3hpeina3otd5ngb7ja0kg4cb15
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:55:32 UTC] Generated new CSRF token: ee0af543cea262b7e2b538979ba14d6ec4777034eb3f2ca2a9406be7afb48504
+[13-May-2025 10:55:32 UTC] Using session CSRF token: ee0af543cea262b7e2b538979ba14d6ec4777034eb3f2ca2a9406be7afb48504
+[13-May-2025 10:55:32 UTC] Session ID: n2gg63eqe7e8o6oqkgg9ao0d9t
+[13-May-2025 10:55:32 UTC] Session Data: Array
+(
+    [csrf_token] => ee0af543cea262b7e2b538979ba14d6ec4777034eb3f2ca2a9406be7afb48504
+)
+
+[13-May-2025 10:55:35 UTC] Current cookies: Array
+(
+    [PHPSESSID] => n2gg63eqe7e8o6oqkgg9ao0d9t
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:55:35 UTC] Using session CSRF token: ee0af543cea262b7e2b538979ba14d6ec4777034eb3f2ca2a9406be7afb48504
+[13-May-2025 10:55:35 UTC] Session ID: n2gg63eqe7e8o6oqkgg9ao0d9t
+[13-May-2025 10:55:35 UTC] Session Data: Array
+(
+    [csrf_token] => ee0af543cea262b7e2b538979ba14d6ec4777034eb3f2ca2a9406be7afb48504
+)
+
+[13-May-2025 10:55:35 UTC] POST request received
+[13-May-2025 10:55:35 UTC] All cookies: Array
+(
+    [PHPSESSID] => n2gg63eqe7e8o6oqkgg9ao0d9t
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:55:35 UTC] All POST data: Array
+(
+    [csrf_token] => ee0af543cea262b7e2b538979ba14d6ec4777034eb3f2ca2a9406be7afb48504
+    [username] => td-test
+    [password] => Inimini1!
+)
+
+[13-May-2025 10:55:35 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 80
