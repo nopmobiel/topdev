@@ -10,6 +10,26 @@ ob_start();
 session_start();
 require_once("settings.php");
 
+// Define session timeout duration (e.g., 30 minutes)
+define('SESSION_TIMEOUT', 1800); // 1800 seconds = 30 minutes
+
+// Check if the session has timed out
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > SESSION_TIMEOUT)) {
+    session_unset();
+    session_destroy();
+    header("Location: index.php");
+    exit();
+}
+
+// Update last activity time stamp
+$_SESSION['LAST_ACTIVITY'] = time();
+
+// Redirect if not logged in or if DienstID is not set
+if (!isset($_SESSION['DienstID'])) {
+    header("Location: index.php");
+    exit();
+}
+
 // Function to handle errors
 function handleError($message, $error = null) {
     echo "<div style='background-color: #ffcccc; border: 1px solid #ff0000; padding: 10px; margin: 10px;'>";
@@ -22,11 +42,6 @@ function handleError($message, $error = null) {
     echo "</div>";
     ob_end_flush();
     exit;
-}
-
-// Redirect if not logged in or if DienstID is not set
-if (!isset($_SESSION['DienstID'])) {
-    handleError("Not logged in or DienstID not set. Please log in.");
 }
 
 $patientId = $_GET['id'] ?? '';

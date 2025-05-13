@@ -366,7 +366,7 @@ end_processing:
     </div>
     <footer class="footer">
         <div class="container text-center">
-            <span class="text-muted">TOP versie 3.0</span>
+            <span class="text-muted">TOP versie 2.0</span>
         </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
