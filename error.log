@@ -1,0 +1,1875 @@
+[13-May-2025 09:02:56 UTC] POST request received
+[13-May-2025 09:02:56 UTC] Session CSRF token: 6c3ad6e086ffac80c44fd28c17a663691e11a832d56b812a31a192dcfd22e4ba
+[13-May-2025 09:02:56 UTC] POST CSRF token: ec1f0b69fa73b2c678dc960199612cc20ddd365cebe1281ac7f91fbba674dc76
+[13-May-2025 09:02:56 UTC] CSRF validation failed - Session token: 6c3ad6e086ffac80c44fd28c17a663691e11a832d56b812a31a192dcfd22e4ba - POST token: ec1f0b69fa73b2c678dc960199612cc20ddd365cebe1281ac7f91fbba674dc76
+[13-May-2025 09:03:39 UTC] POST request received
+[13-May-2025 09:03:39 UTC] Session CSRF token: 4c3fc09dc437cf5c680f2fe0ea82261ffb520236251a475ef04127e5bbeccf3d
+[13-May-2025 09:03:39 UTC] POST CSRF token: ec1f0b69fa73b2c678dc960199612cc20ddd365cebe1281ac7f91fbba674dc76
+[13-May-2025 09:03:39 UTC] Login failed Error details: CSRF token validation failed
+[13-May-2025 09:04:04 UTC] Session ID: tp43m64nl9g6b66ggjdeumbkk9
+[13-May-2025 09:04:04 UTC] Session status: 2
+[13-May-2025 09:04:04 UTC] Session data: Array
+(
+)
+
+[13-May-2025 09:04:04 UTC] Generated new CSRF token: 4853688dc8dc2847cdfaf86f6bfc808fd7f710605378fb51ac36bc1e8505959f
+[13-May-2025 09:04:04 UTC] POST request received
+[13-May-2025 09:04:04 UTC] Session data at POST: Array
+(
+    [csrf_token] => 4853688dc8dc2847cdfaf86f6bfc808fd7f710605378fb51ac36bc1e8505959f
+)
+
+[13-May-2025 09:04:04 UTC] POST data: Array
+(
+    [csrf_token] => ec1f0b69fa73b2c678dc960199612cc20ddd365cebe1281ac7f91fbba674dc76
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:04:04 UTC] Session CSRF token: 4853688dc8dc2847cdfaf86f6bfc808fd7f710605378fb51ac36bc1e8505959f
+[13-May-2025 09:04:04 UTC] POST CSRF token: ec1f0b69fa73b2c678dc960199612cc20ddd365cebe1281ac7f91fbba674dc76
+[13-May-2025 09:04:04 UTC] Login failed Error details: CSRF token mismatch - Session: 4853688dc8dc2847cdfaf86f6bfc808fd7f710605378fb51ac36bc1e8505959f vs POST: ec1f0b69fa73b2c678dc960199612cc20ddd365cebe1281ac7f91fbba674dc76
+[13-May-2025 09:04:07 UTC] Session ID: mg4gt6ml1vvent7egemm7conhq
+[13-May-2025 09:04:07 UTC] Session status: 2
+[13-May-2025 09:04:07 UTC] Session data: Array
+(
+)
+
+[13-May-2025 09:04:07 UTC] Generated new CSRF token: 22b67ed98f128220afbe20092663da2c078cef09c29bbfb7742ba1fd838a3cf7
+[13-May-2025 09:04:07 UTC] POST request received
+[13-May-2025 09:04:07 UTC] Session data at POST: Array
+(
+    [csrf_token] => 22b67ed98f128220afbe20092663da2c078cef09c29bbfb7742ba1fd838a3cf7
+)
+
+[13-May-2025 09:04:07 UTC] POST data: Array
+(
+    [csrf_token] => 4853688dc8dc2847cdfaf86f6bfc808fd7f710605378fb51ac36bc1e8505959f
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:04:07 UTC] Session CSRF token: 22b67ed98f128220afbe20092663da2c078cef09c29bbfb7742ba1fd838a3cf7
+[13-May-2025 09:04:07 UTC] POST CSRF token: 4853688dc8dc2847cdfaf86f6bfc808fd7f710605378fb51ac36bc1e8505959f
+[13-May-2025 09:04:07 UTC] Login failed Error details: CSRF token mismatch - Session: 22b67ed98f128220afbe20092663da2c078cef09c29bbfb7742ba1fd838a3cf7 vs POST: 4853688dc8dc2847cdfaf86f6bfc808fd7f710605378fb51ac36bc1e8505959f
+[13-May-2025 09:04:28 UTC] Session ID: s7oo34lihim93umt6upq7j8vvk
+[13-May-2025 09:04:28 UTC] Session status: 2
+[13-May-2025 09:04:28 UTC] Session data: Array
+(
+)
+
+[13-May-2025 09:04:28 UTC] Session cookie: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:04:28 UTC] Generated new CSRF token: b0559c65c813bff2fbab5b9af8381e2e67d1774ca0e2bd627f0be5c6f4723cc4
+[13-May-2025 09:04:31 UTC] Session ID: b6lqmpbctilt05d60vqjkkg4t5
+[13-May-2025 09:04:31 UTC] Session status: 2
+[13-May-2025 09:04:31 UTC] Session data: Array
+(
+)
+
+[13-May-2025 09:04:31 UTC] Session cookie: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:04:31 UTC] Generated new CSRF token: 132d816ed42542da4401268cdee57f648fe145c0ace57df6830dbeed7de19a6a
+[13-May-2025 09:04:31 UTC] POST request received
+[13-May-2025 09:04:31 UTC] Session data at POST: Array
+(
+    [csrf_token] => 132d816ed42542da4401268cdee57f648fe145c0ace57df6830dbeed7de19a6a
+)
+
+[13-May-2025 09:04:31 UTC] POST data: Array
+(
+    [csrf_token] => b0559c65c813bff2fbab5b9af8381e2e67d1774ca0e2bd627f0be5c6f4723cc4
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:04:31 UTC] Session CSRF token: 132d816ed42542da4401268cdee57f648fe145c0ace57df6830dbeed7de19a6a
+[13-May-2025 09:04:31 UTC] POST CSRF token: b0559c65c813bff2fbab5b9af8381e2e67d1774ca0e2bd627f0be5c6f4723cc4
+[13-May-2025 09:04:31 UTC] Session cookie at POST: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:04:31 UTC] Login failed Error details: CSRF token mismatch - Session: 132d816ed42542da4401268cdee57f648fe145c0ace57df6830dbeed7de19a6a vs POST: b0559c65c813bff2fbab5b9af8381e2e67d1774ca0e2bd627f0be5c6f4723cc4
+[13-May-2025 09:04:53 UTC] === SESSION DEBUG ===
+[13-May-2025 09:04:53 UTC] Request Method: POST
+[13-May-2025 09:04:53 UTC] Session ID: u7hkj2c5l6bqhtv3qso20lo4th
+[13-May-2025 09:04:53 UTC] Session Status: 2
+[13-May-2025 09:04:53 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:04:53 UTC] Session Cookie: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:04:53 UTC] Request Headers: Array
+(
+    [Host] => localhost:3000
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    [Content-Type] => application/x-www-form-urlencoded
+    [Origin] => http://localhost:3000
+    [Sec-Fetch-Site] => same-origin
+    [Upgrade-Insecure-Requests] => 1
+    [Sec-Fetch-Mode] => navigate
+    [User-Agent] => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Safari/605.1.15
+    [Referer] => http://localhost:3000/index.php
+    [Sec-Fetch-Dest] => document
+    [Content-Length] => 115
+    [Accept-Language] => en-US,en;q=0.9
+    [Priority] => u=0, i
+    [Accept-Encoding] => gzip, deflate
+    [Cookie] => ajs_anonymous_id=b47f188f-4b50-4952-8dc7-fca0f363fdff; G_ENABLED_IDPS=google; __stripe_mid=607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+    [Connection] => keep-alive
+)
+
+[13-May-2025 09:04:53 UTC] Generated new CSRF token: 309f6952d221baf95a2a250df675566fcb3b67f864944094360294d21d2f31b5
+[13-May-2025 09:04:53 UTC] === POST REQUEST DEBUG ===
+[13-May-2025 09:04:53 UTC] Session ID at POST: u7hkj2c5l6bqhtv3qso20lo4th
+[13-May-2025 09:04:53 UTC] Session Data at POST: Array
+(
+    [csrf_token] => 309f6952d221baf95a2a250df675566fcb3b67f864944094360294d21d2f31b5
+)
+
+[13-May-2025 09:04:53 UTC] POST Data: Array
+(
+    [csrf_token] => b0559c65c813bff2fbab5b9af8381e2e67d1774ca0e2bd627f0be5c6f4723cc4
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:04:53 UTC] Session CSRF token: 309f6952d221baf95a2a250df675566fcb3b67f864944094360294d21d2f31b5
+[13-May-2025 09:04:53 UTC] POST CSRF token: b0559c65c813bff2fbab5b9af8381e2e67d1774ca0e2bd627f0be5c6f4723cc4
+[13-May-2025 09:04:53 UTC] Session Cookie at POST: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:04:53 UTC] Request Headers at POST: Array
+(
+    [Host] => localhost:3000
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    [Content-Type] => application/x-www-form-urlencoded
+    [Origin] => http://localhost:3000
+    [Sec-Fetch-Site] => same-origin
+    [Upgrade-Insecure-Requests] => 1
+    [Sec-Fetch-Mode] => navigate
+    [User-Agent] => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Safari/605.1.15
+    [Referer] => http://localhost:3000/index.php
+    [Sec-Fetch-Dest] => document
+    [Content-Length] => 115
+    [Accept-Language] => en-US,en;q=0.9
+    [Priority] => u=0, i
+    [Accept-Encoding] => gzip, deflate
+    [Cookie] => ajs_anonymous_id=b47f188f-4b50-4952-8dc7-fca0f363fdff; G_ENABLED_IDPS=google; __stripe_mid=607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+    [Connection] => keep-alive
+)
+
+[13-May-2025 09:04:53 UTC] Login failed Error details: CSRF token mismatch - Session: 309f6952d221baf95a2a250df675566fcb3b67f864944094360294d21d2f31b5 vs POST: b0559c65c813bff2fbab5b9af8381e2e67d1774ca0e2bd627f0be5c6f4723cc4
+[13-May-2025 09:05:22 UTC] === SESSION DEBUG ===
+[13-May-2025 09:05:22 UTC] Request Method: GET
+[13-May-2025 09:05:22 UTC] Session ID: ujhkp7v7tvnev80aht4206h1ms
+[13-May-2025 09:05:22 UTC] Session Status: 2
+[13-May-2025 09:05:22 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:05:22 UTC] Session Cookie: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:05:22 UTC] Request Headers: Array
+(
+    [Host] => localhost:3000
+    [Sec-Fetch-Dest] => document
+    [User-Agent] => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Safari/605.1.15
+    [Upgrade-Insecure-Requests] => 1
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    [Sec-Fetch-Site] => none
+    [Sec-Fetch-Mode] => navigate
+    [Accept-Language] => en-US,en;q=0.9
+    [Priority] => u=0, i
+    [Accept-Encoding] => gzip, deflate
+    [Cookie] => ajs_anonymous_id=b47f188f-4b50-4952-8dc7-fca0f363fdff; G_ENABLED_IDPS=google; __stripe_mid=607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+    [Connection] => keep-alive
+)
+
+[13-May-2025 09:05:24 UTC] === SESSION DEBUG ===
+[13-May-2025 09:05:24 UTC] Request Method: POST
+[13-May-2025 09:05:24 UTC] Session ID: 2ef43vnpdhengjvo97nh1gsm9a
+[13-May-2025 09:05:24 UTC] Session Status: 2
+[13-May-2025 09:05:24 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:05:24 UTC] Session Cookie: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:05:24 UTC] Request Headers: Array
+(
+    [Host] => localhost:3000
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    [Content-Type] => application/x-www-form-urlencoded
+    [Origin] => http://localhost:3000
+    [Sec-Fetch-Site] => same-origin
+    [Upgrade-Insecure-Requests] => 1
+    [Sec-Fetch-Mode] => navigate
+    [User-Agent] => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Safari/605.1.15
+    [Referer] => http://localhost:3000/index.php
+    [Sec-Fetch-Dest] => document
+    [Content-Length] => 115
+    [Accept-Language] => en-US,en;q=0.9
+    [Priority] => u=0, i
+    [Accept-Encoding] => gzip, deflate
+    [Cookie] => ajs_anonymous_id=b47f188f-4b50-4952-8dc7-fca0f363fdff; G_ENABLED_IDPS=google; __stripe_mid=607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+    [Connection] => keep-alive
+)
+
+[13-May-2025 09:05:24 UTC] === POST REQUEST DEBUG ===
+[13-May-2025 09:05:24 UTC] Session ID at POST: 2ef43vnpdhengjvo97nh1gsm9a
+[13-May-2025 09:05:24 UTC] Session Data at POST: Array
+(
+    [csrf_token] => 1be3fc50591471e8403cc6ef1ef769b0aa7df41e3bc0b534a6795d7acda23852
+)
+
+[13-May-2025 09:05:24 UTC] POST Data: Array
+(
+    [csrf_token] => da1c47f2d03f393d1dceff9a4f38c5c8ef9f12169eae0e5eec457f045b31ae46
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:05:24 UTC] Session CSRF token: 1be3fc50591471e8403cc6ef1ef769b0aa7df41e3bc0b534a6795d7acda23852
+[13-May-2025 09:05:24 UTC] POST CSRF token: da1c47f2d03f393d1dceff9a4f38c5c8ef9f12169eae0e5eec457f045b31ae46
+[13-May-2025 09:05:24 UTC] Session Cookie at POST: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:05:24 UTC] Request Headers at POST: Array
+(
+    [Host] => localhost:3000
+    [Accept] => text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    [Content-Type] => application/x-www-form-urlencoded
+    [Origin] => http://localhost:3000
+    [Sec-Fetch-Site] => same-origin
+    [Upgrade-Insecure-Requests] => 1
+    [Sec-Fetch-Mode] => navigate
+    [User-Agent] => Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Safari/605.1.15
+    [Referer] => http://localhost:3000/index.php
+    [Sec-Fetch-Dest] => document
+    [Content-Length] => 115
+    [Accept-Language] => en-US,en;q=0.9
+    [Priority] => u=0, i
+    [Accept-Encoding] => gzip, deflate
+    [Cookie] => ajs_anonymous_id=b47f188f-4b50-4952-8dc7-fca0f363fdff; G_ENABLED_IDPS=google; __stripe_mid=607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+    [Connection] => keep-alive
+)
+
+[13-May-2025 09:05:24 UTC] Login failed Error details: Invalid security token. Please refresh the page and try again.
+[13-May-2025 09:05:46 UTC] Session ID: r7pnt45s8qcjpv1mo4tb85kmqt
+[13-May-2025 09:05:46 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:05:46 UTC] New CSRF token generated: 5bdf0d64b0528933cee01a3f938cfd25f40831e9a35cf01dd30c8ecbe8db20ce
+[13-May-2025 09:05:49 UTC] Session ID: 0ekej391aat02qod1ikr04dvqo
+[13-May-2025 09:05:49 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:05:49 UTC] New CSRF token generated: 861339e35feb5271a7b03c5dd3cbc99fe3a6dca14b561bec4d4dcf3a944d2f3d
+[13-May-2025 09:05:49 UTC] POST request received
+[13-May-2025 09:05:49 UTC] Session token: 861339e35feb5271a7b03c5dd3cbc99fe3a6dca14b561bec4d4dcf3a944d2f3d
+[13-May-2025 09:05:49 UTC] POST token: 5bdf0d64b0528933cee01a3f938cfd25f40831e9a35cf01dd30c8ecbe8db20ce
+[13-May-2025 09:05:49 UTC] Login failed Error details: Session expired. Please refresh the page and try again.
+[13-May-2025 09:05:55 UTC] Session ID: 4ju1npql9gi1imtpump49p67ip
+[13-May-2025 09:05:55 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:05:55 UTC] New CSRF token generated: cc8227a186aa1303f42d9f020c76b5f877d7e9c2262ee1324c081839abca8fef
+[13-May-2025 09:05:55 UTC] POST request received
+[13-May-2025 09:05:55 UTC] Session token: cc8227a186aa1303f42d9f020c76b5f877d7e9c2262ee1324c081839abca8fef
+[13-May-2025 09:05:55 UTC] POST token: 5bdf0d64b0528933cee01a3f938cfd25f40831e9a35cf01dd30c8ecbe8db20ce
+[13-May-2025 09:05:55 UTC] Login failed Error details: Session expired. Please refresh the page and try again.
+[13-May-2025 09:06:28 UTC] Session ID: vtn01lggnn0ck4rihuevcroo9q
+[13-May-2025 09:06:28 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:06:28 UTC] New CSRF token generated: 4b38bcf5af6745920730bdd793cc12aa9fa441b12a61aa060ec794d99f6c457c
+[13-May-2025 09:06:28 UTC] POST request received
+[13-May-2025 09:06:28 UTC] Session token: 4b38bcf5af6745920730bdd793cc12aa9fa441b12a61aa060ec794d99f6c457c
+[13-May-2025 09:06:28 UTC] POST token: 5bdf0d64b0528933cee01a3f938cfd25f40831e9a35cf01dd30c8ecbe8db20ce
+[13-May-2025 09:06:28 UTC] Login failed Error details: Please refresh the page and try again.
+[13-May-2025 09:06:33 UTC] Session ID: 05fkt9jioh5m0p9v3g80enb2uo
+[13-May-2025 09:06:33 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:06:33 UTC] New CSRF token generated: c5362a997a1dfd99d7e7ce1ad1a8f9958d7e949012e05d4f68ac4ff4de32c523
+[13-May-2025 09:06:33 UTC] POST request received
+[13-May-2025 09:06:33 UTC] Session token: c5362a997a1dfd99d7e7ce1ad1a8f9958d7e949012e05d4f68ac4ff4de32c523
+[13-May-2025 09:06:33 UTC] POST token: 5bdf0d64b0528933cee01a3f938cfd25f40831e9a35cf01dd30c8ecbe8db20ce
+[13-May-2025 09:06:33 UTC] Login failed Error details: Please refresh the page and try again.
+[13-May-2025 09:06:43 UTC] Session ID: gnqo1j2gb85n74bbp6gcsmmti5
+[13-May-2025 09:06:43 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:06:43 UTC] New CSRF token generated: a7ca9cbd7c5ed8de46b8ac8efc3d99b0b1ac8fa394742e03d8e8274f62cc3065
+[13-May-2025 09:06:44 UTC] Session ID: skkkflfjjol8nvihv4d083tvkt
+[13-May-2025 09:06:44 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:06:44 UTC] New CSRF token generated: 8cab3bd6157059ccc1c726e36c51e08863d16d2eff1dffd7316b4afc4d2b1b09
+[13-May-2025 09:06:46 UTC] Session ID: 8haematv065fkog0m0teemr0mk
+[13-May-2025 09:06:46 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:06:46 UTC] New CSRF token generated: 79bbeaa98f15673c4bf3b4e32a9a234d05d67cce953a6c6bc347c1eea9357d6a
+[13-May-2025 09:06:46 UTC] POST request received
+[13-May-2025 09:06:46 UTC] Session token: 79bbeaa98f15673c4bf3b4e32a9a234d05d67cce953a6c6bc347c1eea9357d6a
+[13-May-2025 09:06:46 UTC] POST token: 8cab3bd6157059ccc1c726e36c51e08863d16d2eff1dffd7316b4afc4d2b1b09
+[13-May-2025 09:06:46 UTC] Login failed Error details: Please refresh the page and try again.
+[13-May-2025 09:07:21 UTC] Session ID: hg8jbt7k9b36sm34ojia2h9pdu
+[13-May-2025 09:07:21 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:07:21 UTC] New CSRF token generated: 1ce015d9d1f6880ff3aed8e9982c60738f9dc77fb69599eafa84fd623a079eae
+[13-May-2025 09:07:21 UTC] POST request received
+[13-May-2025 09:07:21 UTC] Session token: 1ce015d9d1f6880ff3aed8e9982c60738f9dc77fb69599eafa84fd623a079eae
+[13-May-2025 09:07:21 UTC] POST token: 79bbeaa98f15673c4bf3b4e32a9a234d05d67cce953a6c6bc347c1eea9357d6a
+[13-May-2025 09:07:21 UTC] Login failed Error details: Please refresh the page and try again.
+[13-May-2025 09:11:36 UTC] Session ID: k7rrui5boos3mikrjblk8dqu8m
+[13-May-2025 09:11:36 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:11:36 UTC] PHP Warning:  Undefined array key "csrf_token" in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 168
+[13-May-2025 09:11:36 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 168
+[13-May-2025 09:11:39 UTC] Session ID: f45becoh4hkfb9li8907eedfdo
+[13-May-2025 09:11:39 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:11:39 UTC] POST request received
+[13-May-2025 09:11:39 UTC] Session token: not set
+[13-May-2025 09:11:39 UTC] POST token: <br />
+<b>Warning</b>:  Undefined array key 
+[13-May-2025 09:11:39 UTC] Login failed Error details: Please refresh the page and try again.
+[13-May-2025 09:11:39 UTC] PHP Warning:  Undefined array key "csrf_token" in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 168
+[13-May-2025 09:11:39 UTC] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 168
+[13-May-2025 09:12:13 UTC] Session ID: ldvca8cqis02atcv83lgp4864r
+[13-May-2025 09:12:13 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:12:13 UTC] POST request received
+[13-May-2025 09:12:13 UTC] Session token: not set
+[13-May-2025 09:12:13 UTC] POST token: <br />
+<b>Warning</b>:  Undefined array key 
+[13-May-2025 09:12:13 UTC] Token file exists: yes
+[13-May-2025 09:12:13 UTC] Stored token: d4349f5cdccd60fb28d4a4dd1bbad86acdaa4b52134a31e5030e9b8bc79e0cc7
+[13-May-2025 09:12:13 UTC] POST token: <br />
+<b>Warning</b>:  Undefined array key 
+[13-May-2025 09:12:13 UTC] Login failed Error details: Invalid security token. Please refresh the page and try again.
+[13-May-2025 09:12:49 UTC] Session ID: r8h3r0rb9vm8oekltf3m77m5db
+[13-May-2025 09:12:49 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:12:49 UTC] POST request received
+[13-May-2025 09:12:49 UTC] Session token: not set
+[13-May-2025 09:12:49 UTC] POST token: d4349f5cdccd60fb28d4a4dd1bbad86acdaa4b52134a31e5030e9b8bc79e0cc7
+[13-May-2025 09:12:49 UTC] Cookie token: not set
+[13-May-2025 09:12:49 UTC] POST token: d4349f5cdccd60fb28d4a4dd1bbad86acdaa4b52134a31e5030e9b8bc79e0cc7
+[13-May-2025 09:12:49 UTC] Login failed Error details: Security token missing. Please refresh the page and try again.
+[13-May-2025 09:13:01 UTC] Session ID: 6ligev60ep1jhkh0e54a8rt80u
+[13-May-2025 09:13:01 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:13:01 UTC] POST request received
+[13-May-2025 09:13:01 UTC] Session token: not set
+[13-May-2025 09:13:01 UTC] POST token: d4349f5cdccd60fb28d4a4dd1bbad86acdaa4b52134a31e5030e9b8bc79e0cc7
+[13-May-2025 09:13:01 UTC] Cookie token: not set
+[13-May-2025 09:13:01 UTC] POST token: d4349f5cdccd60fb28d4a4dd1bbad86acdaa4b52134a31e5030e9b8bc79e0cc7
+[13-May-2025 09:13:01 UTC] Login failed Error details: Security token missing. Please refresh the page and try again.
+[13-May-2025 09:13:03 UTC] Session ID: 7c2q8h2dvt6sklovo6t1h65bp2
+[13-May-2025 09:13:03 UTC] Session Data: Array
+(
+)
+
+[13-May-2025 09:13:03 UTC] POST request received
+[13-May-2025 09:13:03 UTC] Session token: not set
+[13-May-2025 09:13:03 UTC] POST token: da06d2f5c7c209db50330a098f8ada7fa750c77e55a5ab71c9dd2a921b0bc8cf
+[13-May-2025 09:13:03 UTC] Cookie token: not set
+[13-May-2025 09:13:03 UTC] POST token: da06d2f5c7c209db50330a098f8ada7fa750c77e55a5ab71c9dd2a921b0bc8cf
+[13-May-2025 09:13:03 UTC] Login failed Error details: Security token missing. Please refresh the page and try again.
+[13-May-2025 09:16:26 UTC] Current cookies: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:16:26 UTC] Generated new CSRF token: d95362a1090c089206f52e32cc2b022bba0f3d40997261a287cf05803644e84c
+[13-May-2025 09:16:26 UTC] Using session CSRF token: d95362a1090c089206f52e32cc2b022bba0f3d40997261a287cf05803644e84c
+[13-May-2025 09:16:26 UTC] Session ID: 0qrppfe202h66h9nv40lmc1vbh
+[13-May-2025 09:16:26 UTC] Session Data: Array
+(
+    [csrf_token] => d95362a1090c089206f52e32cc2b022bba0f3d40997261a287cf05803644e84c
+)
+
+[13-May-2025 09:16:26 UTC] POST request received
+[13-May-2025 09:16:26 UTC] All cookies: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:16:26 UTC] All POST data: Array
+(
+    [csrf_token] => da06d2f5c7c209db50330a098f8ada7fa750c77e55a5ab71c9dd2a921b0bc8cf
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:16:26 UTC] Token mismatch - Session: d95362a1090c089206f52e32cc2b022bba0f3d40997261a287cf05803644e84c vs POST: da06d2f5c7c209db50330a098f8ada7fa750c77e55a5ab71c9dd2a921b0bc8cf
+[13-May-2025 09:16:26 UTC] Login failed Error details: Invalid security token. Please refresh the page and try again.
+[13-May-2025 09:16:31 UTC] Current cookies: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:16:31 UTC] Generated new CSRF token: 067c6397b112599dfc4950ba2f9a32e9d6861c116d5b905d934b8dfb7b0a0477
+[13-May-2025 09:16:31 UTC] Using session CSRF token: 067c6397b112599dfc4950ba2f9a32e9d6861c116d5b905d934b8dfb7b0a0477
+[13-May-2025 09:16:31 UTC] Session ID: 4gce099igi2vbnmj2bq6dr051l
+[13-May-2025 09:16:31 UTC] Session Data: Array
+(
+    [csrf_token] => 067c6397b112599dfc4950ba2f9a32e9d6861c116d5b905d934b8dfb7b0a0477
+)
+
+[13-May-2025 09:16:31 UTC] POST request received
+[13-May-2025 09:16:31 UTC] All cookies: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:16:31 UTC] All POST data: Array
+(
+    [csrf_token] => d95362a1090c089206f52e32cc2b022bba0f3d40997261a287cf05803644e84c
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:16:31 UTC] Token mismatch - Session: 067c6397b112599dfc4950ba2f9a32e9d6861c116d5b905d934b8dfb7b0a0477 vs POST: d95362a1090c089206f52e32cc2b022bba0f3d40997261a287cf05803644e84c
+[13-May-2025 09:16:31 UTC] Login failed Error details: Invalid security token. Please refresh the page and try again.
+[13-May-2025 09:17:20 UTC] Current cookies: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:17:20 UTC] Generated new CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:17:20 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:17:20 UTC] Session ID: 86jssgpu9cho7qe8lgv5fo87c2
+[13-May-2025 09:17:20 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+)
+
+[13-May-2025 09:17:20 UTC] POST request received
+[13-May-2025 09:17:20 UTC] All cookies: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:17:20 UTC] All POST data: Array
+(
+    [csrf_token] => d95362a1090c089206f52e32cc2b022bba0f3d40997261a287cf05803644e84c
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:17:20 UTC] Token mismatch - Session: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c vs POST: d95362a1090c089206f52e32cc2b022bba0f3d40997261a287cf05803644e84c
+[13-May-2025 09:17:20 UTC] Login failed Error details: Invalid security token. Please refresh the page and try again.
+[13-May-2025 09:17:57 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:17:57 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:17:57 UTC] Session ID: 86jssgpu9cho7qe8lgv5fo87c2
+[13-May-2025 09:17:57 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+)
+
+[13-May-2025 09:18:00 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:18:00 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:18:00 UTC] Session ID: 86jssgpu9cho7qe8lgv5fo87c2
+[13-May-2025 09:18:00 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+)
+
+[13-May-2025 09:18:00 UTC] POST request received
+[13-May-2025 09:18:00 UTC] All cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:18:00 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:18:00 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:36:51 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:36:51 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:36:51 UTC] Session ID: 86jssgpu9cho7qe8lgv5fo87c2
+[13-May-2025 09:36:51 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+)
+
+[13-May-2025 09:36:54 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:36:54 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:36:54 UTC] Session ID: 86jssgpu9cho7qe8lgv5fo87c2
+[13-May-2025 09:36:54 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+)
+
+[13-May-2025 09:36:54 UTC] POST request received
+[13-May-2025 09:36:54 UTC] All cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:36:54 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:36:54 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:36:54 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 09:36:57 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:36:57 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:36:57 UTC] Session ID: 86jssgpu9cho7qe8lgv5fo87c2
+[13-May-2025 09:36:57 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+)
+
+[13-May-2025 09:36:57 UTC] POST request received
+[13-May-2025 09:36:57 UTC] All cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:36:57 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => nop@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 09:36:57 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:36:57 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 09:37:04 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:04 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:37:04 UTC] Session ID: 86jssgpu9cho7qe8lgv5fo87c2
+[13-May-2025 09:37:04 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+)
+
+[13-May-2025 09:37:04 UTC] POST request received
+[13-May-2025 09:37:04 UTC] All cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:04 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => td-test-trodis
+    [password] => test_ultimum
+)
+
+[13-May-2025 09:37:04 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:37:04 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 09:37:09 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:09 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:37:09 UTC] Session ID: 86jssgpu9cho7qe8lgv5fo87c2
+[13-May-2025 09:37:09 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+)
+
+[13-May-2025 09:37:09 UTC] POST request received
+[13-May-2025 09:37:09 UTC] All cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:09 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => td-test-pv
+    [password] => test_ultimum
+)
+
+[13-May-2025 09:37:09 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:37:09 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 09:37:12 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:12 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:37:12 UTC] Session ID: 86jssgpu9cho7qe8lgv5fo87c2
+[13-May-2025 09:37:12 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+)
+
+[13-May-2025 09:37:12 UTC] POST request received
+[13-May-2025 09:37:12 UTC] All cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:12 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => td-test-trodis
+    [password] => test_ultimum
+)
+
+[13-May-2025 09:37:12 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:37:12 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 09:37:23 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:23 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:37:23 UTC] Session ID: 86jssgpu9cho7qe8lgv5fo87c2
+[13-May-2025 09:37:23 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+)
+
+[13-May-2025 09:37:23 UTC] POST request received
+[13-May-2025 09:37:23 UTC] All cookies: Array
+(
+    [PHPSESSID] => 86jssgpu9cho7qe8lgv5fo87c2
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:23 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => td-denhaag
+    [password] => Riette
+)
+
+[13-May-2025 09:37:23 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:37:23 UTC] Current cookies: Array
+(
+    [PHPSESSID] => imb58sg5rqmu4ugd4uqc5i2bn0
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:23 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:37:23 UTC] Session ID: imb58sg5rqmu4ugd4uqc5i2bn0
+[13-May-2025 09:37:23 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [DienstID] => 93
+    [Dienstnaam] => Trombosedienst Den Haag
+    [Systeem] => trodis
+    [User] => td-denhaag
+)
+
+[13-May-2025 09:37:30 UTC] Current cookies: Array
+(
+    [PHPSESSID] => imb58sg5rqmu4ugd4uqc5i2bn0
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:30 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:37:30 UTC] Session ID: imb58sg5rqmu4ugd4uqc5i2bn0
+[13-May-2025 09:37:30 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [DienstID] => 93
+    [Dienstnaam] => Trombosedienst Den Haag
+    [Systeem] => trodis
+    [User] => td-denhaag
+)
+
+[13-May-2025 09:37:30 UTC] POST request received
+[13-May-2025 09:37:30 UTC] All cookies: Array
+(
+    [PHPSESSID] => imb58sg5rqmu4ugd4uqc5i2bn0
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:37:30 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => td-test-trodis
+    [password] => test_ultimum
+)
+
+[13-May-2025 09:37:30 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:37:30 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 09:39:39 UTC] Current cookies: Array
+(
+    [PHPSESSID] => imb58sg5rqmu4ugd4uqc5i2bn0
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:39:39 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:39:39 UTC] Session ID: imb58sg5rqmu4ugd4uqc5i2bn0
+[13-May-2025 09:39:39 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [DienstID] => 93
+    [Dienstnaam] => Trombosedienst Den Haag
+    [Systeem] => trodis
+    [User] => td-denhaag
+)
+
+[13-May-2025 09:39:39 UTC] POST request received
+[13-May-2025 09:39:39 UTC] All cookies: Array
+(
+    [PHPSESSID] => imb58sg5rqmu4ugd4uqc5i2bn0
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:39:39 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => td-denhaag
+    [password] => Riette
+)
+
+[13-May-2025 09:39:39 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:39:40 UTC] Current cookies: Array
+(
+    [PHPSESSID] => jsdl7va6qhc3pbbcct9iuh2p3m
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:39:40 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:39:40 UTC] Session ID: jsdl7va6qhc3pbbcct9iuh2p3m
+[13-May-2025 09:39:40 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [DienstID] => 93
+    [Dienstnaam] => Trombosedienst Den Haag
+    [Systeem] => trodis
+    [User] => td-denhaag
+)
+
+[13-May-2025 09:42:26 UTC] Current cookies: Array
+(
+    [PHPSESSID] => jsdl7va6qhc3pbbcct9iuh2p3m
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:42:26 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:42:26 UTC] Session ID: jsdl7va6qhc3pbbcct9iuh2p3m
+[13-May-2025 09:42:26 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [DienstID] => 93
+    [Dienstnaam] => Trombosedienst Den Haag
+    [Systeem] => trodis
+    [User] => td-denhaag
+)
+
+[13-May-2025 09:42:29 UTC] Current cookies: Array
+(
+    [PHPSESSID] => jsdl7va6qhc3pbbcct9iuh2p3m
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:42:29 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:42:29 UTC] Session ID: jsdl7va6qhc3pbbcct9iuh2p3m
+[13-May-2025 09:42:29 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [DienstID] => 93
+    [Dienstnaam] => Trombosedienst Den Haag
+    [Systeem] => trodis
+    [User] => td-denhaag
+)
+
+[13-May-2025 09:42:29 UTC] POST request received
+[13-May-2025 09:42:29 UTC] All cookies: Array
+(
+    [PHPSESSID] => jsdl7va6qhc3pbbcct9iuh2p3m
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:42:29 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => td-test-trodis
+    [password] => test_ultimum
+)
+
+[13-May-2025 09:42:29 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:42:29 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 09:43:07 UTC] Current cookies: Array
+(
+    [PHPSESSID] => jsdl7va6qhc3pbbcct9iuh2p3m
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:43:07 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:43:07 UTC] Session ID: jsdl7va6qhc3pbbcct9iuh2p3m
+[13-May-2025 09:43:07 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [DienstID] => 93
+    [Dienstnaam] => Trombosedienst Den Haag
+    [Systeem] => trodis
+    [User] => td-denhaag
+)
+
+[13-May-2025 09:43:07 UTC] POST request received
+[13-May-2025 09:43:07 UTC] All cookies: Array
+(
+    [PHPSESSID] => jsdl7va6qhc3pbbcct9iuh2p3m
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:43:07 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 09:43:07 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:43:18 UTC] PHP Warning:  Undefined array key "temp_user" in /Users/norbertschmidt/Documents/GitHub/topdev/otp_verification.php on line 8
+[13-May-2025 09:43:31 UTC] PHP Warning:  Undefined array key "temp_user" in /Users/norbertschmidt/Documents/GitHub/topdev/otp_verification.php on line 8
+[13-May-2025 09:58:16 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 06s5q117jtvr0c4g9hbb0kh773
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:16 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:58:16 UTC] Session ID: 06s5q117jtvr0c4g9hbb0kh773
+[13-May-2025 09:58:16 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [DienstID] => 93
+    [Dienstnaam] => Trombosedienst Den Haag
+    [Systeem] => trodis
+    [User] => td-denhaag
+    [temp_user] => td-test
+)
+
+[13-May-2025 09:58:22 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 06s5q117jtvr0c4g9hbb0kh773
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:22 UTC] Using session CSRF token: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:58:22 UTC] Session ID: 06s5q117jtvr0c4g9hbb0kh773
+[13-May-2025 09:58:22 UTC] Session Data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [DienstID] => 93
+    [Dienstnaam] => Trombosedienst Den Haag
+    [Systeem] => trodis
+    [User] => td-denhaag
+    [temp_user] => td-test
+)
+
+[13-May-2025 09:58:22 UTC] POST request received
+[13-May-2025 09:58:22 UTC] All cookies: Array
+(
+    [PHPSESSID] => 06s5q117jtvr0c4g9hbb0kh773
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:22 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 09:58:22 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:58:24 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 06s5q117jtvr0c4g9hbb0kh773
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:24 UTC] Generated new CSRF token: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+[13-May-2025 09:58:24 UTC] Using session CSRF token: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+[13-May-2025 09:58:24 UTC] Session ID: n728qbh57ad108mgrcf1ue06je
+[13-May-2025 09:58:24 UTC] Session Data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+)
+
+[13-May-2025 09:58:24 UTC] POST request received
+[13-May-2025 09:58:24 UTC] All cookies: Array
+(
+    [PHPSESSID] => 06s5q117jtvr0c4g9hbb0kh773
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:24 UTC] All POST data: Array
+(
+    [csrf_token] => d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 09:58:24 UTC] Token mismatch - Session: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296 vs POST: d4e39d85be20ff3d423390be7225f93f1893b867183dff3a2ae64af35111d33c
+[13-May-2025 09:58:24 UTC] Login failed Error details: Invalid security token. Please refresh the page and try again.
+[13-May-2025 09:58:35 UTC] Current cookies: Array
+(
+    [PHPSESSID] => n728qbh57ad108mgrcf1ue06je
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:35 UTC] Using session CSRF token: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+[13-May-2025 09:58:35 UTC] Session ID: n728qbh57ad108mgrcf1ue06je
+[13-May-2025 09:58:35 UTC] Session Data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+)
+
+[13-May-2025 09:58:41 UTC] Current cookies: Array
+(
+    [PHPSESSID] => n728qbh57ad108mgrcf1ue06je
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:41 UTC] Using session CSRF token: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+[13-May-2025 09:58:41 UTC] Session ID: n728qbh57ad108mgrcf1ue06je
+[13-May-2025 09:58:41 UTC] Session Data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+)
+
+[13-May-2025 09:58:41 UTC] POST request received
+[13-May-2025 09:58:41 UTC] All cookies: Array
+(
+    [PHPSESSID] => n728qbh57ad108mgrcf1ue06je
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:41 UTC] All POST data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 09:58:41 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:58:50 UTC] Current cookies: Array
+(
+    [PHPSESSID] => sm0r8nom2fnhsdj3g38ta3n2si
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:50 UTC] Using session CSRF token: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+[13-May-2025 09:58:50 UTC] Session ID: sm0r8nom2fnhsdj3g38ta3n2si
+[13-May-2025 09:58:50 UTC] Session Data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+    [temp_user] => td-test
+)
+
+[13-May-2025 09:58:59 UTC] Current cookies: Array
+(
+    [PHPSESSID] => sm0r8nom2fnhsdj3g38ta3n2si
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:59 UTC] Using session CSRF token: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+[13-May-2025 09:58:59 UTC] Session ID: sm0r8nom2fnhsdj3g38ta3n2si
+[13-May-2025 09:58:59 UTC] Session Data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+    [temp_user] => td-test
+)
+
+[13-May-2025 09:58:59 UTC] POST request received
+[13-May-2025 09:58:59 UTC] All cookies: Array
+(
+    [PHPSESSID] => sm0r8nom2fnhsdj3g38ta3n2si
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:58:59 UTC] All POST data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 09:58:59 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 09:59:01 UTC] Current cookies: Array
+(
+    [PHPSESSID] => j1a55kutmu537q8vr5mfu1isug
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 09:59:01 UTC] Using session CSRF token: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+[13-May-2025 09:59:01 UTC] Session ID: j1a55kutmu537q8vr5mfu1isug
+[13-May-2025 09:59:01 UTC] Session Data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:00:06 UTC] Current cookies: Array
+(
+    [PHPSESSID] => j1a55kutmu537q8vr5mfu1isug
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:00:06 UTC] Using session CSRF token: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+[13-May-2025 10:00:06 UTC] Session ID: j1a55kutmu537q8vr5mfu1isug
+[13-May-2025 10:00:06 UTC] Session Data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:00:06 UTC] POST request received
+[13-May-2025 10:00:06 UTC] All cookies: Array
+(
+    [PHPSESSID] => j1a55kutmu537q8vr5mfu1isug
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:00:06 UTC] All POST data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+    [username] => td-test-trodis
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:00:06 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:00:06 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 10:00:11 UTC] Current cookies: Array
+(
+    [PHPSESSID] => j1a55kutmu537q8vr5mfu1isug
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:00:11 UTC] Using session CSRF token: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+[13-May-2025 10:00:11 UTC] Session ID: j1a55kutmu537q8vr5mfu1isug
+[13-May-2025 10:00:11 UTC] Session Data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:00:11 UTC] POST request received
+[13-May-2025 10:00:11 UTC] All cookies: Array
+(
+    [PHPSESSID] => j1a55kutmu537q8vr5mfu1isug
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:00:11 UTC] All POST data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:00:11 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:00:12 UTC] Current cookies: Array
+(
+    [PHPSESSID] => j1a55kutmu537q8vr5mfu1isug
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:00:12 UTC] Generated new CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:00:12 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:00:12 UTC] Session ID: 62hc07ulpk66g1couu1fjk4mj9
+[13-May-2025 10:00:12 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+)
+
+[13-May-2025 10:00:12 UTC] POST request received
+[13-May-2025 10:00:12 UTC] All cookies: Array
+(
+    [PHPSESSID] => j1a55kutmu537q8vr5mfu1isug
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:00:12 UTC] All POST data: Array
+(
+    [csrf_token] => f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:00:12 UTC] Token mismatch - Session: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7 vs POST: f8b70fc15a523737c3467c33401da41c237a1ed28e3e03525ec617840ad10296
+[13-May-2025 10:00:12 UTC] Login failed Error details: Invalid security token. Please refresh the page and try again.
+[13-May-2025 10:01:12 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 62hc07ulpk66g1couu1fjk4mj9
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:01:12 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:01:12 UTC] Session ID: 62hc07ulpk66g1couu1fjk4mj9
+[13-May-2025 10:01:12 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+)
+
+[13-May-2025 10:01:12 UTC] POST request received
+[13-May-2025 10:01:12 UTC] All cookies: Array
+(
+    [PHPSESSID] => 62hc07ulpk66g1couu1fjk4mj9
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:01:12 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => norbert@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 10:01:12 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:01:12 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 10:01:27 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 62hc07ulpk66g1couu1fjk4mj9
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:01:27 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:01:27 UTC] Session ID: 62hc07ulpk66g1couu1fjk4mj9
+[13-May-2025 10:01:27 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+)
+
+[13-May-2025 10:01:27 UTC] POST request received
+[13-May-2025 10:01:27 UTC] All cookies: Array
+(
+    [PHPSESSID] => 62hc07ulpk66g1couu1fjk4mj9
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:01:27 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => norbert@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 10:01:27 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:01:27 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 10:01:42 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 62hc07ulpk66g1couu1fjk4mj9
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:01:42 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:01:42 UTC] Session ID: 62hc07ulpk66g1couu1fjk4mj9
+[13-May-2025 10:01:42 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+)
+
+[13-May-2025 10:01:42 UTC] POST request received
+[13-May-2025 10:01:42 UTC] All cookies: Array
+(
+    [PHPSESSID] => 62hc07ulpk66g1couu1fjk4mj9
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:01:42 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => norbert@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 10:01:42 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:01:42 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 10:01:48 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 62hc07ulpk66g1couu1fjk4mj9
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:01:48 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:01:48 UTC] Session ID: 62hc07ulpk66g1couu1fjk4mj9
+[13-May-2025 10:01:48 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+)
+
+[13-May-2025 10:01:48 UTC] POST request received
+[13-May-2025 10:01:48 UTC] All cookies: Array
+(
+    [PHPSESSID] => 62hc07ulpk66g1couu1fjk4mj9
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:01:48 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => norbert@ddq.nl
+    [password] => inimini1
+)
+
+[13-May-2025 10:01:48 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:01:48 UTC] Login failed Error details: Ongeldige gebruikersnaam of wachtwoord.
+[13-May-2025 10:02:08 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 62hc07ulpk66g1couu1fjk4mj9
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:02:08 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:02:08 UTC] Session ID: 62hc07ulpk66g1couu1fjk4mj9
+[13-May-2025 10:02:08 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+)
+
+[13-May-2025 10:02:08 UTC] POST request received
+[13-May-2025 10:02:08 UTC] All cookies: Array
+(
+    [PHPSESSID] => 62hc07ulpk66g1couu1fjk4mj9
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:02:08 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:02:08 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:02:16 UTC] PHP Warning:  Undefined array key "temp_user" in /Users/norbertschmidt/Documents/GitHub/topdev/otp_verification.php on line 8
+[13-May-2025 10:03:17 UTC] Current cookies: Array
+(
+    [PHPSESSID] => unqpdgd5s2pk7hsod71jf2qs5b
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:03:17 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:03:17 UTC] Session ID: unqpdgd5s2pk7hsod71jf2qs5b
+[13-May-2025 10:03:17 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:03:17 UTC] POST request received
+[13-May-2025 10:03:17 UTC] All cookies: Array
+(
+    [PHPSESSID] => unqpdgd5s2pk7hsod71jf2qs5b
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:03:17 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:03:17 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:03:26 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 031dosvhkj5cbo7spr2tcd032r
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:03:26 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:03:26 UTC] Session ID: 031dosvhkj5cbo7spr2tcd032r
+[13-May-2025 10:03:26 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:04:27 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 031dosvhkj5cbo7spr2tcd032r
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:04:27 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:04:27 UTC] Session ID: 031dosvhkj5cbo7spr2tcd032r
+[13-May-2025 10:04:27 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:04:27 UTC] POST request received
+[13-May-2025 10:04:27 UTC] All cookies: Array
+(
+    [PHPSESSID] => 031dosvhkj5cbo7spr2tcd032r
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:04:27 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:04:27 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:04:28 UTC] [index.php] temp_user set in session: td-test
+[13-May-2025 10:04:28 UTC] [index.php] Session data before redirect to OTP: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:04:28 UTC] Current cookies: Array
+(
+    [PHPSESSID] => k3ab7bk2d95vnujt41tbkhlcm1
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:04:28 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:04:28 UTC] Session ID: k3ab7bk2d95vnujt41tbkhlcm1
+[13-May-2025 10:04:28 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:07:32 UTC] Current cookies: Array
+(
+    [PHPSESSID] => k3ab7bk2d95vnujt41tbkhlcm1
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:07:32 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:07:32 UTC] Session ID: k3ab7bk2d95vnujt41tbkhlcm1
+[13-May-2025 10:07:32 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:07:32 UTC] POST request received
+[13-May-2025 10:07:32 UTC] All cookies: Array
+(
+    [PHPSESSID] => k3ab7bk2d95vnujt41tbkhlcm1
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:07:32 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:07:32 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:07:38 UTC] [index.php] temp_user set in session: td-test
+[13-May-2025 10:07:38 UTC] [index.php] Session data before redirect to OTP: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:07:38 UTC] Current cookies: Array
+(
+    [PHPSESSID] => nvin7tt5ukkv442567pjfdfso5
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:07:38 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:07:38 UTC] Session ID: nvin7tt5ukkv442567pjfdfso5
+[13-May-2025 10:07:38 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:09:02 UTC] Current cookies: Array
+(
+    [PHPSESSID] => nvin7tt5ukkv442567pjfdfso5
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:09:02 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:09:02 UTC] Session ID: nvin7tt5ukkv442567pjfdfso5
+[13-May-2025 10:09:02 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:09:05 UTC] Current cookies: Array
+(
+    [PHPSESSID] => nvin7tt5ukkv442567pjfdfso5
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:09:05 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:09:05 UTC] Session ID: nvin7tt5ukkv442567pjfdfso5
+[13-May-2025 10:09:05 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:09:05 UTC] POST request received
+[13-May-2025 10:09:05 UTC] All cookies: Array
+(
+    [PHPSESSID] => nvin7tt5ukkv442567pjfdfso5
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:09:05 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:09:05 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:09:06 UTC] Current cookies: Array
+(
+    [PHPSESSID] => nvin7tt5ukkv442567pjfdfso5
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:09:06 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:09:06 UTC] Session ID: nvin7tt5ukkv442567pjfdfso5
+[13-May-2025 10:09:06 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:09:08 UTC] Current cookies: Array
+(
+    [PHPSESSID] => nvin7tt5ukkv442567pjfdfso5
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:09:08 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:09:08 UTC] Session ID: nvin7tt5ukkv442567pjfdfso5
+[13-May-2025 10:09:08 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:09:08 UTC] POST request received
+[13-May-2025 10:09:08 UTC] All cookies: Array
+(
+    [PHPSESSID] => nvin7tt5ukkv442567pjfdfso5
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:09:08 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:09:08 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 92
+[13-May-2025 10:09:09 UTC] Current cookies: Array
+(
+    [PHPSESSID] => nvin7tt5ukkv442567pjfdfso5
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:09:09 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:09:09 UTC] Session ID: nvin7tt5ukkv442567pjfdfso5
+[13-May-2025 10:09:09 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:10:00 UTC] Current cookies: Array
+(
+)
+
+[13-May-2025 10:10:00 UTC] Generated new CSRF token: a250c3478d88bd0b73b8054c98d00eaddb5f80a1f3aa7be7bf88bed004095228
+[13-May-2025 10:10:00 UTC] Using session CSRF token: a250c3478d88bd0b73b8054c98d00eaddb5f80a1f3aa7be7bf88bed004095228
+[13-May-2025 10:10:00 UTC] Session ID: e7kueut3kbvp0ltlfk7f5qkagt
+[13-May-2025 10:10:00 UTC] Session Data: Array
+(
+    [csrf_token] => a250c3478d88bd0b73b8054c98d00eaddb5f80a1f3aa7be7bf88bed004095228
+)
+
+[13-May-2025 10:10:04 UTC] Current cookies: Array
+(
+    [PHPSESSID] => e7kueut3kbvp0ltlfk7f5qkagt
+)
+
+[13-May-2025 10:10:04 UTC] Using session CSRF token: a250c3478d88bd0b73b8054c98d00eaddb5f80a1f3aa7be7bf88bed004095228
+[13-May-2025 10:10:04 UTC] Session ID: e7kueut3kbvp0ltlfk7f5qkagt
+[13-May-2025 10:10:04 UTC] Session Data: Array
+(
+    [csrf_token] => a250c3478d88bd0b73b8054c98d00eaddb5f80a1f3aa7be7bf88bed004095228
+)
+
+[13-May-2025 10:10:04 UTC] POST request received
+[13-May-2025 10:10:04 UTC] All cookies: Array
+(
+    [PHPSESSID] => e7kueut3kbvp0ltlfk7f5qkagt
+)
+
+[13-May-2025 10:10:04 UTC] All POST data: Array
+(
+    [csrf_token] => a250c3478d88bd0b73b8054c98d00eaddb5f80a1f3aa7be7bf88bed004095228
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:10:04 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 97
+[13-May-2025 10:10:05 UTC] Current cookies: Array
+(
+    [PHPSESSID] => e7kueut3kbvp0ltlfk7f5qkagt
+)
+
+[13-May-2025 10:10:05 UTC] Using session CSRF token: a250c3478d88bd0b73b8054c98d00eaddb5f80a1f3aa7be7bf88bed004095228
+[13-May-2025 10:10:05 UTC] Session ID: e7kueut3kbvp0ltlfk7f5qkagt
+[13-May-2025 10:10:05 UTC] Session Data: Array
+(
+    [csrf_token] => a250c3478d88bd0b73b8054c98d00eaddb5f80a1f3aa7be7bf88bed004095228
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:11:20 UTC] Current cookies: Array
+(
+    [PHPSESSID] => nvin7tt5ukkv442567pjfdfso5
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:11:20 UTC] Using session CSRF token: 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+[13-May-2025 10:11:20 UTC] Session ID: nvin7tt5ukkv442567pjfdfso5
+[13-May-2025 10:11:20 UTC] Session Data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [temp_user] => td-test
+)
+
+[13-May-2025 10:11:20 UTC] POST request received
+[13-May-2025 10:11:20 UTC] All cookies: Array
+(
+    [PHPSESSID] => nvin7tt5ukkv442567pjfdfso5
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:11:20 UTC] All POST data: Array
+(
+    [csrf_token] => 89eb174061a23a151aed77c4daa2589838415d4253fb8c795260ffd23937a4c7
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:11:20 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 97
+[13-May-2025 10:12:34 UTC] Current cookies: Array
+(
+    [PHPSESSID] => j229beh7ji6a333p4vuqqc62ge
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:12:34 UTC] Generated new CSRF token: 6b02730dfab8cccb6cfabf20bee02cc2c038bb38da5bfebda988583f9795e962
+[13-May-2025 10:12:34 UTC] Using session CSRF token: 6b02730dfab8cccb6cfabf20bee02cc2c038bb38da5bfebda988583f9795e962
+[13-May-2025 10:12:34 UTC] Session ID: a9kl6cvjcebbtsh08uvjrajahs
+[13-May-2025 10:12:34 UTC] Session Data: Array
+(
+    [csrf_token] => 6b02730dfab8cccb6cfabf20bee02cc2c038bb38da5bfebda988583f9795e962
+)
+
+[13-May-2025 10:12:38 UTC] Current cookies: Array
+(
+    [PHPSESSID] => a9kl6cvjcebbtsh08uvjrajahs
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:12:38 UTC] Using session CSRF token: 6b02730dfab8cccb6cfabf20bee02cc2c038bb38da5bfebda988583f9795e962
+[13-May-2025 10:12:38 UTC] Session ID: a9kl6cvjcebbtsh08uvjrajahs
+[13-May-2025 10:12:38 UTC] Session Data: Array
+(
+    [csrf_token] => 6b02730dfab8cccb6cfabf20bee02cc2c038bb38da5bfebda988583f9795e962
+)
+
+[13-May-2025 10:12:38 UTC] POST request received
+[13-May-2025 10:12:38 UTC] All cookies: Array
+(
+    [PHPSESSID] => a9kl6cvjcebbtsh08uvjrajahs
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 10:12:38 UTC] All POST data: Array
+(
+    [csrf_token] => 6b02730dfab8cccb6cfabf20bee02cc2c038bb38da5bfebda988583f9795e962
+    [username] => td-test
+    [password] => test_ultimum
+)
+
+[13-May-2025 10:12:38 UTC] PHP Deprecated:  Constant FILTER_SANITIZE_STRING is deprecated in /Users/norbertschmidt/Documents/GitHub/topdev/index.php on line 97

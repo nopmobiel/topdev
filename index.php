@@ -2,35 +2,105 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// Error handling
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/error.log');
+
+// Function to log and display errors
+function handleError($message, $error = null) {
+    $errorMessage = $message;
+    if ($error) {
+        $errorMessage .= " Error details: " . $error->getMessage();
+        error_log($errorMessage);
+    }
+    return $errorMessage;
+}
+
 require 'vendor/autoload.php';
 require_once 'settings.php';
-require_once 'functions.php'; // Create this file for helper functions
+require_once 'functions.php';
 
-// Secure session settings
-ini_set('session.cookie_secure', '1'); // Ensure cookies are sent over HTTPS
-ini_set('session.cookie_httponly', '1'); // Prevent JavaScript access to session cookies
-session_start();
-
-// Generate a CSRF token if one does not exist
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+// Set session save path
+$sessionPath = sys_get_temp_dir() . '/php_sessions';
+if (!file_exists($sessionPath)) {
+    mkdir($sessionPath, 0777, true);
 }
+ini_set('session.save_path', $sessionPath);
+
+// Explicitly set session cookie parameters before session_start()
+ini_set('session.cookie_lifetime', 0);
+ini_set('session.cookie_path', '/');
+ini_set('session.cookie_domain', 'localhost'); // Or use '' if preferred for localhost
+
+// Secure session settings (cookie_secure is conditional, httponly is true)
+ini_set('session.cookie_secure', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? '1' : '0');
+ini_set('session.cookie_httponly', '1');
+ini_set('session.gc_maxlifetime', 3600);
+ini_set('session.cookie_lifetime', 3600); // This might be redundant now, consider removing if cookie_lifetime 0 is desired for the session cookie itself
+ini_set('session.use_strict_mode', 1);
+ini_set('session.use_only_cookies', 1);
+
+// Simple token storage
+function getTokenFile() {
+    return sys_get_temp_dir() . '/token_' . session_id() . '.txt';
+}
+
+// Start session
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Debug current cookies
+error_log("Current cookies: " . print_r($_COOKIE, true));
+
+// Generate or retrieve CSRF token in session
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    error_log("Generated new CSRF token: " . $_SESSION['csrf_token']);
+}
+$token = $_SESSION['csrf_token'];
+error_log("Using session CSRF token: " . $token);
+
+// Basic session debug
+error_log("Session ID: " . session_id());
+error_log("Session Data: " . print_r($_SESSION, true));
 
 $error_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verify CSRF token
-    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
-        die("CSRF token validation failed");
-    }
+    try {
+        // Debug token validation
+        error_log("POST request received");
+        error_log("All cookies: " . print_r($_COOKIE, true));
+        error_log("All POST data: " . print_r($_POST, true));
+        
+        // Verify token
+        if (!isset($_POST['csrf_token'])) {
+            error_log("POST token is missing");
+            throw new Exception("Security token missing. Please refresh the page and try again.");
+        }
+        
+        if (!isset($_SESSION['csrf_token'])) {
+            error_log("Session token is missing");
+            throw new Exception("Security token missing. Please refresh the page and try again.");
+        }
+        
+        if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+            error_log("Token mismatch - Session: " . $_SESSION['csrf_token'] . " vs POST: " . $_POST['csrf_token']);
+            throw new Exception("Invalid security token. Please refresh the page and try again.");
+        }
 
-    // Sanitize input
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-    $password = $_POST['password'];
+        // Sanitize input
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        $password = $_POST['password'];
 
-    if (empty($username) || empty($password)) {
-        $error_message = "Vul alstublieft alle velden in.";
-    } else {
+        if (empty($username) || empty($password)) {
+            throw new Exception("Vul alstublieft alle velden in.");
+        }
+
         try {
             $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -39,42 +109,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute([':username' => $username]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($user && password_verify($password, $user['Hash'])) {
-                // Regenerate session ID to prevent session fixation
-                session_regenerate_id(true);
+            if (!$user) {
+                throw new Exception("Ongeldige gebruikersnaam of wachtwoord.");
+            }
 
-                if (!empty($user['Email'])) {
-                    // Handle 2FA
-                    $otp = generateOTP();
-                    $currentDateTime = date('Y-m-d H:i:s');
-                    
-                    $stmtOtp = $pdo->prepare("UPDATE tblDienst SET Otp = :otp, OtpTimestamp = :otpTimestamp WHERE User = :username");
-                    $stmtOtp->execute(['otp' => $otp, 'otpTimestamp' => $currentDateTime, 'username' => $username]);
-                    
-                    if (sendOTPEmail($user['Email'], $otp)) {
-                        $_SESSION['temp_user'] = $user['User'];
-                        header("Location: otp_verification.php");
-                        exit();
-                    } else {
-                        $error_message = "Er is een fout opgetreden bij het verzenden van de e-mail. Probeer het later opnieuw.";
-                    }
-                } else {
-                    // Direct login for users without email
-                    $_SESSION['DienstID'] = $user['DienstID'];
-                    $_SESSION['Dienstnaam'] = $user['Dienstnaam'];
-                    $_SESSION['Systeem'] = $user['Systeem'];
-                    $_SESSION['User'] = $user['User'];
-                    header("Location: upload.php");
-                    exit();
+            if (!password_verify($password, $user['Hash'])) {
+                throw new Exception("Ongeldige gebruikersnaam of wachtwoord.");
+            }
+
+            if (!empty($user['Email'])) {
+                // Handle 2FA
+                $otp = generateOTP();
+                $currentDateTime = date('Y-m-d H:i:s');
+                
+                $stmtOtp = $pdo->prepare("UPDATE tblDienst SET Otp = :otp, OtpTimestamp = :otpTimestamp WHERE User = :username");
+                if (!$stmtOtp->execute(['otp' => $otp, 'otpTimestamp' => $currentDateTime, 'username' => $username])) {
+                    throw new Exception("Failed to update OTP in database");
                 }
+                
+                if (!sendOTPEmail($user['Email'], $otp)) {
+                    throw new Exception("Er is een fout opgetreden bij het verzenden van de e-mail. Probeer het later opnieuw.");
+                }
+                
+                // Store username in session using both temp_user and a cookie backup
+                $_SESSION['temp_user'] = $user['User'];
+                
+                // Force session data to be saved before redirecting
+                session_write_close();
+                
+                // Redirect with the session ID in the URL as a fallback mechanism
+                header("Location: otp_verification.php?sid=" . urlencode(session_id()) . "&user=" . urlencode($user['User']));
+                exit();
             } else {
-                $error_message = "Ongeldige gebruikersnaam of wachtwoord.";
-                // Optionally, log the failed attempt here
+                // Direct login for users without email
+                $_SESSION['DienstID'] = $user['DienstID'];
+                $_SESSION['Dienstnaam'] = $user['Dienstnaam'];
+                $_SESSION['Systeem'] = $user['Systeem'];
+                $_SESSION['User'] = $user['User'];
+                header("Location: upload.php");
+                exit();
             }
         } catch (PDOException $e) {
-            error_log("Database Error: " . $e->getMessage());
-            $error_message = "Er is een fout opgetreden. Probeer het later opnieuw.";
+            throw new Exception("Database error: " . $e->getMessage());
         }
+    } catch (Exception $e) {
+        $error_message = handleError("Login failed", $e);
     }
 }
 ?>
@@ -97,10 +176,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="card-body">
                         <?php if (!empty($error_message)): ?>
-                            <div class="alert alert-danger" role="alert"><?php echo htmlspecialchars($error_message); ?></div>
+                            <div class="alert alert-danger" role="alert">
+                                <?php echo htmlspecialchars($error_message ?? ''); ?>
+                            </div>
                         <?php endif; ?>
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="p-3">
-                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] ?? ''); ?>" method="post" class="p-3">
+                            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($token ?? ''); ?>">
                             <div class="form-group">
                                 <label for="username">Gebruikersnaam</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
@@ -120,7 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <footer class="footer">
         <div class="container text-center">
-            <span>Software versie 3.0 <a href="https://www.ddcare.nl" target="_blank">DDCare B.V.</a> ism PGN</span>
+            <span>Software versie 2.0 <a href="https://www.ddcare.nl" target="_blank">DDCare B.V.</a> ism PGN</span>
         </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

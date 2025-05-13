@@ -39,8 +39,9 @@ $message = "";
 
 // Step 1: Check if file was uploaded without errors
 if (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] != 0) {
-    $message = "Fout: " . $_FILES['fileToUpload']['error'];
-    goto end_processing;
+    $error = $_FILES['fileToUpload']['error'];
+    error_log("File Upload Error: " . $error);
+    die("File upload error: " . $error);
 }
 
 $uploadedFile = $_FILES['fileToUpload']['tmp_name'];
@@ -73,8 +74,8 @@ if ($fileDate !== $currentDate) {
 $newFileName = uniqid() . '.' . $fileExtension;
 $destinationPath = $uploadDir . $newFileName;
 if (!move_uploaded_file($uploadedFile, $destinationPath)) {
-    $message = "Sorry, er is een fout opgetreden bij het uploaden van uw bestand.";
-    goto end_processing;
+    error_log("Failed to move uploaded file to: " . $destinationPath);
+    die("Failed to move uploaded file");
 }
 
 // Step 6: Create a copy of the original file
@@ -107,7 +108,14 @@ if ($importResult !== true) {
 }
 
 // Step 9: Insert the header record
-insertHeaderRecord($dienstID, $systeem);
+try {
+    if (!insertHeaderRecord($dienstID, $systeem)) {
+        throw new Exception("Failed to insert header record");
+    }
+} catch (Exception $e) {
+    error_log("Processing Error: " . $e->getMessage());
+    die("Error during processing: " . $e->getMessage());
+}
 
 // Step 10: Import the rest of the records into tblWord<dienstId>
 $wordTableName = "tblWord" . $dienstID;
@@ -119,18 +127,33 @@ if ($wordImportResult !== true) {
 }
 
 // Step 11: Process barcodes for the word table
-if (!processWordTableBarcodes($dienstID, $systeem)) {
-    $message = "Bestand geüpload, word tabel geïmporteerd, maar er was een fout bij het bijwerken van de barcodes. Export niet uitgevoerd.";
-    goto end_processing;
+try {
+    if (!processWordTableBarcodes($dienstID, $systeem)) {
+        throw new Exception("Failed to process barcodes");
+    }
+} catch (Exception $e) {
+    error_log("Processing Error: " . $e->getMessage());
+    die("Error during processing: " . $e->getMessage());
 }
 
 // New Step: Process uitzonderingen
-processUitzonderingen($dienstID);
+try {
+    if (!processUitzonderingen($dienstID)) {
+        throw new Exception("Failed to process exceptions");
+    }
+} catch (Exception $e) {
+    error_log("Processing Error: " . $e->getMessage());
+    die("Error during processing: " . $e->getMessage());
+}
 
 // Step 12: Insert online record
-if (!insertOnlineRecord($dienstID, $originalFileName, $lineCount)) {
-    $message = "Bestand geüpload en verwerkt, maar er was een fout bij het opslaan van het online record. Export niet uitgevoerd.";
-    goto end_processing;
+try {
+    if (!insertOnlineRecord($dienstID, $originalFileName, $lineCount)) {
+        throw new Exception("Failed to insert online record");
+    }
+} catch (Exception $e) {
+    error_log("Processing Error: " . $e->getMessage());
+    die("Error during processing: " . $e->getMessage());
 }
 
 // Step 13: Export processing starts here

@@ -1,11 +1,32 @@
 <?php
+// Set session ID from URL parameter BEFORE starting any session
+if (isset($_GET['sid'])) {
+    // Only set the session ID if no session is active yet
+    if (session_status() == PHP_SESSION_NONE) {
+        session_id($_GET['sid']);
+    }
+}
+
+// Start the session ONCE
 session_start();
 
+// Check if temp_user is set in session, if not, try to get it from URL parameters
+if (!isset($_SESSION['temp_user']) && isset($_GET['user'])) {
+    $_SESSION['temp_user'] = $_GET['user'];
+}
+
+// If temp_user still not set, redirect to login
+if (!isset($_SESSION['temp_user'])) {
+    header("Location: index.php");
+    exit();
+}
+
+// From here, $_SESSION['temp_user'] should be available
+$username = $_SESSION['temp_user']; // Retrieve username from session
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'settings.php'; // Database settings
     $inputOtp = $_POST['otp'];
-    $username = $_SESSION['temp_user']; // Retrieve username from session
 
     try {
         $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
@@ -29,6 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmtUserDetails->bindParam(':username', $username);
                 $stmtUserDetails->execute();
                 $userDetails = $stmtUserDetails->fetch(PDO::FETCH_ASSOC);
+
+                // Regenerate session ID now that OTP is verified, before setting final session data
+                if (!session_regenerate_id(true)) {
+                    // Handle error if session regeneration fails, perhaps log and show generic error
+                    echo "<div class='alert alert-danger'>Sessieherstel mislukt. Probeer opnieuw in te loggen.</div>";
+                    exit();
+                }
 
                 // Set required session variables
                 $_SESSION['DienstID'] = $userDetails['DienstID'];

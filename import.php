@@ -26,10 +26,11 @@ function insertHeaderRecord($dienstID, $system) {
 
 
 function importTrodis($inputfile, $tablename, $empty = true) {
-    // First, convert the file
-
     try {
-        // Attempt to enable LOCAL INFILE
+        if (!file_exists($inputfile)) {
+            throw new Exception("Input file not found: " . $inputfile);
+        }
+
         $options = array(
             PDO::MYSQL_ATTR_LOCAL_INFILE => true,
         );
@@ -54,23 +55,26 @@ function importTrodis($inputfile, $tablename, $empty = true) {
         // Execute the query
         $result = $pdo->exec($query);
 
-        if ($result !== false) {
-          //  echo "Data imported successfully. Rows affected: $result";
-            return true;
-        } else {
-         //   echo "Error importing data.";
-            return false;
+        if ($result === false) {
+            throw new Exception("Failed to import data into table: " . $tablename);
         }
+
+        return true;
     } catch (PDOException $e) {
-        error_log("Database Error: " . $e->getMessage());
-        echo "An error occurred while importing data: " . $e->getMessage();
-        return false;
+        error_log("Database Error in importTrodis: " . $e->getMessage());
+        throw new Exception("Database error during import: " . $e->getMessage());
+    } catch (Exception $e) {
+        error_log("Error in importTrodis: " . $e->getMessage());
+        throw $e;
     }
 }
 
 function importAvita($inputFile, $tableName, $empty = true) {
     try {
-        // Attempt to enable LOCAL INFILE
+        if (!file_exists($inputFile)) {
+            throw new Exception("Input file not found: " . $inputFile);
+        }
+
         $options = array(
             PDO::MYSQL_ATTR_LOCAL_INFILE => true,
         );
@@ -96,33 +100,42 @@ function importAvita($inputFile, $tableName, $empty = true) {
         // Execute the query
         $result = $pdo->exec($query);
 
-        if ($result !== false) {
-        //    echo "Data imported successfully. Rows affected: $result";
-            return true;
-        } else {
-            echo "Error importing data.";
-            return false;
+        if ($result === false) {
+            throw new Exception("Failed to import data into table: " . $tableName);
         }
+
+        return true;
     } catch (PDOException $e) {
-        error_log("Database Error: " . $e->getMessage());
-        echo "An error occurred while importing data: " . $e->getMessage();
-        return false;
+        error_log("Database Error in importAvita: " . $e->getMessage());
+        throw new Exception("Database error during import: " . $e->getMessage());
+    } catch (Exception $e) {
+        error_log("Error in importAvita: " . $e->getMessage());
+        throw $e;
     }
 }
 
 function processWordTableBarcodes($dienstID, $system) {
-    $options = [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES   => false,
-    ];
-
     try {
-        $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS, $options);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        if (empty($dienstID) || empty($system)) {
+            throw new Exception("Missing required parameters: dienstID or system");
+        }
 
+        $options = [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ];
+
+        $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS, $options);
+        
         $tableName = "tblWord" . $dienstID;
         $fieldName = ($system === 'porta2') ? 'labnummer' : 'werknr';
+
+        // Verify table exists
+        $stmt = $pdo->query("SHOW TABLES LIKE '$tableName'");
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Table does not exist: " . $tableName);
+        }
 
         $query = "SELECT $fieldName FROM $tableName WHERE $fieldName != :fieldName";
         $stmt = $pdo->prepare($query);
@@ -146,28 +159,46 @@ function processWordTableBarcodes($dienstID, $system) {
 
         return true;
     } catch (PDOException $e) {
-        error_log("PDO Error: " . $e->getMessage());
-        return false;
+        error_log("PDO Error in processWordTableBarcodes: " . $e->getMessage());
+        throw new Exception("Database error during barcode processing: " . $e->getMessage());
     } catch (Exception $e) {
-        error_log("Error: " . $e->getMessage());
-        return false;
+        error_log("Error in processWordTableBarcodes: " . $e->getMessage());
+        throw $e;
     }
 }
 
-function insertOnlineRecord($dienstID) {
-    $wordTableName = "tblWord" . $dienstID;
-    $onlineTableName = "tblOnline" . $dienstID;
-    
+function insertOnlineRecord($dienstID, $filename, $lineCount) {
     try {
+        if (empty($dienstID) || empty($filename) || empty($lineCount)) {
+            throw new Exception("Missing required parameters for online record");
+        }
+
         $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $query = "INSERT IGNORE INTO `$onlineTableName` SELECT * FROM `$wordTableName`";
-        $pdo->exec($query);
+        // Verify table exists
+        $stmt = $pdo->query("SHOW TABLES LIKE 'tblOnline'");
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Table tblOnline does not exist");
+        }
+
+        $stmt = $pdo->prepare("INSERT INTO tblOnline (DienstID, Filename, LineCount, UploadDate) VALUES (:dienstID, :filename, :lineCount, NOW())");
+        $result = $stmt->execute([
+            ':dienstID' => $dienstID,
+            ':filename' => $filename,
+            ':lineCount' => $lineCount
+        ]);
+
+        if (!$result) {
+            throw new Exception("Failed to insert online record");
+        }
 
         return true;
     } catch (PDOException $e) {
         error_log("Database Error in insertOnlineRecord: " . $e->getMessage());
-        return false;
+        throw new Exception("Database error during online record insertion: " . $e->getMessage());
+    } catch (Exception $e) {
+        error_log("Error in insertOnlineRecord: " . $e->getMessage());
+        throw $e;
     }
 }
