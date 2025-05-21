@@ -2356,3 +2356,96 @@ Stack trace:
     [csrf_token] => 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
 )
 
+[13-May-2025 12:46:14 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 6t34c488e2jgu86m01dmu18q7o
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:46:14 UTC] Using session CSRF token: 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+[13-May-2025 12:46:14 UTC] Session ID: 6t34c488e2jgu86m01dmu18q7o
+[13-May-2025 12:46:14 UTC] Session Data: Array
+(
+    [csrf_token] => 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+)
+
+[13-May-2025 12:46:14 UTC] POST request received
+[13-May-2025 12:46:14 UTC] All cookies: Array
+(
+    [PHPSESSID] => 6t34c488e2jgu86m01dmu18q7o
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[13-May-2025 12:46:14 UTC] All POST data: Array
+(
+    [csrf_token] => 8703aa20355dbf6263b85b2971d9a4904f275ae8946da3554fcb433bfcf2ebfb
+    [username] => td-test
+    [password] => Inimini3!
+)
+
+[21-May-2025 08:48:35 UTC] Current cookies: Array
+(
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[21-May-2025 08:48:35 UTC] Generated new CSRF token: edd4bca04081294e7dfbcb5bdf82a340e1adc8f1af47eb924ebd90f75cf425d4
+[21-May-2025 08:48:35 UTC] Using session CSRF token: edd4bca04081294e7dfbcb5bdf82a340e1adc8f1af47eb924ebd90f75cf425d4
+[21-May-2025 08:48:35 UTC] Session ID: skkj1rjoqfp0mtb0mjlb11dgmf
+[21-May-2025 08:48:35 UTC] Session Data: Array
+(
+    [csrf_token] => edd4bca04081294e7dfbcb5bdf82a340e1adc8f1af47eb924ebd90f75cf425d4
+)
+
+[21-May-2025 08:48:41 UTC] Current cookies: Array
+(
+    [PHPSESSID] => skkj1rjoqfp0mtb0mjlb11dgmf
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[21-May-2025 08:48:41 UTC] Using session CSRF token: edd4bca04081294e7dfbcb5bdf82a340e1adc8f1af47eb924ebd90f75cf425d4
+[21-May-2025 08:48:41 UTC] Session ID: skkj1rjoqfp0mtb0mjlb11dgmf
+[21-May-2025 08:48:41 UTC] Session Data: Array
+(
+    [csrf_token] => edd4bca04081294e7dfbcb5bdf82a340e1adc8f1af47eb924ebd90f75cf425d4
+)
+
+[21-May-2025 08:48:41 UTC] POST request received
+[21-May-2025 08:48:41 UTC] All cookies: Array
+(
+    [PHPSESSID] => skkj1rjoqfp0mtb0mjlb11dgmf
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[21-May-2025 08:48:41 UTC] All POST data: Array
+(
+    [csrf_token] => edd4bca04081294e7dfbcb5bdf82a340e1adc8f1af47eb924ebd90f75cf425d4
+    [username] => td-test
+    [password] => Inimini3!
+)
+
+[21-May-2025 08:51:49 UTC] Current cookies: Array
+(
+    [PHPSESSID] => 8j2et8asm0j9h87h4genbpisla
+    [ajs_anonymous_id] => b47f188f-4b50-4952-8dc7-fca0f363fdff
+    [G_ENABLED_IDPS] => google
+    [__stripe_mid] => 607dd818-d9ca-4f28-a81c-7e72f56a55393f7aa7
+)
+
+[21-May-2025 08:51:49 UTC] Generated new CSRF token: 8f771e3acf41c9d24450e177fc71c08875d52d79ba246e8cca2610e27a016965
+[21-May-2025 08:51:49 UTC] Using session CSRF token: 8f771e3acf41c9d24450e177fc71c08875d52d79ba246e8cca2610e27a016965
+[21-May-2025 08:51:49 UTC] Session ID: 354t2dhgjrtvnpq37fv8ir42se
+[21-May-2025 08:51:49 UTC] Session Data: Array
+(
+    [csrf_token] => 8f771e3acf41c9d24450e177fc71c08875d52d79ba246e8cca2610e27a016965
+)
+
