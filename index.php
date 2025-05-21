@@ -142,6 +142,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['Dienstnaam'] = $user['Dienstnaam'];
                 $_SESSION['Systeem'] = $user['Systeem'];
                 $_SESSION['User'] = $user['User'];
+                
+                // Force session data to be saved before redirecting
+                session_write_close();
+                
                 header("Location: upload.php");
                 exit();
             }
