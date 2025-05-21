@@ -1,6 +1,10 @@
 <?php
 // Include deployment configuration (handles environment-specific settings)
-require_once 'deploy_config.php';
+if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'top.trombose.net') {
+    require_once 'deploy_config.prod.php';
+} else {
+    require_once 'deploy_config.test.php';
+}
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
