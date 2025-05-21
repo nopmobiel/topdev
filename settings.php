@@ -10,10 +10,10 @@ if (file_exists($envFile)) {
 
 // Error reporting settings
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+ini_set('display_errors', 0);  // Disable error display in production
+ini_set('display_startup_errors', 0);
 ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/error.log');
+ini_set('error_log', __DIR__ . '/../logs/error.log');  // Move log file outside web root
 
 // Database settings
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
