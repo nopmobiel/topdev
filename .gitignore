@@ -2,3 +2,4 @@
 topdev.sql
 .env
 topdev_backup.sql
+/sessions

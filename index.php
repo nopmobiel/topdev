@@ -1,10 +1,5 @@
 <?php
-// Include deployment configuration (handles environment-specific settings)
-if (isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === 'top.trombose.net') {
-    require_once 'deploy_config.prod.php';
-} else {
-    require_once 'deploy_config.test.php';
-}
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -54,6 +49,19 @@ error_log("Using session CSRF token: " . $token);
 // Basic session debug
 error_log("Session ID: " . session_id());
 error_log("Session Data: " . print_r($_SESSION, true));
+
+// Basic session configuration
+ini_set('session.cookie_httponly', '1');
+ini_set('session.use_strict_mode', '1');
+ini_set('session.use_only_cookies', '1');
+ini_set('session.gc_maxlifetime', '3600');
+
+// Ensure session directory exists and is writable
+$sessionPath = sys_get_temp_dir() . '/php_sessions';
+if (!file_exists($sessionPath)) {
+    mkdir($sessionPath, 0777, true);
+}
+ini_set('session.save_path', $sessionPath);
 
 $error_message = '';
 
@@ -106,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Check if user has Google Authenticator enabled
             if (!empty($user['GoogleAuth']) && $user['GoogleAuth'] == 1) {
-                // Store username in session
+                echo "DEBUG: User has Google Auth enabled<br>";
                 $_SESSION['temp_user'] = $user['User'];
                 $_SESSION['ga_required'] = true;
                 
@@ -114,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: google_auth_verify.php");
                 exit();
             } else if (!empty($user['Email'])) {
-                // Handle 2FA with email OTP
+                echo "DEBUG: User has Email auth enabled<br>";
                 $otp = generateOTP();
                 $currentDateTime = date('Y-m-d H:i:s');
                 
@@ -137,15 +145,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: otp_verification.php?sid=" . urlencode(session_id()) . "&user=" . urlencode($user['User']));
                 exit();
             } else {
-                // Direct login for users without email or Google Auth
+                echo "DEBUG: Starting direct login flow<br>";
+                echo "DEBUG: User data - GoogleAuth: " . $user['GoogleAuth'] . ", Email: " . $user['Email'] . "<br>";
+                echo "DEBUG: Full user data: <pre>" . print_r($user, true) . "</pre>";
+                
+                // Set session variables
                 $_SESSION['DienstID'] = $user['DienstID'];
                 $_SESSION['Dienstnaam'] = $user['Dienstnaam'];
                 $_SESSION['Systeem'] = $user['Systeem'];
                 $_SESSION['User'] = $user['User'];
                 
-                // Force session data to be saved before redirecting
+                echo "DEBUG: Session after setting variables: <pre>" . print_r($_SESSION, true) . "</pre>";
+                
+                // Force session write
                 session_write_close();
                 
+                echo "DEBUG: Redirecting to upload.php<br>";
                 header("Location: upload.php");
                 exit();
             }
