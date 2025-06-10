@@ -1,5 +1,5 @@
 <?php
-// Global error suppression
+// Global error suppression - MUST be first
 error_reporting(0);
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
@@ -57,4 +57,6 @@ define('SMTP_USERNAME', getenv('SMTP_USERNAME') ?: '');
 define('SMTP_PASSWORD', getenv('SMTP_PASSWORD') ?: '');
 define('SMTP_FROM_EMAIL', getenv('SMTP_FROM_EMAIL') ?: '');
 define('SMTP_FROM_NAME', getenv('SMTP_FROM_NAME') ?: '');
+
+$envFile = __DIR__ . '/../.env';
 ?>
