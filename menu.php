@@ -23,6 +23,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="download.php?file=uitzonderingen.csv" class="list-group-item <?php echo (($current_page == 'download.php') && ($_GET['file'] ?? '') == 'uitzonderingen.csv') ? 'active' : ''; ?>">
             Download uitzonderingen
         </a>
+        <a href="calendar_view.php" class="list-group-item <?php echo ($current_page == 'calendar_view.php') ? 'active' : ''; ?>">
+            Kalenderoverzicht
+        </a>
         <a href="change_password.php" class="list-group-item <?php echo ($current_page == 'change_password.php') ? 'active' : ''; ?>">
             Wachtwoord wijzigen
         </a>

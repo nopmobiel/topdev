@@ -47,10 +47,171 @@ function handleError($message, $error = null) {
 $patientId = $_GET['id'] ?? '';
 $dienstId = $_SESSION['DienstID'];
 
+// NEW: If no patient ID, show batch view
 if (empty($patientId)) {
-    handleError("Patient ID is missing.");
+    // Pagination for batch view
+    $recordsPerPage = 6; // Show 6 calendars per page
+    $page = $_GET['page'] ?? 1;
+    $offset = ($page - 1) * $recordsPerPage;
+    
+    try {
+        $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Get system type
+        $stmt = $pdo->prepare("SELECT systeem FROM tblDienst WHERE DienstID = :dienstId");
+        $stmt->execute(['dienstId' => $dienstId]);
+        $systeem = $stmt->fetchColumn();
+
+        // Get from tblWord instead of tblOnline
+        $tableName = "tblWord" . $dienstId;
+        
+        // Get total count
+        if ($systeem === 'trodis') {
+            $countStmt = $pdo->query("SELECT COUNT(*) FROM $tableName 
+                                     WHERE CONCAT(COALESCE(`w1-ma`,''), COALESCE(`w1-di`,''), COALESCE(`w1-wo`,''), 
+                                                 COALESCE(`w1-do`,''), COALESCE(`w1-vr`,''), COALESCE(`w1-za`,''), COALESCE(`w1-zo`,''),
+                                                 COALESCE(`w2-ma`,''), COALESCE(`w2-di`,''), COALESCE(`w2-wo`,''), 
+                                                 COALESCE(`w2-do`,''), COALESCE(`w2-vr`,''), COALESCE(`w2-za`,''), COALESCE(`w2-zo`,'')) != ''");
+        } else {
+            $countStmt = $pdo->query("SELECT COUNT(*) FROM $tableName 
+                                     WHERE CONCAT(COALESCE(wk1d1,''), COALESCE(wk1d2,''), COALESCE(wk1d3,''), 
+                                                 COALESCE(wk1d4,''), COALESCE(wk1d5,''), COALESCE(wk1d6,''), COALESCE(wk1d7,''),
+                                                 COALESCE(wk2d1,''), COALESCE(wk2d2,''), COALESCE(wk2d3,'')) != ''");
+        }
+        $totalRecords = $countStmt->fetchColumn();
+        $totalPages = ceil($totalRecords / $recordsPerPage);
+        
+        // Get current page records - FILTER OUT EMPTY CALENDARS
+        if ($systeem === 'trodis') {
+            // For Trodis: check if any w*-* fields have values
+            $stmt = $pdo->prepare("SELECT * FROM $tableName 
+                                  WHERE CONCAT(COALESCE(`w1-ma`,''), COALESCE(`w1-di`,''), COALESCE(`w1-wo`,''), 
+                                              COALESCE(`w1-do`,''), COALESCE(`w1-vr`,''), COALESCE(`w1-za`,''), COALESCE(`w1-zo`,''),
+                                              COALESCE(`w2-ma`,''), COALESCE(`w2-di`,''), COALESCE(`w2-wo`,''), 
+                                              COALESCE(`w2-do`,''), COALESCE(`w2-vr`,''), COALESCE(`w2-za`,''), COALESCE(`w2-zo`,'')) != ''
+                                  LIMIT :limit OFFSET :offset");
+        } else {
+            // For Porta2: check if any wk*d* fields have values  
+            $stmt = $pdo->prepare("SELECT * FROM $tableName 
+                                  WHERE CONCAT(COALESCE(wk1d1,''), COALESCE(wk1d2,''), COALESCE(wk1d3,''), 
+                                              COALESCE(wk1d4,''), COALESCE(wk1d5,''), COALESCE(wk1d6,''), COALESCE(wk1d7,''),
+                                              COALESCE(wk2d1,''), COALESCE(wk2d2,''), COALESCE(wk2d3,'')) != ''
+                                  LIMIT :limit OFFSET :offset");
+        }
+
+        $stmt->bindValue(':limit', $recordsPerPage, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        $patients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+    } catch (PDOException $e) {
+        handleError("Database error occurred", $e);
+    }
+    
+    // Render batch view
+    ?>
+    <!DOCTYPE html>
+    <html lang="nl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Batch Kalender Overzicht</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/site.css">
+        <style>
+            .calendar-mini { transform: scale(0.7); transform-origin: top left; }
+            .calendar-card { height: 600px; overflow: hidden; }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <?php include 'menu.php'; ?>
+                
+                <main class="col-md-10 py-2 pl-4 pr-4">
+                    <div class="form-header">
+                        <h1>Batch Kalender Overzicht</h1>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <nav aria-label="Calendar pagination">
+                        <ul class="pagination justify-content-center">
+                            <?php if($page > 1): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=<?php echo $page-1; ?>">Vorige</a>
+                                </li>
+                            <?php endif; ?>
+                            
+                            <?php for($i = max(1, $page-2); $i <= min($totalPages, $page+2); $i++): ?>
+                                <li class="page-item <?php echo $i == $page ? 'active' : ''; ?>">
+                                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                </li>
+                            <?php endfor; ?>
+                            
+                            <?php if($page < $totalPages): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=<?php echo $page+1; ?>">Volgende</a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
+                    
+                    <!-- Calendar Grid -->
+                    <div class="row">
+                        <?php foreach($patients as $patient): ?>
+                            <div class="col-md-6 mb-4">
+                                <div class="card calendar-card">
+                                    <div class="card-body calendar-mini">
+                                        <?php
+                                        if ($systeem === 'trodis') {
+                                            echo generateTrodisLayout($patient);
+                                        } elseif ($systeem === 'porta2') {
+                                            echo generatePorta2Layout($patient);
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a href="?id=<?php echo urlencode($patient['patientnummer']); ?>" 
+                                           class="btn btn-sm btn-primary">
+                                            Volledige kalender
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                    
+                    <!-- Bottom Pagination -->
+                    <nav aria-label="Calendar pagination">
+                        <ul class="pagination justify-content-center">
+                            <?php if($page > 1): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=<?php echo $page-1; ?>">Vorige</a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if($page < $totalPages): ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=<?php echo $page+1; ?>">Volgende</a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </nav>
+
+                    <div class="text-center mt-3 mb-4">
+                        <p class="text-muted">Totaal: <?php echo $totalRecords; ?> kalenders | Pagina <?php echo $page; ?> van <?php echo $totalPages; ?></p>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </body>
+    </html>
+    <?php
+    ob_end_flush();
+    exit;
 }
 
+// EXISTING: Single patient view (when ID is provided)
 // Fetch system type and patient data
 try {
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
@@ -65,8 +226,8 @@ try {
         handleError("System type not found for DienstID: " . htmlspecialchars($dienstId));
     }
 
-    // Fetch patient data
-    $tableName = "tblOnline" . $dienstId;
+    // Fetch patient data from tblWord instead of tblOnline
+    $tableName = "tblWord" . $dienstId;
     $stmt = $pdo->prepare("SELECT * FROM $tableName WHERE patientnummer = :patientId");
     $stmt->execute(['patientId' => $patientId]);
     $patientData = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -226,8 +387,6 @@ function generateTrodisLayout($patientData) {
     <?php
     return ob_get_clean();
 }
-
-
 
 function generatePorta2Layout($patientData) {
     ob_start();
