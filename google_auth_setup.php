@@ -219,116 +219,98 @@ function sendGoogleAuthDisabledEmail($email, $username) {
     <title>Google Authenticator instellen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/site.css">
-    <style>
-        /* Override any problematic styles */
-        .form-container .card-body {
-            color: #000000;
-            background-color: #ffffff;
-        }
-        .form-container .card-body p,
-        .form-container .card-body ul,
-        .form-container .card-body li,
-        .form-container .card-body label,
-        .form-container .card-body strong {
-            color: #000000;
-        }
-        .form-container a {
-            color: #0000EE;
-        }
-        .form-container a:hover {
-            color: #0000AA;
-        }
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        .alert-danger strong {
-            color: #721c24;
-        }
-    </style>
 </head>
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <?php include 'menu.php'; ?>
-            
-            <main class="col-md-10 py-2 pl-4 pr-4">
+<body>  
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
                 <div class="form-container">
                     <div class="form-header">
                         <h1>Google Authenticator instellen</h1>
                     </div>
-                    
-                    <?php if ($error): ?>
-                        <div class="alert alert-danger" role="alert"><?php echo htmlspecialchars($error); ?></div>
-                    <?php endif; ?>
-                    
-                    <?php if ($success): ?>
-                        <div class="alert alert-success" role="alert"><?php echo htmlspecialchars($success); ?></div>
-                    <?php endif; ?>
-                    
-                    <div class="card mb-4">
-                        <div class="card-header">
+                    <div class="card-body">
+                        <?php if ($error): ?>
+                            <div class="alert alert-danger" role="alert"><?php echo htmlspecialchars($error); ?></div>
+                        <?php endif; ?>
+                        
+                        <?php if ($success): ?>
+                            <div class="alert alert-success" role="alert"><?php echo htmlspecialchars($success); ?></div>
+                        <?php endif; ?>
+                        
+                        <div class="mb-4">
                             <h5>Tweestapsverificatie met Google Authenticator</h5>
-                        </div>
-                        <div class="card-body">
-                            <p style="color: #000 !important;">Google Authenticator biedt een extra beveiligingslaag voor uw account door middel van tweestapsverificatie. Naast uw wachtwoord heeft u ook een tijdelijke code nodig die wordt gegenereerd door de Google Authenticator app op uw smartphone.</p>
-                            <p style="color: #000 !important;">De app is beschikbaar voor:</p>
-                            <ul style="color: #000 !important;">
-                                <li style="color: #000 !important;"><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank">Android</a></li>
-                                <li style="color: #000 !important;"><a href="https://apps.apple.com/nl/app/google-authenticator/id388497605" target="_blank">iOS (iPhone, iPad)</a></li>
+                            <p>Google Authenticator biedt een extra beveiligingslaag voor uw account door middel van tweestapsverificatie. Naast uw wachtwoord heeft u ook een tijdelijke code nodig die wordt gegenereerd door de Google Authenticator app op uw smartphone.</p>
+                            <p>De app is beschikbaar voor:</p>
+                            <ul>
+                                <li><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank">Android</a></li>
+                                <li><a href="https://apps.apple.com/nl/app/google-authenticator/id388497605" target="_blank">iOS (iPhone, iPad)</a></li>
                             </ul>
+                        </div>
+                        
+                        <?php if ($ga_enabled): ?>
+                            <div class="alert alert-success" role="alert">
+                                <strong>Google Authenticator is succesvol ingesteld en geactiveerd.</strong><br>
+                                Voortaan zult u bij het inloggen om een verificatiecode worden gevraagd.
+                            </div>
                             
-                            <?php if ($ga_enabled): ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <strong>Google Authenticator is ingeschakeld voor uw account</strong><br>
-                                    Bij het inloggen zult u worden gevraagd om een verificatiecode van de Google Authenticator app in te voeren.
+                            <div class="text-center">
+                                <a href="upload.php" class="btn btn-primary btn-lg">Terug naar hoofdmenu</a>
+                            </div>
+                        <?php elseif ($qrCodeUrl): ?>
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Voltooi de instelling van Google Authenticator</strong><br>
+                                Scan de QR-code hieronder met de Google Authenticator app op uw smartphone, en voer daarna de verificatiecode in om de instelling te voltooien.
+                            </div>
+                            
+                            <div class="text-center mb-4">
+                                <img src="<?php echo htmlspecialchars($qrCodeUrl); ?>" alt="QR Code voor Google Authenticator" class="img-fluid" style="max-width: 300px; background-color: white; padding: 20px; border-radius: 5px; border: 1px solid #ddd;">
+                                <p class="mt-3"><strong>Of voer de volgende code handmatig in:</strong><br>
+                                <code style="font-size: 16px; background-color: #f8f9fa; padding: 5px;"><?php echo htmlspecialchars($secret); ?></code></p>
+                            </div>
+                            
+                            <form method="post" action="google_auth_setup.php">
+                                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($token); ?>">
+                                <input type="hidden" name="action" value="verify">
+                                
+                                <div class="form-group">
+                                    <label for="verification_code">Verificatiecode van Google Authenticator</label>
+                                    <input type="text" class="form-control" id="verification_code" name="verification_code" placeholder="6-cijferige code" required autocomplete="off" autofocus>
                                 </div>
                                 
-                                <form method="post" action="google_auth_setup.php">
-                                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($token); ?>">
-                                    <input type="hidden" name="action" value="disable">
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Weet u zeker dat u tweestapsverificatie wilt uitschakelen? Dit maakt uw account minder veilig.')">Tweestapsverificatie uitschakelen</button>
-                                </form>
-                            <?php elseif ($qrCodeUrl): ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <strong>Voltooi de instelling van Google Authenticator</strong><br>
-                                    Scan de QR-code hieronder met de Google Authenticator app op uw smartphone, en voer daarna de verificatiecode in om de instelling te voltooien.
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg">Verificatiecode controleren</button>
                                 </div>
-                                
-                                <div class="text-center mb-4">
-                                    <img src="<?php echo htmlspecialchars($qrCodeUrl); ?>" alt="QR Code voor Google Authenticator" class="img-fluid" style="background-color: white; padding: 10px; border-radius: 5px;">
-                                    <p class="mt-2">Of voer de volgende code handmatig in: <strong><?php echo htmlspecialchars($secret); ?></strong></p>
-                                </div>
-                                
-                                <form method="post" action="google_auth_setup.php">
-                                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($token); ?>">
-                                    <input type="hidden" name="action" value="verify">
-                                    
-                                    <div class="form-group">
-                                        <label for="verification_code">Verificatiecode van Google Authenticator</label>
-                                        <input type="text" class="form-control" id="verification_code" name="verification_code" placeholder="6-cijferige code" required autocomplete="off">
-                                    </div>
-                                    
-                                    <button type="submit" class="btn btn-primary">Verificatiecode controleren</button>
-                                </form>
-                            <?php else: ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <strong>Google Authenticator is niet ingeschakeld voor uw account</strong><br>
-                                    Klik op de knop hieronder om tweestapsverificatie met Google Authenticator in te stellen.
-                                </div>
-                                
+                            </form>
+                        <?php else: ?>
+                            <div class="mb-4">
+                                <h5>Tweestapsverificatie met Google Authenticator</h5>
+                                <p>Google Authenticator biedt een extra beveiligingslaag voor uw account door middel van tweestapsverificatie. Naast uw wachtwoord heeft u ook een tijdelijke code nodig die wordt gegenereerd door de Google Authenticator app op uw smartphone.</p>
+                                <p>De app is beschikbaar voor:</p>
+                                <ul>
+                                    <li><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank">Android</a></li>
+                                    <li><a href="https://apps.apple.com/nl/app/google-authenticator/id388497605" target="_blank">iOS (iPhone, iPad)</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="alert alert-info" role="alert">
+                                <strong>Google Authenticator is niet ingeschakeld voor uw account</strong><br>
+                                Klik op de knop hieronder om tweestapsverificatie met Google Authenticator in te stellen.
+                            </div>
+                            
+                            <div class="text-center">
                                 <form method="post" action="google_auth_setup.php">
                                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($token); ?>">
                                     <input type="hidden" name="action" value="enable">
-                                    <button type="submit" class="btn btn-primary">Tweestapsverificatie instellen</button>
+                                    <button type="submit" class="btn btn-primary btn-lg">Tweestapsverificatie instellen</button>
                                 </form>
-                            <?php endif; ?>
-                        </div>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

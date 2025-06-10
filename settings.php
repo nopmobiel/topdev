@@ -1,11 +1,32 @@
 <?php
-// At the top of settings.php
-$envFile = __DIR__ . '/../.env';
-if (file_exists($envFile)) {
-    $envVars = parse_ini_file($envFile);
-    foreach ($envVars as $key => $value) {
-        putenv("$key=$value");
+// Detect environment and set .env path accordingly
+
+// Multi-environment .env loading
+$envFiles = [
+    __DIR__ . '/.env',        // Local development (in project root)
+    __DIR__ . '/../.env'      // Production (in home folder)
+];
+
+$envLoaded = false;
+foreach ($envFiles as $envFile) {
+    if (file_exists($envFile)) {
+        $envVars = parse_ini_file($envFile);
+        foreach ($envVars as $key => $value) {
+            putenv("$key=$value");
+        }
+        $envLoaded = true;
+        error_log("ENV loaded from: " . $envFile);
+        error_log("Looking for .env at: " . $envFile);
+        error_log("File exists: " . (file_exists($envFile) ? 'YES' : 'NO'));
+        if (file_exists($envFile)) {
+            error_log("DB_PASS from env: '" . getenv('DB_PASS') . "'");
+        }
+        break; // Stop after finding the first .env file
     }
+}
+
+if (!$envLoaded) {
+    error_log("No .env file found in any expected location");
 }
 
 // Error reporting settings

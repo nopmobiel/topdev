@@ -114,12 +114,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Check if user has Google Authenticator enabled
             if (!empty($user['GoogleAuth']) && $user['GoogleAuth'] == 1) {
-                echo "DEBUG: User has Google Auth enabled<br>";
+                // Google Auth is fully enabled - go to verification
                 $_SESSION['temp_user'] = $user['User'];
                 $_SESSION['ga_required'] = true;
-                
-                // Redirect to Google Authenticator verification
                 header("Location: google_auth_verify.php");
+                exit();
+            } else if (isset($user['GoogleAuth']) && $user['GoogleAuth'] == 0) {
+                // Google Auth is disabled - redirect to setup (no email!)
+                $_SESSION['DienstID'] = $user['DienstID'];
+                $_SESSION['Dienstnaam'] = $user['Dienstnaam'];
+                $_SESSION['Systeem'] = $user['Systeem'];
+                $_SESSION['User'] = $user['User'];
+                
+                header("Location: google_auth_setup.php");
                 exit();
             } else if (!empty($user['Email'])) {
                 echo "DEBUG: User has Email auth enabled<br>";
