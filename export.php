@@ -244,7 +244,7 @@ function processUitzonderingen($dienstID) {
     $pdo = getDatabaseConnection();
 
     if (!$pdo) {
-        return "Communicatiefout met de database.";
+        return false;
     }
 
     try {
@@ -264,8 +264,11 @@ function processUitzonderingen($dienstID) {
         $stmt->execute();
 
         $affectedRows = $stmt->rowCount();
+        
+        return true;
 
     } catch (Exception $e) {
-        echo "Fout bij het verwerken van uitzonderingen: " . $e->getMessage() . "<br>";
+        error_log("Error in processUitzonderingen: " . $e->getMessage());
+        return false;
     }
 }
