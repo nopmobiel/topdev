@@ -199,12 +199,26 @@ try {
                             
                             <div class="form-group mb-3">
                                 <label for="current_password">Huidig wachtwoord</label>
-                                <input type="password" class="form-control" id="current_password" name="current_password" required>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="current_password" name="current_password" required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="toggleCurrentPassword">
+                                            <i class="fas fa-eye" id="eyeCurrentPassword"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="form-group mb-3">
                                 <label for="new_password">Nieuw wachtwoord</label>
-                                <input type="password" class="form-control" id="new_password" name="new_password" required>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="new_password" name="new_password" required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="toggleNewPassword">
+                                            <i class="fas fa-eye" id="eyeNewPassword"></i>
+                                        </button>
+                                    </div>
+                                </div>
                                 <small class="form-text text-muted">
                                     Wachtwoord moet minimaal 8 tekens bevatten, inclusief minstens één hoofdletter, 
                                     één kleine letter, één cijfer en één speciaal teken.
@@ -213,7 +227,14 @@ try {
                             
                             <div class="form-group mb-3">
                                 <label for="confirm_password">Bevestig nieuw wachtwoord</label>
-                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                                            <i class="fas fa-eye" id="eyeConfirmPassword"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             
                             <button type="submit" class="btn btn-primary">Wachtwoord wijzigen</button>
@@ -226,5 +247,34 @@ try {
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+    function togglePassword(inputId, eyeId) {
+        const passwordInput = document.getElementById(inputId);
+        const eyeIcon = document.getElementById(eyeId);
+        
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+
+    document.getElementById('toggleCurrentPassword').addEventListener('click', function() {
+        togglePassword('current_password', 'eyeCurrentPassword');
+    });
+
+    document.getElementById('toggleNewPassword').addEventListener('click', function() {
+        togglePassword('new_password', 'eyeNewPassword');
+    });
+
+    document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+        togglePassword('confirm_password', 'eyeConfirmPassword');
+    });
+    </script>
 </body>
 </html> 

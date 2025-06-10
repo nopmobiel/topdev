@@ -162,12 +162,15 @@ function factureer($dienstnaam, $aantal) {
         $tijd = date('H:i:s');
         $prijs = 0;
         $opmerking = ""; // Empty string for opmerking
+        
+        // Truncate dienst name to fit column (usually VARCHAR(50) or similar)
+        $dienstTruncated = substr($dienstnaam, 0, 50);
 
         $query = "INSERT INTO tblFactuur (dienst, datum, aantal, prijs, tijd, opmerking) 
                   VALUES (:dienst, :datum, :aantal, :prijs, :tijd, :opmerking)";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
-            ':dienst' => $dienstnaam,
+            ':dienst' => $dienstTruncated,
             ':datum' => $datum,
             ':aantal' => $aantal,
             ':prijs' => $prijs,
