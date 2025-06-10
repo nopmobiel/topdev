@@ -10,15 +10,20 @@ function insertHeaderRecord($dienstID, $system) {
 
     if (file_exists($filepath)) {
         $tableName = "tblWord" . $dienstID;
-        if ($system == 'porta2') {
-            importAvita($filepath, $tableName, true);
-        } else {
-            importTrodis($filepath, $tableName, true);
+        try {
+            if ($system == 'porta2') {
+                $result = importAvita($filepath, $tableName, true);
+            } else {
+                $result = importTrodis($filepath, $tableName, true);
+            }
+            return $result;
+        } catch (Exception $e) {
+            error_log("Error importing header record: " . $e->getMessage());
+            return false;
         }
     } else {
-        // Handle error: file not found
         error_log("File not found: $filepath");
-      //  echo "Error: Header definition file not found.";
+        return false;
     }
 }
 
