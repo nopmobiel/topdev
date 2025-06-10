@@ -1,4 +1,9 @@
 <?php
+// Global error suppression
+error_reporting(0);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+
 // Detect environment and set .env path accordingly
 
 // Multi-environment .env loading
@@ -29,12 +34,9 @@ if (!$envLoaded) {
     error_log("No .env file found in any expected location");
 }
 
-// Error reporting settings
-error_reporting(E_ALL);
-ini_set('display_errors', 0);  // Disable error display in production
-ini_set('display_startup_errors', 0);
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/../logs/error.log');  // Move log file outside web root
+// Error reporting settings for PRODUCTION
+ini_set('log_errors', 1);            // Still log errors to file
+ini_set('error_log', __DIR__ . '/../logs/error.log');
 
 // Database settings
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
