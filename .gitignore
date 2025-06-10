@@ -3,3 +3,5 @@ topdev.sql
 .env
 topdev_backup.sql
 /sessions
+/diensten
+error.log

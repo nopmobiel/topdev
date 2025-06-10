@@ -271,7 +271,7 @@ if (file_exists($wordfile)) {
     }
     fclose($handle);
 
-    if ($lineCount > 0) {
+    if ($lineCount > 1) {
         $newWordFile = $uploadDir . 'uitzonderingen.csv';
         if (basename($wordfile) !== 'uitzonderingen.csv') {
             if (rename($wordfile, $newWordFile)) {
@@ -284,10 +284,10 @@ if (file_exists($wordfile)) {
             error_log("Wordfile already named correctly");
         }
     } else {
-        error_log("Wordfile is empty, not renaming");
-        // Optionally, you might want to delete the empty file
+        error_log("Wordfile contains only header or is empty, not renaming");
+        // Delete the file since it only has header or is empty
         unlink($wordfile);
-        error_log("Deleted empty wordfile");
+        error_log("Deleted wordfile (header only or empty)");
     }
 } else {
     error_log("Wordfile doesn't exist");
@@ -333,26 +333,35 @@ chmod($uploadDir, 0755);
 error_log("Upload directory permissions set to 0755: $uploadDir");
 
 // Step 22: Transfer files to remote server
-$remoteUploadDir = "/home/trombose/public_html/diensten-test/" . $dienstkortenaam . "/upload/";
+// Only do this on production server, not locally
+if (function_exists('ssh2_connect') && $_SERVER['HTTP_HOST'] !== 'localhost') {
+    $remoteUploadDir = "/home/trombose/public_html/diensten-test/" . $dienstkortenaam . "/upload/";
 
-$filesToTransfer = [
-    $uploadDir . $dienstkortenaam . '.dat',
-    $uploadDir . 'nood.csv',
-    $uploadDir . 'uitzonderingen.csv'
-];
+    $filesToTransfer = [
+        $uploadDir . $dienstkortenaam . '.dat',
+        $uploadDir . 'nood.csv'
+    ];
 
-foreach ($filesToTransfer as $file) {
-    if (file_exists($file)) {
-        $remoteFile = $remoteUploadDir . basename($file);
-        error_log("Attempting to transfer: $file to $remoteFile");
-        if (scp_the_file($file, $remoteFile)) {
-            error_log("Successfully transferred $file to $remoteFile");
-        } else {
-            error_log("Failed to transfer $file to $remoteFile");
-        }
-    } else {
-        error_log("File not found for transfer: $file");
+    // Only add uitzonderingen.csv if it exists (has data beyond header)
+    if (file_exists($uploadDir . 'uitzonderingen.csv')) {
+        $filesToTransfer[] = $uploadDir . 'uitzonderingen.csv';
     }
+
+    foreach ($filesToTransfer as $file) {
+        if (file_exists($file)) {
+            $remoteFile = $remoteUploadDir . basename($file);
+            error_log("Attempting to transfer: $file to $remoteFile");
+            if (scp_the_file($file, $remoteFile)) {
+                error_log("Successfully transferred $file to $remoteFile");
+            } else {
+                error_log("Failed to transfer $file to $remoteFile");
+            }
+        } else {
+            error_log("File not found for transfer: $file");
+        }
+    }
+} else {
+    error_log("Skipping SCP transfer (local development or SSH2 not available)");
 }
 
 end_processing:
