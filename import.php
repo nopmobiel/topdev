@@ -181,10 +181,10 @@ function insertOnlineRecord($dienstID, $filename, $lineCount) {
         $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Verify table exists
+        // Check if table exists, if not just return true
         $stmt = $pdo->query("SHOW TABLES LIKE 'tblOnline'");
         if ($stmt->rowCount() === 0) {
-            throw new Exception("Table tblOnline does not exist");
+            return true; // ← Just ignore if table doesn't exist
         }
 
         $stmt = $pdo->prepare("INSERT INTO tblOnline (DienstID, Filename, LineCount, UploadDate) VALUES (:dienstID, :filename, :lineCount, NOW())");

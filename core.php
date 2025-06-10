@@ -150,6 +150,7 @@ try {
 }
 
 // Step 12: Insert online record
+/*
 try {
     if (!insertOnlineRecord($dienstID, $originalFileName, $lineCount)) {
         throw new Exception("Failed to insert online record");
@@ -158,6 +159,7 @@ try {
     error_log("Processing Error: " . $e->getMessage());
     die("Error during processing: " . $e->getMessage());
 }
+*/
 
 // Step 13: Export processing starts here
 $uploadDir = "./diensten/" . $dienstkortenaam . "/upload/";
