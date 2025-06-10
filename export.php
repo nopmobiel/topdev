@@ -29,11 +29,29 @@ function exporteerWordUitzonderingenBestand($outputfile, $dienstID) {
     }
 
     try {
+        // Get system type for this dienst
+        $stmt = $pdo->prepare("SELECT Systeem FROM tblDienst WHERE DienstID = :dienstID");
+        $stmt->execute([':dienstID' => $dienstID]);
+        $dienst = $stmt->fetch(PDO::FETCH_ASSOC);
+        $system = strtolower($dienst['Systeem']);
+        
+        // Determine header file
+        $headerFile = ($system == 'porta2') ? 'veldnamenporta2' : 'veldnamentrodis';
+        $headerPath = __DIR__ . '/velddefinities/' . $headerFile;
+        
         $tempFile = tempnam(sys_get_temp_dir(), 'word_export_');
-        $query = "SELECT * FROM tblWord$dienstID WHERE uitzondering='J' OR uitzondering ='u'";
+        $fp = fopen($tempFile, 'w');
+        
+        // Write header row first
+        if (file_exists($headerPath)) {
+            $headerContent = file_get_contents($headerPath);
+            fwrite($fp, trim($headerContent) . "\r\n");
+        }
+        
+        // Write data rows
+        $query = "SELECT * FROM tblWord$dienstID WHERE uitzondering='J'";
         $stmt = $pdo->query($query);
 
-        $fp = fopen($tempFile, 'w');
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             fputcsv($fp, $row, ';', '"');
         }
@@ -45,8 +63,8 @@ function exporteerWordUitzonderingenBestand($outputfile, $dienstID) {
 
         return true;
     } catch (Exception $e) {
-        error_log("Error in exporteerWordBestand: " . $e->getMessage());
-        return "Fout bij het exporteren van het Word bestand: " . $e->getMessage();
+        error_log("Error in exporteerWordUitzonderingenBestand: " . $e->getMessage());
+        return "Fout bij het exporteren van het word uitzonderingen bestand: " . $e->getMessage();
     }
 }
 
@@ -58,11 +76,34 @@ function exporteerNoodBestand($outputfile, $dienstID) {
     }
 
     try {
+        // Delete existing file first to ensure fresh data
+        if (file_exists($outputfile)) {
+            unlink($outputfile);
+        }
+        
+        // Get system type for this dienst
+        $stmt = $pdo->prepare("SELECT Systeem FROM tblDienst WHERE DienstID = :dienstID");
+        $stmt->execute([':dienstID' => $dienstID]);
+        $dienst = $stmt->fetch(PDO::FETCH_ASSOC);
+        $system = strtolower($dienst['Systeem']);
+        
+        // Determine header file
+        $headerFile = ($system == 'porta2') ? 'veldnamenporta2' : 'veldnamentrodis';
+        $headerPath = __DIR__ . '/velddefinities/' . $headerFile;
+        
         $tempFile = tempnam(sys_get_temp_dir(), 'nood_export_');
+        $fp = fopen($tempFile, 'w');
+        
+        // Write header row first
+        if (file_exists($headerPath)) {
+            $headerContent = file_get_contents($headerPath);
+            fwrite($fp, trim($headerContent) . "\r\n");
+        }
+        
+        // Write data rows
         $query = "SELECT * FROM tblWord$dienstID WHERE uitzondering<>'J'";
         $stmt = $pdo->query($query);
 
-        $fp = fopen($tempFile, 'w');
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             fputcsv($fp, $row, ';', '"');
         }

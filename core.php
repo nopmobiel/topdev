@@ -241,6 +241,13 @@ if (file_exists($destinationPath) && unlink($destinationPath)) {
 }
 
 // Step 21: Rename files as specified
+// Delete existing nood.csv first to ensure fresh data
+$existingNoodFile = $uploadDir . 'nood.csv';
+if (file_exists($existingNoodFile)) {
+    unlink($existingNoodFile);
+    error_log("Deleted existing nood.csv file");
+}
+
 // Rename $noodfile to nood.csv
 if (file_exists($noodfile) && basename($noodfile) !== 'nood.csv') {
     if (rename($noodfile, $uploadDir . 'nood.csv')) {
