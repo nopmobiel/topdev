@@ -70,3 +70,11 @@
 [11-Jun-2025 09:53:27 UTC] Looking for .env at: /Users/norbertschmidt/Documents/GitHub/topdev/.env
 [11-Jun-2025 09:53:27 UTC] File exists: YES
 [11-Jun-2025 09:53:27 UTC] DB_PASS from env: 'blsae88'
+[11-Jun-2025 10:14:36 UTC] ENV loaded from: /Users/norbertschmidt/Documents/GitHub/topdev/.env
+[11-Jun-2025 10:14:36 UTC] Looking for .env at: /Users/norbertschmidt/Documents/GitHub/topdev/.env
+[11-Jun-2025 10:14:36 UTC] File exists: YES
+[11-Jun-2025 10:14:36 UTC] DB_PASS from env: 'blsae88'
+[11-Jun-2025 10:14:38 UTC] ENV loaded from: /Users/norbertschmidt/Documents/GitHub/topdev/.env
+[11-Jun-2025 10:14:38 UTC] Looking for .env at: /Users/norbertschmidt/Documents/GitHub/topdev/.env
+[11-Jun-2025 10:14:38 UTC] File exists: YES
+[11-Jun-2025 10:14:38 UTC] DB_PASS from env: 'blsae88'
