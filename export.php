@@ -191,7 +191,7 @@ function verwijderSlashes($fileworddata) {
     return true;
 }
 
-function factureer($dienstnaam, $aantal) {
+function factureer($dienstkortenaam, $aantal) {
     $pdo = getDatabaseConnection();
 
     if (!$pdo) {
@@ -204,14 +204,12 @@ function factureer($dienstnaam, $aantal) {
         $prijs = 0;
         $opmerking = ""; // Empty string for opmerking
         
-        // Truncate dienst name to a safer, shorter length
-        $dienstTruncated = substr($dienstnaam, 0, 30);
-
+        // No truncation needed, as the short name will fit
         $query = "INSERT INTO tblFactuur (dienst, datum, aantal, prijs, tijd, opmerking) 
                   VALUES (:dienst, :datum, :aantal, :prijs, :tijd, :opmerking)";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
-            ':dienst' => $dienstTruncated,
+            ':dienst' => $dienstkortenaam, // Use the short name directly
             ':datum' => $datum,
             ':aantal' => $aantal,
             ':prijs' => $prijs,
