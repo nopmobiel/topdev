@@ -66,7 +66,7 @@ try {
                         <?php if (isset($error)): ?>
                             <div class="alert alert-danger" role="alert"><?php echo htmlspecialchars($error); ?></div>
                         <?php else: ?>
-                            <p>U bent aangemeld als <?php echo htmlspecialchars($dienstnaam); ?></p>
+                            <p>U bent aangemeld als <?php echo htmlspecialchars($dienstnaam); ?> (<?php echo $systeem === 'porta2' ? 'Portavita' : 'Trodis'; ?>)</p>
                             <form action="core.php" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 <div class="form-group">
