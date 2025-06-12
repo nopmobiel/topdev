@@ -2,12 +2,10 @@
 // change_password.php - Allow users to change their password
 session_start();
 
-// Error handling
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/error.log');
+// Production error handling
+error_reporting(0);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
 
 // Include required files
 require_once 'settings.php';

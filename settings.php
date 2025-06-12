@@ -4,8 +4,6 @@ error_reporting(0);
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
 
-// Detect environment and set .env path accordingly
-
 // Multi-environment .env loading
 $envFiles = [
     __DIR__ . '/.env',        // Local development (in project root)
@@ -20,18 +18,8 @@ foreach ($envFiles as $envFile) {
             putenv("$key=$value");
         }
         $envLoaded = true;
-        error_log("ENV loaded from: " . $envFile);
-        error_log("Looking for .env at: " . $envFile);
-        error_log("File exists: " . (file_exists($envFile) ? 'YES' : 'NO'));
-        if (file_exists($envFile)) {
-            error_log("DB_PASS from env: '" . getenv('DB_PASS') . "'");
-        }
         break; // Stop after finding the first .env file
     }
-}
-
-if (!$envLoaded) {
-    error_log("No .env file found in any expected location");
 }
 
 // Error reporting settings for PRODUCTION
@@ -57,6 +45,4 @@ define('SMTP_USERNAME', getenv('SMTP_USERNAME') ?: '');
 define('SMTP_PASSWORD', getenv('SMTP_PASSWORD') ?: '');
 define('SMTP_FROM_EMAIL', getenv('SMTP_FROM_EMAIL') ?: '');
 define('SMTP_FROM_NAME', getenv('SMTP_FROM_NAME') ?: '');
-
-$envFile = __DIR__ . '/../.env';
 ?>

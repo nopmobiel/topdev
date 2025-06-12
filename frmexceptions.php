@@ -51,20 +51,41 @@ function escape($html) {
     return htmlspecialchars($html, ENT_QUOTES, 'UTF-8');
 }
 
-// Add this function at the top of the file
+// Secure function to get table name with validation
 function getTableName($dienstID) {
-    return "tblUitzonderingen" . $dienstID;
+    // Validate DienstID is a positive integer
+    if (!is_numeric($dienstID) || $dienstID <= 0 || $dienstID != (int)$dienstID) {
+        throw new Exception("Invalid DienstID");
+    }
+    
+    // Additional security: limit DienstID range (adjust as needed)
+    if ($dienstID > 9999) {
+        throw new Exception("DienstID out of range");
+    }
+    
+    return "tblUitzonderingen" . (int)$dienstID;
 }
 
 // Function to clean the tblUitzonderingen table by removing records with empty patientnummer
 function zuiver($pdo, $dienstnummer) {
-    $table = getTableName($dienstnummer);
-
     try {
-        $stmt = $pdo->prepare("DELETE FROM `$table` WHERE patientnummer = ''");
+        $table = getTableName($dienstnummer);
+        
+        // Verify table exists before attempting to delete
+        $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
+        $stmt->execute([$table]);
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Table does not exist");
+        }
+        
+        // Use prepared statement with validated table name
+        $sql = "DELETE FROM `" . $table . "` WHERE patientnummer = ''";
+        $stmt = $pdo->prepare($sql);
         $stmt->execute();
-    } catch (PDOException $e) {
-        error_log("Failed to clean table $table: " . $e->getMessage());
+    } catch (Exception $e) {
+        // Log error but don't expose details to user
+        error_log("Failed to clean table: " . $e->getMessage());
+        throw new Exception("Database operation failed");
     }
 }
 
@@ -84,40 +105,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $paragon = isset($_POST['Paragon']) && $_POST['Paragon'] === 'J' ? 'J' : 'N';
     $action = $_POST['action'] ?? '';
 
-    // Basic validation
+    // Input validation
     if (empty($patientnummer)) {
         $error .= "Patientnummer is verplicht.<br>";
+    } elseif (!preg_match('/^[A-Za-z0-9\-_]{1,50}$/', $patientnummer)) {
+        $error .= "Patientnummer bevat ongeldige tekens.<br>";
+    }
+    
+    if (!empty($postcode) && !preg_match('/^[0-9]{4}[A-Za-z]{2}$/', str_replace(' ', '', $postcode))) {
+        $error .= "Postcode heeft een ongeldig formaat.<br>";
     }
 
     // If no errors, proceed to process the data
     if (empty($error)) {
-        $table = getTableName($_SESSION['DienstID']);
-
         try {
+            $table = getTableName($_SESSION['DienstID']);
+            
+            // Verify table exists
+            $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
+            $stmt->execute([$table]);
+            if ($stmt->rowCount() === 0) {
+                throw new Exception("Database table not found");
+            }
+
             switch ($action) {
                 case 'add':
-                    $stmt = $pdo->prepare("INSERT INTO `$table` (patientnummer, postcode, extra, Paragon, DienstID) VALUES (:patientnummer, :postcode, :extra, :paragon, :dienstID)");
+                    $sql = "INSERT INTO `" . $table . "` (patientnummer, postcode, extra, Paragon, DienstID) VALUES (:patientnummer, :postcode, :extra, :paragon, :dienstID)";
+                    $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':patientnummer', $patientnummer, PDO::PARAM_STR);
                     $stmt->bindParam(':postcode', $postcode, PDO::PARAM_STR);
                     $stmt->bindParam(':extra', $extra, PDO::PARAM_STR);
                     $stmt->bindParam(':paragon', $paragon, PDO::PARAM_STR);
                     $stmt->bindParam(':dienstID', $_SESSION['DienstID'], PDO::PARAM_INT);
+                    $stmt->execute();
                     $success = "Record succesvol toegevoegd.";
                     break;
                 case 'update':
-                    $stmt = $pdo->prepare("UPDATE `$table` SET patientnummer = :patientnummer, postcode = :postcode, extra = :extra, Paragon = :paragon WHERE UitzonderingID = :uitzonderingID AND DienstID = :dienstID");
+                    $sql = "UPDATE `" . $table . "` SET patientnummer = :patientnummer, postcode = :postcode, extra = :extra, Paragon = :paragon WHERE UitzonderingID = :uitzonderingID AND DienstID = :dienstID";
+                    $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':patientnummer', $patientnummer, PDO::PARAM_STR);
                     $stmt->bindParam(':postcode', $postcode, PDO::PARAM_STR);
                     $stmt->bindParam(':extra', $extra, PDO::PARAM_STR);
                     $stmt->bindParam(':paragon', $paragon, PDO::PARAM_STR);
                     $stmt->bindParam(':uitzonderingID', $uitzonderingID, PDO::PARAM_INT);
                     $stmt->bindParam(':dienstID', $_SESSION['DienstID'], PDO::PARAM_INT);
+                    $stmt->execute();
                     $success = "Record succesvol bijgewerkt.";
                     break;
                 case 'delete':
-                    $stmt = $pdo->prepare("DELETE FROM `$table` WHERE UitzonderingID = :uitzonderingID AND DienstID = :dienstID");
+                    $sql = "DELETE FROM `" . $table . "` WHERE UitzonderingID = :uitzonderingID AND DienstID = :dienstID";
+                    $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(':uitzonderingID', $uitzonderingID, PDO::PARAM_INT);
                     $stmt->bindParam(':dienstID', $_SESSION['DienstID'], PDO::PARAM_INT);
+                    $stmt->execute();
                     $success = "Record succesvol verwijderd.";
                     break;
                 default:

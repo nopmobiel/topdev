@@ -109,8 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Force session data to be saved before redirecting
                 session_write_close();
                 
-                // Redirect with the session ID in the URL as a fallback mechanism
-                header("Location: otp_verification.php?sid=" . urlencode(session_id()) . "&user=" . urlencode($user['User']));
+                // Secure redirect without exposing session ID
+                header("Location: otp_verification.php");
                 exit();
             } else {
                 // Set session variables

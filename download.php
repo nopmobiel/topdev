@@ -11,12 +11,24 @@ if (!isset($_SESSION['User'])) {
 $dienstkortenaam = $_SESSION['User'];
 
 // Validate and sanitize the requested filename
-// Using filter_var instead of deprecated FILTER_SANITIZE_STRING
 $filename = filter_input(INPUT_GET, 'file', FILTER_DEFAULT);
-$filename = $filename ? trim(filter_var($filename, FILTER_UNSAFE_RAW)) : '';
+$filename = $filename ? trim($filename) : '';
 
-if (!$filename || !preg_match('/^[a-zA-Z0-9_\-\.]+$/', $filename)) {
+// Strict filename validation - only allow specific safe characters
+if (!$filename || !preg_match('/^[a-zA-Z0-9_\-\.]{1,100}$/', $filename)) {
     showErrorAndExit('Ongeldige bestandsnaam. Probeer het opnieuw.');
+}
+
+// Prevent directory traversal attacks
+if (strpos($filename, '..') !== false || strpos($filename, '/') !== false || strpos($filename, '\\') !== false) {
+    showErrorAndExit('Ongeldige bestandsnaam. Probeer het opnieuw.');
+}
+
+// Only allow specific file extensions
+$allowedExtensions = ['csv', 'dat', 'txt'];
+$fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+if (!in_array($fileExtension, $allowedExtensions)) {
+    showErrorAndExit('Bestandstype niet toegestaan.');
 }
 
 // Set the path to the protected directory

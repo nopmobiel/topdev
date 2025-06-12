@@ -1,21 +1,8 @@
 <?php
-// Set session ID from URL parameter BEFORE starting any session
-if (isset($_GET['sid'])) {
-    // Only set the session ID if no session is active yet
-    if (session_status() == PHP_SESSION_NONE) {
-        session_id($_GET['sid']);
-    }
-}
-
-// Start the session ONCE
+// Start the session
 session_start();
 
-// Check if temp_user is set in session, if not, try to get it from URL parameters
-if (!isset($_SESSION['temp_user']) && isset($_GET['user'])) {
-    $_SESSION['temp_user'] = $_GET['user'];
-}
-
-// If temp_user still not set, redirect to login
+// Check if temp_user is set in session
 if (!isset($_SESSION['temp_user'])) {
     header("Location: index.php");
     exit();
@@ -53,11 +40,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Regenerate session ID now that OTP is verified, before setting final session data
                 if (!session_regenerate_id(true)) {
-                    // Handle error if session regeneration fails, perhaps log and show generic error
+                    // Handle error if session regeneration fails
+                    error_log("Session regeneration failed for user: " . $username);
                     echo "<div class='alert alert-danger'>Sessieherstel mislukt. Probeer opnieuw in te loggen.</div>";
                     exit();
                 }
 
+                // Clear temporary session data
+                unset($_SESSION['temp_user']);
+                
                 // Set required session variables
                 $_SESSION['DienstID'] = $userDetails['DienstID'];
                 $_SESSION['Systeem'] = $userDetails['Systeem'];

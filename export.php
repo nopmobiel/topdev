@@ -29,6 +29,11 @@ function exporteerWordUitzonderingenBestand($outputfile, $dienstID) {
     }
 
     try {
+        // Validate DienstID
+        if (!is_numeric($dienstID) || $dienstID <= 0 || $dienstID > 9999) {
+            throw new Exception("Invalid DienstID");
+        }
+        
         // Get system type for this dienst
         $stmt = $pdo->prepare("SELECT Systeem FROM tblDienst WHERE DienstID = :dienstID");
         $stmt->execute([':dienstID' => $dienstID]);
@@ -48,9 +53,20 @@ function exporteerWordUitzonderingenBestand($outputfile, $dienstID) {
             fwrite($fp, trim($headerContent) . "\r\n");
         }
         
+        // Secure query with validated table name
+        $tableName = "tblWord" . (int)$dienstID;
+        
+        // Verify table exists
+        $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
+        $stmt->execute([$tableName]);
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Table does not exist");
+        }
+        
         // Write data rows
-        $query = "SELECT * FROM tblWord$dienstID WHERE uitzondering='J'";
-        $stmt = $pdo->query($query);
+        $query = "SELECT * FROM `" . $tableName . "` WHERE uitzondering='J'";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             fputcsv($fp, $row, ';', '"');
@@ -76,6 +92,11 @@ function exporteerNoodBestand($outputfile, $dienstID) {
     }
 
     try {
+        // Validate DienstID
+        if (!is_numeric($dienstID) || $dienstID <= 0 || $dienstID > 9999) {
+            throw new Exception("Invalid DienstID");
+        }
+        
         // Delete existing file first to ensure fresh data
         if (file_exists($outputfile)) {
             unlink($outputfile);
@@ -100,9 +121,20 @@ function exporteerNoodBestand($outputfile, $dienstID) {
             fwrite($fp, trim($headerContent) . "\r\n");
         }
         
+        // Secure query with validated table name
+        $tableName = "tblWord" . (int)$dienstID;
+        
+        // Verify table exists
+        $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
+        $stmt->execute([$tableName]);
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Table does not exist");
+        }
+        
         // Write data rows
-        $query = "SELECT * FROM tblWord$dienstID WHERE uitzondering<>'J'";
-        $stmt = $pdo->query($query);
+        $query = "SELECT * FROM `" . $tableName . "` WHERE uitzondering<>'J'";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             fputcsv($fp, $row, ';', '"');
