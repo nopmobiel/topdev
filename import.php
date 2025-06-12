@@ -51,8 +51,7 @@ function importTrodis($inputfile, $tablename, $empty = true) {
             $pdo->exec($queryDel);
         }
 
-        // Construct the LOAD DATA INFILE query - semicolon separated after format_trodis conversion
-        
+        // Construct the LOAD DATA INFILE query
         $query = "LOAD DATA LOCAL INFILE '" . addslashes($inputfile) . "' 
                   INTO TABLE " . $tablename . " 
                   FIELDS TERMINATED BY ';' 
@@ -81,12 +80,6 @@ function importAvita($inputFile, $tableName, $empty = true) {
             throw new Exception("Input file not found: " . $inputFile);
         }
 
-        // Auto-detect line endings
-        $handle = fopen($inputFile, 'r');
-        $firstLine = fgets($handle);
-        fclose($handle);
-        $lineEnding = (strpos($firstLine, "\r\n") !== false) ? '\\r\\n' : '\\n';
-
         $options = array(
             PDO::MYSQL_ATTR_LOCAL_INFILE => true,
         );
@@ -102,12 +95,12 @@ function importAvita($inputFile, $tableName, $empty = true) {
             $pdo->exec($queryDel);
         }
 
-        // Construct the LOAD DATA INFILE query with the detected line ending
+        // Construct the LOAD DATA INFILE query
         $query = "LOAD DATA LOCAL INFILE '" . addslashes($inputFile) . "' 
                   INTO TABLE " . $tableName . " 
                   FIELDS TERMINATED BY ';' 
                   ENCLOSED BY '\"' 
-                  LINES TERMINATED BY '" . $lineEnding . "'";
+                  LINES TERMINATED BY '\\r\\n'";
 
         // Execute the query
         $result = $pdo->exec($query);

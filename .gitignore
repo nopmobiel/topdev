@@ -13,3 +13,4 @@ diensten/td-test/upload/nood.csv
 error.log
 error.log
 error.log
+*.php

@@ -33,14 +33,9 @@ $systeem = $_SESSION['Systeem'];
 // Upload directory
 $uploadDir = "./diensten/" . $dienstkortenaam . "/upload/";
 
-// Ensure the upload directory exists with secure permissions
+// Ensure the upload directory exists
 if (!file_exists($uploadDir)) {
-    mkdir($uploadDir, 0750, true);
-    
-    // Create .htaccess to prevent direct web access
-    $htaccessContent = "Order Deny,Allow\nDeny from all\n";
-    file_put_contents($uploadDir . '.htaccess', $htaccessContent);
-    chmod($uploadDir . '.htaccess', 0644);
+    mkdir($uploadDir, 0755, true);
 }
 
 $message = "";
@@ -56,47 +51,10 @@ $uploadedFile = $_FILES['fileToUpload']['tmp_name'];
 $originalFileName = basename($_FILES['fileToUpload']['name']);
 $fileExtension = strtolower(pathinfo($originalFileName, PATHINFO_EXTENSION));
 
-// Step 2: Validate file extension and content
+// Step 2: Validate file extension
 $allowedExtensions = array('csv');
 if (!in_array($fileExtension, $allowedExtensions)) {
     $message = "Fout: Alleen csv-bestanden zijn toegestaan.";
-    goto end_processing;
-}
-
-// Step 2a: Validate file size (max 10MB for CSV files)
-$maxFileSize = 10 * 1024 * 1024; // 10MB
-if ($_FILES['fileToUpload']['size'] > $maxFileSize) {
-    $message = "Fout: Bestand is te groot. Maximum grootte is 10MB.";
-    goto end_processing;
-}
-
-// Step 2b: Validate MIME type
-$allowedMimeTypes = ['text/csv', 'text/plain', 'application/csv'];
-$finfo = finfo_open(FILEINFO_MIME_TYPE);
-$mimeType = finfo_file($finfo, $uploadedFile);
-finfo_close($finfo);
-
-if (!in_array($mimeType, $allowedMimeTypes)) {
-    $message = "Fout: Bestandstype niet toegestaan. Alleen CSV-bestanden zijn toegestaan.";
-    goto end_processing;
-}
-
-// Step 2c: Basic content validation - check if file looks like CSV/TSV
-$handle = fopen($uploadedFile, 'r');
-if ($handle) {
-    $firstLine = fgets($handle);
-    fclose($handle);
-    
-    // Check for appropriate delimiter based on system type
-    $expectedDelimiter = (strtolower($systeem) === 'trodis') ? "\t" : ';';
-    $delimiterName = (strtolower($systeem) === 'trodis') ? 'tabs' : 'semicolons';
-    
-    if (strpos($firstLine, $expectedDelimiter) === false) {
-        $message = "Fout: Bestand lijkt geen geldig bestand te zijn. Verwacht " . $delimiterName . " als scheidingsteken.";
-        goto end_processing;
-    }
-} else {
-    $message = "Fout: Kan bestand niet lezen.";
     goto end_processing;
 }
 
@@ -243,7 +201,7 @@ if (!addCounter2PrintFile($uploadDir, basename($printfile), $dienstID)) {
 }
 
 // Step 19: Facturering (Invoicing)
-$factuurResult = factureer($dienstkortenaam, $lineCount);
+$factuurResult = factureer($dienstnaam, $lineCount);
 if ($factuurResult !== true) {
     $message = "Bestand succesvol geüpload, verwerkt en geëxporteerd, maar er was een fout bij het factureren: " . $factuurResult;
     goto end_processing;
@@ -362,16 +320,16 @@ $filesToAdjust = [
 
 foreach ($filesToAdjust as $file) {
     if (file_exists($file)) {
-        // Set secure file permissions (owner read/write only)
-        chmod($file, 0600);
+        // Set file permissions to 644 (owner read/write, group read, others read)
+        chmod($file, 0644);
         error_log("File exists and permissions set for: $file");
     } else {
         error_log("File does not exist: $file");
     }
 }
 
-// Ensure the upload directory has secure permissions
-chmod($uploadDir, 0750);
+// Ensure the upload directory has correct permissions
+chmod($uploadDir, 0755);
 error_log("Upload directory permissions set to 0755: $uploadDir");
 
 // Step 22: Transfer files to remote server
