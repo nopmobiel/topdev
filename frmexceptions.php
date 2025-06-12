@@ -168,8 +168,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     throw new Exception("Ongeldige actie.");
             }
 
-            $stmt->execute();
-
             // Clear the form fields
             $patientnummer = $postcode = $extra = "";
             $paragon = 'N';
