@@ -121,10 +121,26 @@ function exporteerNoodBestand($outputfile, $dienstID) {
             throw new Exception("Could not open output file for writing: $outputfile");
         }
         
-        // Write header row first
+        $headerContent = '';
+        $originalHeaders = [];
+        $columnNames = [];
+
         if (file_exists($headerPath)) {
             $headerContent = file_get_contents($headerPath);
             fwrite($fp, trim($headerContent) . "\r\n");
+
+            $originalHeaders = str_getcsv(trim($headerContent), ';');
+            foreach ($originalHeaders as $col) {
+                $trimmedCol = trim($col);
+                if (!empty($trimmedCol) && $trimmedCol !== 'u') {
+                    $columnNames[] = "`" . $trimmedCol . "`";
+                }
+            }
+        }
+
+        if (empty($columnNames)) {
+            fclose($fp);
+            throw new Exception("Could not parse column names from header file: " . $headerPath);
         }
         
         // Secure query with validated table name
@@ -138,13 +154,18 @@ function exporteerNoodBestand($outputfile, $dienstID) {
             throw new Exception("Table does not exist: $tableName");
         }
         
-        // Write data rows
-        $query = "SELECT * FROM `" . $tableName . "`";
+        $columnsForQuery = implode(', ', $columnNames);
+        $query = "SELECT " . $columnsForQuery . " FROM `" . $tableName . "`";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            fputcsv($fp, $row, ';', '"');
+            $outputRow = [];
+            foreach ($originalHeaders as $headerName) {
+                $trimmedHeader = trim($headerName);
+                $outputRow[] = $row[$trimmedHeader] ?? '';
+            }
+            fputcsv($fp, $outputRow, ';', '"');
         }
         
         // Ensure data is written to disk before closing
