@@ -51,7 +51,8 @@ function importTrodis($inputfile, $tablename, $empty = true) {
             $pdo->exec($queryDel);
         }
 
-        // Construct the LOAD DATA INFILE query
+        // Construct the LOAD DATA INFILE query tab separated
+        
         $query = "LOAD DATA LOCAL INFILE '" . addslashes($inputfile) . "' 
                   INTO TABLE " . $tablename . " 
                   FIELDS TERMINATED BY '\\t' 

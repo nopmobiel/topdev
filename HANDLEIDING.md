@@ -68,7 +68,7 @@ Bij uw eerste inlog wordt u mogelijk gevraagd om:
 ## Bestandsupload
 
 ### Ondersteunde Bestandsformaten
-- **Trodis**: CSV-bestanden met tab als scheidingsteken
+- **Trodis**: Tab-gescheiden bestanden (TSV)
 - **Portavita**: CSV-bestanden met puntkomma als scheidingsteken
 
 ### Bestandsnaam Vereisten
