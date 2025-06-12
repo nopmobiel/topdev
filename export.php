@@ -3,6 +3,15 @@
 
 require_once("settings.php");
 
+// Helper function to validate and format DienstID consistently
+function validateDienstID($dienstID) {
+    $dienstID = (string)$dienstID;
+    if (!preg_match('/^[0-9]{2}$/', $dienstID)) {
+        throw new Exception("Invalid DienstID format - must be 2 digits (00-99)");
+    }
+    return $dienstID;
+}
+
 // Set the timezone to match the local timezone
 date_default_timezone_set('Europe/Amsterdam');
 
@@ -32,9 +41,10 @@ function exporteerWordUitzonderingenBestand($outputfile, $dienstID) {
     }
 
     try {
-        // Validate DienstID
-        if (!is_numeric($dienstID) || $dienstID <= 0 || $dienstID > 9999) {
-            throw new Exception("Invalid DienstID");
+        // Validate DienstID (2-digit string format 00-99)
+        $dienstID = (string)$dienstID;
+        if (!preg_match('/^[0-9]{2}$/', $dienstID)) {
+            throw new Exception("Invalid DienstID format - must be 2 digits (00-99)");
         }
         
         // Get system type for this dienst
@@ -57,7 +67,7 @@ function exporteerWordUitzonderingenBestand($outputfile, $dienstID) {
         }
         
         // Secure query with validated table name
-        $tableName = "tblWord" . (int)$dienstID;
+        $tableName = "tblWord" . $dienstID;
         
         // Verify table exists
         $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
@@ -95,9 +105,10 @@ function exporteerNoodBestand($outputfile, $dienstID) {
     }
 
     try {
-        // Validate DienstID
-        if (!is_numeric($dienstID) || $dienstID <= 0 || $dienstID > 9999) {
-            throw new Exception("Invalid DienstID");
+        // Validate DienstID (2-digit string format 00-99)
+        $dienstID = (string)$dienstID;
+        if (!preg_match('/^[0-9]{2}$/', $dienstID)) {
+            throw new Exception("Invalid DienstID format - must be 2 digits (00-99)");
         }
         
         // Delete existing file first to ensure fresh data
@@ -128,7 +139,7 @@ function exporteerNoodBestand($outputfile, $dienstID) {
         }
         
         // Secure query with validated table name
-        $tableName = "tblWord" . (int)$dienstID;
+        $tableName = "tblWord" . $dienstID;
         
         // Verify table exists
         $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
@@ -330,6 +341,12 @@ function processUitzonderingen($dienstID) {
     }
 
     try {
+        // Validate DienstID (2-digit string format 00-99)
+        $dienstID = (string)$dienstID;
+        if (!preg_match('/^[0-9]{2}$/', $dienstID)) {
+            throw new Exception("Invalid DienstID format - must be 2 digits (00-99)");
+        }
+        
         $wordTable = "tblWord$dienstID";
         $uitzonderingenTable = "tblUitzonderingen$dienstID";
 
