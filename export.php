@@ -238,8 +238,8 @@ function factureer($dienstkortenaam, $aantal) {
         $prijs = 0;
         $opmerking = ""; // Empty string for opmerking
 
-        // Truncate dienstkortenaam to 30 characters to fit database field
-        $dienstkortenaam = substr($dienstkortenaam, 0, 30);
+        // Truncate dienst name to 20 characters to fit database field (being more conservative)
+        $dienstkortenaam = substr($dienstkortenaam, 0, 20);
         
         $query = "INSERT INTO tblFactuur (dienst, datum, aantal, prijs, tijd, opmerking) 
                   VALUES (:dienst, :datum, :aantal, :prijs, :tijd, :opmerking)";

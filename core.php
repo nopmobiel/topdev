@@ -201,7 +201,7 @@ if (!addCounter2PrintFile($uploadDir, basename($printfile), $dienstID)) {
 }
 
 // Step 19: Facturering (Invoicing)
-$factuurResult = factureer($dienstnaam, $lineCount);
+$factuurResult = factureer($dienstkortenaam, $lineCount);
 if ($factuurResult !== true) {
     $message = "Bestand succesvol geüpload, verwerkt en geëxporteerd, maar er was een fout bij het factureren: " . $factuurResult;
     goto end_processing;
