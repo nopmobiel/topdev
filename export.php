@@ -203,7 +203,7 @@ function factureer($dienstkortenaam, $aantal) {
         $tijd = date('H:i:s');
         $prijs = 0;
         $opmerking = ""; // Empty string for opmerking
-        
+
         // No truncation needed, as the short name will fit
         $query = "INSERT INTO tblFactuur (dienst, datum, aantal, prijs, tijd, opmerking) 
                   VALUES (:dienst, :datum, :aantal, :prijs, :tijd, :opmerking)";

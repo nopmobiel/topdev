@@ -5,51 +5,20 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Error handling
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/error.log');
-
-// Function to log and display errors
-function handleError($message, $error = null) {
-    $errorMessage = $message;
-    if ($error) {
-        $errorMessage .= " Error details: " . $error->getMessage();
-        error_log($errorMessage);
-    }
-    return $errorMessage;
-}
-
 require 'vendor/autoload.php';
 require_once 'settings.php';
 require_once 'functions.php';
-
-// Simple token storage
-function getTokenFile() {
-    return sys_get_temp_dir() . '/token_' . session_id() . '.txt';
-}
 
 // Start session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Debug current cookies
-error_log("Current cookies: " . print_r($_COOKIE, true));
-
 // Generate or retrieve CSRF token in session
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    error_log("Generated new CSRF token: " . $_SESSION['csrf_token']);
 }
 $token = $_SESSION['csrf_token'];
-error_log("Using session CSRF token: " . $token);
-
-// Basic session debug
-error_log("Session ID: " . session_id());
-error_log("Session Data: " . print_r($_SESSION, true));
 
 // Basic session configuration
 ini_set('session.cookie_httponly', '1');
@@ -68,24 +37,16 @@ $error_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        // Debug token validation
-        error_log("POST request received");
-        error_log("All cookies: " . print_r($_COOKIE, true));
-        error_log("All POST data: " . print_r($_POST, true));
-        
         // Verify token
         if (!isset($_POST['csrf_token'])) {
-            error_log("POST token is missing");
             throw new Exception("Security token missing. Please refresh the page and try again.");
         }
         
         if (!isset($_SESSION['csrf_token'])) {
-            error_log("Session token is missing");
             throw new Exception("Security token missing. Please refresh the page and try again.");
         }
         
         if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
-            error_log("Token mismatch - Session: " . $_SESSION['csrf_token'] . " vs POST: " . $_POST['csrf_token']);
             throw new Exception("Invalid security token. Please refresh the page and try again.");
         }
 
@@ -130,7 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: google_auth_setup.php");
                 exit();
             } else if (!empty($user['Email'])) {
-                echo "DEBUG: User has Email auth enabled<br>";
                 $otp = generateOTP();
                 $currentDateTime = date('Y-m-d H:i:s');
                 
@@ -143,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     throw new Exception("Er is een fout opgetreden bij het verzenden van de e-mail. Probeer het later opnieuw.");
                 }
                 
-                // Store username in session using both temp_user and a cookie backup
+                // Store username in session
                 $_SESSION['temp_user'] = $user['User'];
                 
                 // Force session data to be saved before redirecting
@@ -153,22 +113,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: otp_verification.php?sid=" . urlencode(session_id()) . "&user=" . urlencode($user['User']));
                 exit();
             } else {
-                echo "DEBUG: Starting direct login flow<br>";
-                echo "DEBUG: User data - GoogleAuth: " . $user['GoogleAuth'] . ", Email: " . $user['Email'] . "<br>";
-                echo "DEBUG: Full user data: <pre>" . print_r($user, true) . "</pre>";
-                
                 // Set session variables
                 $_SESSION['DienstID'] = $user['DienstID'];
                 $_SESSION['Dienstnaam'] = $user['Dienstnaam'];
                 $_SESSION['Systeem'] = $user['Systeem'];
                 $_SESSION['User'] = $user['User'];
                 
-                echo "DEBUG: Session after setting variables: <pre>" . print_r($_SESSION, true) . "</pre>";
-                
                 // Force session write
                 session_write_close();
                 
-                echo "DEBUG: Redirecting to upload.php<br>";
                 header("Location: upload.php");
                 exit();
             }
@@ -176,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception("Database error: " . $e->getMessage());
         }
     } catch (Exception $e) {
-        $error_message = handleError("Login failed", $e);
+        $error_message = $e->getMessage();
     }
 }
 ?>

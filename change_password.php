@@ -200,7 +200,7 @@ try {
                             <div class="form-group mb-3">
                                 <label for="current_password">Huidig wachtwoord</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="current_password" name="current_password" required>
+                                <input type="password" class="form-control" id="current_password" name="current_password" required>
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="button" id="toggleCurrentPassword">
                                             <i class="fas fa-eye" id="eyeCurrentPassword"></i>
@@ -212,7 +212,7 @@ try {
                             <div class="form-group mb-3">
                                 <label for="new_password">Nieuw wachtwoord</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="new_password" name="new_password" required>
+                                <input type="password" class="form-control" id="new_password" name="new_password" required>
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="button" id="toggleNewPassword">
                                             <i class="fas fa-eye" id="eyeNewPassword"></i>
@@ -228,7 +228,7 @@ try {
                             <div class="form-group mb-3">
                                 <label for="confirm_password">Bevestig nieuw wachtwoord</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
                                             <i class="fas fa-eye" id="eyeConfirmPassword"></i>
