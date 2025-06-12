@@ -188,9 +188,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uitzonderingenbestand bwerken</title>
+    <title>Uitzonderingenbestand bewerken</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/site.css">
+    <style>
+        .alert {
+            position: relative !important;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .form-container label {
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .form-container .form-control {
+            color: #495057;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+        }
+        
+        .form-container .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        
+        .form-container .form-check-label {
+            color: #495057;
+        }
+        
+        #exceptionsTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+        
+        #exceptionsTable th,
+        #exceptionsTable td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            color: #333;
+            background-color: white;
+        }
+        
+        #exceptionsTable th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #495057;
+        }
+        
+        #exceptionsTable tr:nth-child(even) td {
+            background-color: #f8f9fa;
+        }
+        
+        #exceptionsTable tr:hover td {
+            background-color: #e9ecef;
+        }
+        
+        .table-responsive {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .btn-group {
+            margin-bottom: 20px;
+        }
+        
+        .main-content {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid">
@@ -200,113 +283,131 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- Main Content -->
             <main class="col-md-10 py-2 pl-4 pr-4">
-                <div class="container-fluid mt-3">
+                <div class="main-content">
                     <h2>Uitzonderingenbestand bewerken</h2>
 
+                    <!-- Alert Messages -->
                     <?php if (!empty($error)): ?>
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <?php echo $error; ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     <?php endif; ?>
 
                     <?php if (isset($operation_successful)): ?>
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <?php echo $success; ?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     <?php endif; ?>
 
-                    <div class="mb-3">
+                    <!-- Action Buttons -->
+                    <div class="btn-group mb-3" role="group">
                         <button class="btn btn-primary" id="addNewBtn">Nieuwe patiënt toevoegen</button>
                         <button class="btn btn-secondary" id="modifyExistingBtn">Bestaande patiënt wijzigen</button>
                     </div>
 
-                    <form action="frmexceptions.php" method="post" id="patientForm" style="display: none;">
-                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                        <input type="hidden" name="action" id="formAction" value="add">
-                        <input type="hidden" id="uitzonderingID" name="uitzonderingID" value="">
+                    <!-- Patient Form -->
+                    <div class="form-container" id="patientFormContainer" style="display: none;">
+                        <form action="frmexceptions.php" method="post" id="patientForm">
+                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                            <input type="hidden" name="action" id="formAction" value="add">
+                            <input type="hidden" id="uitzonderingID" name="uitzonderingID" value="">
 
-                        <div class="form-group" id="existingPatientGroup" style="display: none;">
-                            <label for="existing_patient">Selecteer bestaande patiënt:</label>
-                            <select class="form-control" id="existing_patient" name="existing_patient">
-                                <option value="">-- Selecteer een patiënt --</option>
-                                <?php
-                                try {
-                                    $table = getTableName($_SESSION['DienstID']);
-                                    $stmt = $pdo->prepare("SELECT UitzonderingID, patientnummer, postcode, extra FROM `$table` ORDER BY patientnummer");
-                                    $stmt->execute();
-                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                        echo "<option value='" . escape($row['UitzonderingID']) . "'>" . 
-                                             escape($row['patientnummer']) . " - " . 
-                                             escape($row['postcode']) . " - " . 
-                                             escape($row['extra']) . "</option>";
+                            <div class="form-group" id="existingPatientGroup" style="display: none;">
+                                <label for="existing_patient">Selecteer bestaande patiënt:</label>
+                                <select class="form-control" id="existing_patient" name="existing_patient">
+                                    <option value="">-- Selecteer een patiënt --</option>
+                                    <?php
+                                    try {
+                                        $table = getTableName($_SESSION['DienstID']);
+                                        $stmt = $pdo->prepare("SELECT UitzonderingID, patientnummer, postcode, extra FROM `" . $table . "` ORDER BY patientnummer");
+                                        $stmt->execute();
+                                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                            echo "<option value='" . escape($row['UitzonderingID']) . "'>" . 
+                                                 escape($row['patientnummer']) . " - " . 
+                                                 escape($row['postcode']) . " - " . 
+                                                 escape($row['extra']) . "</option>";
+                                        }
+                                    } catch (Exception $e) {
+                                        echo "<option value=''>Fout bij het ophalen van patiënten</option>";
                                     }
-                                } catch (PDOException $e) {
-                                    echo "<option value=''>Fout bij het ophalen van patiënten</option>";
-                                    error_log("Database Error: " . $e->getMessage());
-                                }
-                                ?>
-                            </select>
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="patientnummer">Patientnummer:</label>
+                                        <input type="text" class="form-control" id="patientnummer" name="patientnummer" maxlength="13" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="postcode">Postcode Patient (bijv. 1234AB):</label> 
+                                        <input type="text" class="form-control" id="postcode" name="postcode" maxlength="6" pattern="[1-9][0-9]{3}[A-Za-z]{2}" title="Geldige postcode (bijv. 1234AB)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="extra">Extra informatie:</label>
+                                <input type="text" class="form-control" id="extra" name="extra" maxlength="30">
+                            </div>
+
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="Paragon" name="Paragon" value="J">
+                                <label class="form-check-label" for="Paragon">Printen en versturen uitbesteden aan PGN?</label>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" id="submitBtn">Toevoegen</button>
+                                <button type="button" class="btn btn-danger" id="deleteBtn" style="display:none;">Verwijderen</button>
+                                <button type="button" class="btn btn-secondary" id="clearBtn">Formulier wissen</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Exceptions List -->
+                    <div class="mt-4">
+                        <h3>Lijst van uitzonderingen</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered" id="exceptionsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Patientnummer</th>
+                                        <th>Postcode</th>
+                                        <th>Extra</th>
+                                        <th>Printen bij PGN</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    try {
+                                        $table = getTableName($_SESSION['DienstID']);
+                                        $stmt = $pdo->prepare("SELECT patientnummer, postcode, extra, Paragon FROM `" . $table . "` ORDER BY patientnummer");
+                                        $stmt->execute();
+                                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                            echo "<tr>";
+                                            echo "<td>" . escape($row['patientnummer']) . "</td>";
+                                            echo "<td>" . escape($row['postcode']) . "</td>";
+                                            echo "<td>" . escape($row['extra']) . "</td>";
+                                            echo "<td>" . ($row['Paragon'] === 'J' ? 'Ja' : 'Nee') . "</td>";
+                                            echo "</tr>";
+                                        }
+                                    } catch (Exception $e) {
+                                        echo "<tr><td colspan='4'>Geen uitzonderingen gevonden</td></tr>";
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
-
-                        <div class="form-group">
-                            <label for="patientnummer">Patientnummer:</label>
-                            <input type="text" class="form-control" id="patientnummer" name="patientnummer" maxlength="13" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="postcode">Postcode Patient (bijv. 1234AB):</label> 
-                            <input type="text" class="form-control" id="postcode" name="postcode" maxlength="6" pattern="[1-9][0-9]{3}[A-Za-z]{2}" title="Geldige postcode (bijv. 1234AB)">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="extra">Extra informatie:</label>
-                            <input type="text" class="form-control" id="extra" name="extra" maxlength="30">
-                        </div>
-
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="Paragon" name="Paragon" value="J">
-                            <label class="form-check-label" for="Paragon">Printen en versturen uitbesteden aan PGN?</label>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" id="submitBtn">Toevoegen</button>
-                        <button type="button" class="btn btn-danger" id="deleteBtn" style="display:none;">Verwijderen</button>
-                        <button type="button" class="btn btn-secondary" id="clearBtn">Formulier wissen</button>
-                    </form>
-
-                </div>
-
-                <div class="mt-5">
-                    <h3>Lijst van uitzonderingen</h3>
-                    <table id="exceptionsTable">
-                        <thead>
-                            <tr>
-                                <th>Patientnummer</th>
-                                <th>Postcode</th>
-                                <th>Extra</th>
-                                <th>Printen bij PGN</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            try {
-                                $table = getTableName($_SESSION['DienstID']);
-                                $stmt = $pdo->prepare("SELECT patientnummer, postcode, extra, Paragon FROM `$table` ORDER BY patientnummer");
-                                $stmt->execute();
-                                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                    echo "<tr>";
-                                    echo "<td>" . escape($row['patientnummer']) . "</td>";
-                                    echo "<td>" . escape($row['postcode']) . "</td>";
-                                    echo "<td>" . escape($row['extra']) . "</td>";
-                                    echo "<td>" . ($row['Paragon'] === 'J' ? 'Ja' : 'Nee') . "</td>";
-                                    echo "</tr>";
-                                }
-                            } catch (PDOException $e) {
-                                echo "<tr><td colspan='4'>Geen uitzonderingen gevonden</td></tr>";
-                                error_log("Database Error: " . $e->getMessage());
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                    </div>
                 </div>
             </main>
         </div>
@@ -319,6 +420,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        var formContainer = document.getElementById('patientFormContainer');
         var form = document.getElementById('patientForm');
         var addNewBtn = document.getElementById('addNewBtn');
         var modifyExistingBtn = document.getElementById('modifyExistingBtn');
@@ -330,18 +432,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         var existingPatientSelect = document.getElementById('existing_patient');
 
         var patientData = <?php
-            $table = getTableName($_SESSION['DienstID']);
-            $stmt = $pdo->prepare("SELECT UitzonderingID, patientnummer, postcode, extra, Paragon FROM `$table`");
-            $stmt->execute();
-            $data = [];
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $data[$row['UitzonderingID']] = $row;
+            try {
+                $table = getTableName($_SESSION['DienstID']);
+                $stmt = $pdo->prepare("SELECT UitzonderingID, patientnummer, postcode, extra, Paragon FROM `" . $table . "`");
+                $stmt->execute();
+                $data = [];
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $data[$row['UitzonderingID']] = $row;
+                }
+                echo json_encode($data);
+            } catch (Exception $e) {
+                echo '{}';
             }
-            echo json_encode($data);
         ?>;
 
         addNewBtn.addEventListener('click', function() {
-            form.style.display = 'block';
+            formContainer.style.display = 'block';
             existingPatientGroup.style.display = 'none';
             clearForm();
             submitBtn.textContent = 'Toevoegen';
@@ -349,7 +455,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
 
         modifyExistingBtn.addEventListener('click', function() {
-            form.style.display = 'block';
+            formContainer.style.display = 'block';
             existingPatientGroup.style.display = 'block';
             clearForm();
             submitBtn.textContent = 'Bijwerken';
