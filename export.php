@@ -121,26 +121,10 @@ function exporteerNoodBestand($outputfile, $dienstID) {
             throw new Exception("Could not open output file for writing: $outputfile");
         }
         
-        $headerContent = '';
-        $originalHeaders = [];
-        $columnNames = [];
-
+        // Write header row first
         if (file_exists($headerPath)) {
             $headerContent = file_get_contents($headerPath);
             fwrite($fp, trim($headerContent) . "\r\n");
-
-            $originalHeaders = str_getcsv(trim($headerContent), ';');
-            foreach ($originalHeaders as $col) {
-                $trimmedCol = trim($col);
-                if (!empty($trimmedCol) && $trimmedCol !== 'u') {
-                    $columnNames[] = "`" . $trimmedCol . "`";
-                }
-            }
-        }
-
-        if (empty($columnNames)) {
-            fclose($fp);
-            throw new Exception("Could not parse column names from header file: " . $headerPath);
         }
         
         // Secure query with validated table name
@@ -154,18 +138,13 @@ function exporteerNoodBestand($outputfile, $dienstID) {
             throw new Exception("Table does not exist: $tableName");
         }
         
-        $columnsForQuery = implode(', ', $columnNames);
-        $query = "SELECT " . $columnsForQuery . " FROM `" . $tableName . "`";
+        // Write data rows
+        $query = "SELECT * FROM `" . $tableName . "`";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $outputRow = [];
-            foreach ($originalHeaders as $headerName) {
-                $trimmedHeader = trim($headerName);
-                $outputRow[] = $row[$trimmedHeader] ?? '';
-            }
-            fputcsv($fp, $outputRow, ';', '"');
+            fputcsv($fp, $row, ';', '"');
         }
         
         // Ensure data is written to disk before closing
@@ -234,19 +213,34 @@ function addCounter2PrintFile($pad, $fileprintdata, $dienstID) {
 }
 
 function verwijderSlashes($fileworddata) {
-    $lines = file($fileworddata);
-    $fptarget = fopen($fileworddata, "w");
+    $tempFile = $fileworddata . '.tmp';
     
-    if (!$fptarget) {
-        return "Fout bij het openen van het bestand: $fileworddata";
+    $lines = file($fileworddata);
+    if ($lines === false) {
+        error_log("Failed to read file for slash removal: " . $fileworddata);
+        return "Fout bij het lezen van het bestand: $fileworddata";
+    }
+
+    $fpTarget = fopen($tempFile, 'w');
+    if ($fpTarget === false) {
+        error_log("Failed to open temporary file for writing: " . $tempFile);
+        return "Fout bij het openen van het tijdelijke bestand: $tempFile";
     }
 
     foreach ($lines as $line) {
         $wegschrijf = stripslashes($line);
-        fwrite($fptarget, $wegschrijf);
+        fwrite($fpTarget, $wegschrijf);
     }
 
-    fclose($fptarget);
+    fclose($fpTarget);
+
+    // Replace the original file with the temporary one
+    if (!rename($tempFile, $fileworddata)) {
+        error_log("Failed to rename temp file to original: " . $fileworddata);
+        unlink($tempFile); // Clean up temp file
+        return "Fout bij het hernoemen van het tijdelijke bestand.";
+    }
+    
     return true;
 }
 
