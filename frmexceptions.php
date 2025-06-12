@@ -17,6 +17,15 @@ if (!isset($_SESSION['csrf_token'])) {
 // Include the settings.php for database credentials
 require_once("settings.php");
 
+// Helper function to validate and format DienstID consistently
+function validateDienstID($dienstID) {
+    $dienstID = (string)$dienstID;
+    if (!preg_match('/^[0-9]{2}$/', $dienstID)) {
+        throw new Exception("Invalid DienstID format - must be 2 digits (00-99)");
+    }
+    return $dienstID;
+}
+
 // Initialize variables
 $dienstnaam = $systeem = "";
 $error = "";
@@ -53,19 +62,8 @@ function escape($html) {
 
 // Secure function to get table name with validation
 function getTableName($dienstID) {
-    // Convert to string and validate format (00-99)
-    $dienstID = (string)$dienstID;
-    
-    // Validate DienstID is a 2-digit string (00-99)
-    if (!preg_match('/^[0-9]{2}$/', $dienstID)) {
-        throw new Exception("Invalid DienstID format - must be 2 digits (00-99)");
-    }
-    
-    // Validate range 00-99
-    $numericValue = (int)$dienstID;
-    if ($numericValue < 0 || $numericValue > 99) {
-        throw new Exception("DienstID out of range (00-99)");
-    }
+    // Validate DienstID using helper function
+    $dienstID = validateDienstID($dienstID);
     
     return "tblUitzonderingen" . $dienstID;
 }

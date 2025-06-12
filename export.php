@@ -335,11 +335,8 @@ function processUitzonderingen($dienstID) {
     }
 
     try {
-        // Validate DienstID (2-digit string format 00-99)
-        $dienstID = (string)$dienstID;
-        if (!preg_match('/^[0-9]{2}$/', $dienstID)) {
-            throw new Exception("Invalid DienstID format - must be 2 digits (00-99)");
-        }
+        // Validate DienstID
+        $dienstID = validateDienstID($dienstID);
         
         $wordTable = "tblWord$dienstID";
         $uitzonderingenTable = "tblUitzonderingen$dienstID";
