@@ -53,17 +53,21 @@ function escape($html) {
 
 // Secure function to get table name with validation
 function getTableName($dienstID) {
-    // Validate DienstID is a positive integer
-    if (!is_numeric($dienstID) || $dienstID <= 0 || $dienstID != (int)$dienstID) {
-        throw new Exception("Invalid DienstID");
+    // Convert to string and validate format (00-99)
+    $dienstID = (string)$dienstID;
+    
+    // Validate DienstID is a 2-digit string (00-99)
+    if (!preg_match('/^[0-9]{2}$/', $dienstID)) {
+        throw new Exception("Invalid DienstID format - must be 2 digits (00-99)");
     }
     
-    // Additional security: limit DienstID range (adjust as needed)
-    if ($dienstID > 9999) {
-        throw new Exception("DienstID out of range");
+    // Validate range 00-99
+    $numericValue = (int)$dienstID;
+    if ($numericValue < 0 || $numericValue > 99) {
+        throw new Exception("DienstID out of range (00-99)");
     }
     
-    return "tblUitzonderingen" . (int)$dienstID;
+    return "tblUitzonderingen" . $dienstID;
 }
 
 // Function to clean the tblUitzonderingen table by removing records with empty patientnummer
