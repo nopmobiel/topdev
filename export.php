@@ -135,7 +135,7 @@ function exporteerNoodBestand($outputfile, $dienstID) {
         }
         
         // Write data rows
-        $query = "SELECT * FROM `" . $tableName . "` WHERE uitzondering<>'J'";
+        $query = "SELECT * FROM `" . $tableName . "`";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
 
