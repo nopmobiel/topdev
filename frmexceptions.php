@@ -73,12 +73,7 @@ function zuiver($pdo, $dienstnummer) {
     try {
         $table = getTableName($dienstnummer);
         
-        // Verify table exists before attempting to delete
-        $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
-        $stmt->execute([$table]);
-        if ($stmt->rowCount() === 0) {
-            throw new Exception("Table does not exist");
-        }
+        // Table existence assumed - created manually
         
         // Use prepared statement with validated table name
         $sql = "DELETE FROM `" . $table . "` WHERE patientnummer = ''";
@@ -123,12 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $table = getTableName($_SESSION['DienstID']);
             
-            // Verify table exists
-            $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
-            $stmt->execute([$table]);
-            if ($stmt->rowCount() === 0) {
-                throw new Exception("Database table not found");
-            }
+            // Table existence assumed - created manually
 
             switch ($action) {
                 case 'add':
