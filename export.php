@@ -112,8 +112,11 @@ function exporteerNoodBestand($outputfile, $dienstID) {
         $headerFile = ($system == 'porta2') ? 'veldnamenporta2' : 'veldnamentrodis';
         $headerPath = __DIR__ . '/velddefinities/' . $headerFile;
         
-        $tempFile = tempnam(sys_get_temp_dir(), 'nood_export_');
-        $fp = fopen($tempFile, 'w');
+        // Write directly to the output file instead of using temp file
+        $fp = fopen($outputfile, 'w');
+        if (!$fp) {
+            throw new Exception("Could not open output file for writing: $outputfile");
+        }
         
         // Write header row first
         if (file_exists($headerPath)) {
@@ -140,10 +143,6 @@ function exporteerNoodBestand($outputfile, $dienstID) {
             fputcsv($fp, $row, ';', '"');
         }
         fclose($fp);
-
-        if (!rename($tempFile, $outputfile)) {
-            throw new Exception("Kon het bestand niet verplaatsen naar de gewenste locatie.");
-        }
 
         return true;
     } catch (Exception $e) {

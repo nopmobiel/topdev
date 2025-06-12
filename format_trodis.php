@@ -151,7 +151,7 @@ function format_trodis($filenaam)
  $voorvorige_controle=$elementen[84];		   $line.=$voorvorige_controle. ";";     
  $voor_voorvorige_controle=$elementen[85];	    $line.=$voor_voorvorige_controle. ";";     
  $dienstnummer=$elementen[86];		         	    $line.=$dienstnummer ;     
- fwrite ($writehandle,$line );
+ fwrite ($writehandle,$line . "\r\n");
 	  }	             	  
           
 fclose ($handle);  
