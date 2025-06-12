@@ -54,7 +54,7 @@ function importTrodis($inputfile, $tablename, $empty = true) {
         // Construct the LOAD DATA INFILE query
         $query = "LOAD DATA LOCAL INFILE '" . addslashes($inputfile) . "' 
                   INTO TABLE " . $tablename . " 
-                  FIELDS TERMINATED BY ';' 
+                  FIELDS TERMINATED BY '\\t' 
                   LINES TERMINATED BY '\\r\\n'";
 
         // Execute the query
