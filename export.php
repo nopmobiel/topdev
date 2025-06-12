@@ -3,6 +3,9 @@
 
 require_once("settings.php");
 
+// Set the timezone to match the local timezone
+date_default_timezone_set('Europe/Amsterdam');
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -235,12 +238,14 @@ function factureer($dienstkortenaam, $aantal) {
         $prijs = 0;
         $opmerking = ""; // Empty string for opmerking
 
-        // No truncation needed, as the short name will fit
+        // Truncate dienstkortenaam to 30 characters to fit database field
+        $dienstkortenaam = substr($dienstkortenaam, 0, 30);
+        
         $query = "INSERT INTO tblFactuur (dienst, datum, aantal, prijs, tijd, opmerking) 
                   VALUES (:dienst, :datum, :aantal, :prijs, :tijd, :opmerking)";
         $stmt = $pdo->prepare($query);
         $stmt->execute([
-            ':dienst' => $dienstkortenaam, // Use the short name directly
+            ':dienst' => $dienstkortenaam, // Use the truncated name
             ':datum' => $datum,
             ':aantal' => $aantal,
             ':prijs' => $prijs,
