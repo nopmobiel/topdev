@@ -132,24 +132,14 @@ function exporteerNoodBestand($outputfile, $dienstID) {
         
         // Table existence assumed - created manually
         
-        // Debug logging
-        error_log("exporteerNoodBestand: DienstID = '$dienstID', Table name = '$tableName'");
-        
         // Write data rows
         $query = "SELECT * FROM `" . $tableName . "`";
-        error_log("exporteerNoodBestand: Executing query: $query");
         $stmt = $pdo->prepare($query);
-        $result = $stmt->execute();
-        error_log("exporteerNoodBestand: Query executed, result = " . ($result ? 'true' : 'false'));
+        $stmt->execute();
 
-        $rowCount = 0;
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             fputcsv($fp, $row, ';', '"');
-            $rowCount++;
         }
-        
-        // Log the number of rows exported for debugging
-        error_log("exporteerNoodBestand: Exported $rowCount rows from table $tableName");
         
         // Ensure data is written to disk before closing
         fflush($fp);
