@@ -41,11 +41,8 @@ function exporteerWordUitzonderingenBestand($outputfile, $dienstID) {
     }
 
     try {
-        // Validate DienstID (2-digit string format 00-99)
-        $dienstID = (string)$dienstID;
-        if (!preg_match('/^[0-9]{2}$/', $dienstID)) {
-            throw new Exception("Invalid DienstID format - must be 2 digits (00-99)");
-        }
+        // Validate DienstID
+        $dienstID = validateDienstID($dienstID);
         
         // Get system type for this dienst
         $stmt = $pdo->prepare("SELECT Systeem FROM tblDienst WHERE DienstID = :dienstID");
@@ -105,11 +102,8 @@ function exporteerNoodBestand($outputfile, $dienstID) {
     }
 
     try {
-        // Validate DienstID (2-digit string format 00-99)
-        $dienstID = (string)$dienstID;
-        if (!preg_match('/^[0-9]{2}$/', $dienstID)) {
-            throw new Exception("Invalid DienstID format - must be 2 digits (00-99)");
-        }
+        // Validate DienstID
+        $dienstID = validateDienstID($dienstID);
         
         // Delete existing file first to ensure fresh data
         if (file_exists($outputfile)) {
