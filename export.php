@@ -134,7 +134,8 @@ function exporteerNoodBestand($outputfile, $dienstID) {
         $stmt = $pdo->prepare("SHOW TABLES LIKE ?");
         $stmt->execute([$tableName]);
         if ($stmt->rowCount() === 0) {
-            throw new Exception("Table does not exist");
+            fclose($fp);
+            throw new Exception("Table does not exist: $tableName");
         }
         
         // Write data rows
@@ -145,6 +146,9 @@ function exporteerNoodBestand($outputfile, $dienstID) {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             fputcsv($fp, $row, ';', '"');
         }
+        
+        // Ensure data is written to disk before closing
+        fflush($fp);
         fclose($fp);
 
         return true;
