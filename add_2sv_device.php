@@ -60,7 +60,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extra Apparaat Toevoegen</title>
+    <title>Apparaat Toevoegen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/site.css">
 </head>
@@ -72,7 +72,7 @@ try {
             <main class="col-md-10 py-2 pl-4 pr-4">
                 <div class="form-container">
                     <div class="form-header">
-                        <h1>Extra Apparaat Toevoegen</h1>
+                        <h1>Apparaat toevoegen</h1>
                     </div>
                     
                     <div class="card-body">

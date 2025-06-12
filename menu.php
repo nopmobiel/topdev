@@ -23,9 +23,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="download.php?file=uitzonderingen.csv" class="list-group-item <?php echo (($current_page == 'download.php') && ($_GET['file'] ?? '') == 'uitzonderingen.csv') ? 'active' : ''; ?>">
             Download uitzonderingen
         </a>
-        <a href="calendar_view.php" class="list-group-item <?php echo ($current_page == 'calendar_view.php') ? 'active' : ''; ?>">
-            Kalenderoverzicht
-        </a>
         <a href="change_password.php" class="list-group-item <?php echo ($current_page == 'change_password.php') ? 'active' : ''; ?>">
             Wachtwoord wijzigen
         </a>
@@ -39,7 +36,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 $user_2sv = $stmt_menu->fetch(PDO::FETCH_ASSOC);
 
                 if ($user_2sv && $user_2sv['GoogleAuth'] == 1) {
-                    echo '<a href="add_2sv_device.php" class="list-group-item ' . ($current_page == 'add_2sv_device.php' ? 'active' : '') . '">Extra Apparaat Toevoegen</a>';
+                    echo '<a href="add_2sv_device.php" class="list-group-item ' . ($current_page == 'add_2sv_device.php' ? 'active' : '') . '">Apparaat toevoegen</a>';
                 }
             } catch (PDOException $e) {
                 // Do not show the link if there is a database error
