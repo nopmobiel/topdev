@@ -168,24 +168,18 @@ $noodfile = $uploadDir . "nood_" . date("Ymd_His") . ".csv";
 $printfile = $uploadDir . "print_" . date("Ymd_His") . ".csv";
 
 // Step 14: Export Word file
-if (exporteerWordUitzonderingenBestand($wordfile, $dienstID) !== true) {
+if (!exporteerWordUitzonderingenBestand($wordfile, $dienstID)) {
     $message = "Export mislukt. Fout bij exporteren word uitzonderingen bestand.";
     goto end_processing;
 }
-if (verwijderSlashes($wordfile) !== true) {
-    $message = "Export mislukt. Fout bij verwijderen slashes uit word bestand.";
-    goto end_processing;
-}
+verwijderSlashes($wordfile);
 
 // Step 15: Export Nood file
-if (exporteerNoodBestand($noodfile, $dienstID) !== true) {
+if (!exporteerNoodBestand($noodfile, $dienstID)) {
     $message = "Export gedeeltelijk succesvol. Fout bij exporteren nood bestand.";
     goto end_processing;
 }
-if (verwijderSlashes($noodfile) !== true) {
-    $message = "Export mislukt. Fout bij verwijderen slashes uit nood bestand.";
-    goto end_processing;
-}
+verwijderSlashes($noodfile);
 
 // Step 16: Add the Zethelerecordintabelprint function call
 $result = Zethelerecordintabelprint($destinationPath, $printfile, $dienstID);
