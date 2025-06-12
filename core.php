@@ -81,15 +81,18 @@ if (!in_array($mimeType, $allowedMimeTypes)) {
     goto end_processing;
 }
 
-// Step 2c: Basic content validation - check if file looks like CSV
+// Step 2c: Basic content validation - check if file looks like CSV/TSV
 $handle = fopen($uploadedFile, 'r');
 if ($handle) {
     $firstLine = fgets($handle);
     fclose($handle);
     
-    // Check if first line contains semicolons (expected CSV delimiter)
-    if (strpos($firstLine, ';') === false) {
-        $message = "Fout: Bestand lijkt geen geldig CSV-bestand te zijn.";
+    // Check for appropriate delimiter based on system type
+    $expectedDelimiter = (strtolower($systeem) === 'trodis') ? "\t" : ';';
+    $delimiterName = (strtolower($systeem) === 'trodis') ? 'tabs' : 'semicolons';
+    
+    if (strpos($firstLine, $expectedDelimiter) === false) {
+        $message = "Fout: Bestand lijkt geen geldig bestand te zijn. Verwacht " . $delimiterName . " als scheidingsteken.";
         goto end_processing;
     }
 } else {
