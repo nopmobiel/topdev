@@ -27,8 +27,13 @@ $manualContent = file_get_contents('HANDLEIDING.md');
             white-space: pre-wrap;
             font-family: monospace;
             padding: 20px;
-            background: #f8f9fa;
+            background: #ffffff;
             border-radius: 4px;
+            color: #000000;
+        }
+        .card-body {
+            background: #ffffff;
+            color: #000000;
         }
     </style>
 </head>
