@@ -43,6 +43,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
             }
         }
         ?>
+        <a href="manual.php" class="list-group-item <?php echo ($current_page == 'manual.php') ? 'active' : ''; ?>">
+            Handleiding
+        </a>
         <a href="about.php" class="list-group-item <?php echo ($current_page == 'about.php') ? 'active' : ''; ?>">
             Over TOP
         </a>
