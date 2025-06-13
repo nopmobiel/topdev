@@ -1,8 +1,6 @@
 # TOP Handleiding
 ## Trombosedienst Outsource Printing
 
-### Versie 2025.1
-### Voor Nederlandse Trombosediensten
 
 ---
 
@@ -23,7 +21,7 @@
 
 ## Inleiding
 
-Het TOP (Trombosedienst Outsource Printing) is een webgebaseerd systeem voor Nederlandse trombosediensten om dagelijks patiëntgegevens te uploaden, doseerkalenders te genereren en deze te laten printen en versturen via externe printservices.
+TOP (Trombosedienst Outsource Printing) is een webgebaseerd systeem voo trombosediensten om dagelijks doseerkalenders te uploaden en zo nodig te verwerken.
 
 ### Belangrijke Kenmerken:
 - **Veilige bestandsupload** voor Trodis en Portavita systemen
@@ -140,30 +138,6 @@ Het uitzonderingenbestand bevat patiënten die speciale behandeling nodig hebben
 - **Postcode**: Nederlandse postcode formaat (1234AB)
 - **Extra informatie**: Maximum 30 karakters
 
----
-
-## Kalenderoverzicht
-
-Het kalenderoverzicht toont alle gegenereerde doseerkalenders voor uw dienst.
-
-### Toegang
-1. Ga naar **"Kalenderoverzicht"** in het menu
-2. Het systeem toont alle beschikbare kalenders
-
-### Functionaliteit
-- **Paginering**: 20 kalenders per pagina
-- **Filtering**: Alleen kalenders met inhoud worden getoond
-- **Detailweergave**: Klik op een patientnummer voor details
-
-### Kalender Bekijken
-1. Klik op een patientnummer in de lijst
-2. De kalender wordt getoond met:
-   - Patiëntgegevens
-   - Doseeringsschema voor 2 weken
-   - Controledata
-   - Speciale instructies
-
----
 
 ## Downloads
 
@@ -192,14 +166,14 @@ Na elke upload zijn de volgende bestanden beschikbaar:
 
 ### Bestandsbeveiliging
 - Bestanden zijn alleen toegankelijk voor uw dienst
-- Automatische verwijdering na 30 dagen
+- Automatische verwijdering na 4 uur
 - Beveiligde overdracht via HTTPS
 
 ---
 
 ## Wachtwoord Wijzigen
 
-### Vereisten voor Nieuwe Wachtwoorden
+### Vereisten voor nieuwe wachtwoorden
 - Minimaal 8 karakters
 - Minimaal 1 hoofdletter
 - Minimaal 1 kleine letter  
@@ -244,7 +218,6 @@ Na elke upload zijn de volgende bestanden beschikbaar:
 
 ### Voordelen
 - **Extra beveiliging** voor uw account
-- **Offline werking** - geen internetverbinding nodig
 - **Meerdere apparaten** mogelijk
 - **Industriestandaard** beveiliging
 
