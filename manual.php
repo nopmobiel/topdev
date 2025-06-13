@@ -11,39 +11,8 @@ if (!isset($_SESSION['DienstID'])) {
 require_once 'settings.php';
 require_once 'version.php';
 
-// Generate CSRF token if not exists
-if (!isset($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
 // Read the manual content
 $manualContent = file_get_contents('HANDLEIDING.md');
-
-// Convert markdown to HTML (basic conversion)
-function convertMarkdownToHtml($markdown) {
-    // Convert headers
-    $html = preg_replace('/^# (.*$)/m', '<h1>$1</h1>', $markdown);
-    $html = preg_replace('/^## (.*$)/m', '<h2>$1</h2>', $html);
-    $html = preg_replace('/^### (.*$)/m', '<h3>$1</h3>', $html);
-    $html = preg_replace('/^#### (.*$)/m', '<h4>$1</h4>', $html);
-    
-    // Convert lists
-    $html = preg_replace('/^\* (.*$)/m', '<li>$1</li>', $html);
-    $html = preg_replace('/(<li>.*<\/li>)/s', '<ul>$1</ul>', $html);
-    
-    // Convert bold
-    $html = preg_replace('/\*\*(.*?)\*\*/s', '<strong>$1</strong>', $html);
-    
-    // Convert links (removed target="_blank")
-    $html = preg_replace('/\[(.*?)\]\((.*?)\)/s', '<a href="$2">$1</a>', $html);
-    
-    // Convert paragraphs
-    $html = '<p>' . str_replace("\n\n", '</p><p>', $html) . '</p>';
-    
-    return $html;
-}
-
-$htmlContent = convertMarkdownToHtml($manualContent);
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -55,87 +24,11 @@ $htmlContent = convertMarkdownToHtml($manualContent);
     <link rel="stylesheet" type="text/css" href="/site.css">
     <style>
         .manual-content {
-            color: #333333;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            max-width: 900px;
-            margin: 0 auto;
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        .manual-content h1 {
-            color: #00008B;
-            font-size: 2.2rem;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #00008B;
-        }
-        .manual-content h2 {
-            color: #00008B;
-            font-size: 1.8rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        .manual-content h3 {
-            color: #00008B;
-            font-size: 1.4rem;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        .manual-content h4 {
-            color: #00008B;
-            font-size: 1.2rem;
-            margin-top: 1.2rem;
-            margin-bottom: 0.8rem;
-        }
-        .manual-content p {
-            margin-bottom: 1.2rem;
-            line-height: 1.8;
-        }
-        .manual-content ul {
-            margin-bottom: 1.2rem;
-            padding-left: 2rem;
-        }
-        .manual-content li {
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-        }
-        .manual-content a {
-            color: #00008B;
-            text-decoration: none;
-            border-bottom: 1px solid #00008B;
-            transition: all 0.2s ease;
-        }
-        .manual-content a:hover {
-            color: #B22222;
-            border-bottom-color: #B22222;
-        }
-        .manual-content code {
-            background-color: #f8f9fa;
-            padding: 2px 6px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            padding: 20px;
+            background: #f8f9fa;
             border-radius: 4px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.9em;
-            color: #333;
-        }
-        .manual-content hr {
-            margin: 2rem 0;
-            border: 0;
-            border-top: 1px solid #e0e0e0;
-        }
-        .manual-content strong {
-            color: #00008B;
-            font-weight: 600;
-        }
-        .manual-content .version-info {
-            margin-top: 3rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e0e0e0;
-            font-size: 0.9em;
-            color: #666;
         }
     </style>
 </head>
@@ -152,7 +45,7 @@ $htmlContent = convertMarkdownToHtml($manualContent);
                     </div>
                     <div class="card-body">
                         <div class="manual-content">
-                            <?php echo $htmlContent; ?>
+                            <?php echo htmlspecialchars($manualContent); ?>
                         </div>
                     </div>
                 </div>
