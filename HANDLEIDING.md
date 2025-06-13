@@ -44,7 +44,7 @@ Het TOP (Trombosedienst Outsource Printing) is een webgebaseerd systeem voor Ned
 
 ### Stap 2: Verificatie (indien ingeschakeld)
 
-#### Google Authenticator (Aanbevolen)
+#### Google Authenticator (Verplicht)
 Als u Google Authenticator heeft ingeschakeld:
 1. Open de Google Authenticator app op uw telefoon
 2. Zoek de TOP-code voor uw dienst
@@ -58,9 +58,8 @@ Als u e-mailverificatie gebruikt:
 3. Klik op **"Verifiëren"**
 
 ### Eerste Inlog
-Bij uw eerste inlog wordt u mogelijk gevraagd om:
-- Google Authenticator in te stellen (sterk aanbevolen)
-- Uw wachtwoord te wijzigen
+Bij uw eerste inlog wordt u gevraagd om:
+- Google Authenticator in te stellen (verplicht)
 - Contactgegevens te bevestigen
 
 ---
@@ -223,7 +222,7 @@ Na elke upload zijn de volgende bestanden beschikbaar:
 
 ## Tweestapsverificatie
 
-### Google Authenticator (Aanbevolen)
+### Google Authenticator (Verplicht)
 
 #### Instellen
 1. Ga naar **"Google Authenticator instellen"**
@@ -267,7 +266,7 @@ Na elke upload zijn de volgende bestanden beschikbaar:
 #### Uploadproblemen
 **Probleem**: "Bestand te groot"
 - **Oplossing**: Controleer bestandsgrootte (max 10MB)
-- **Tip**: Neem contact op met uw IT-beheerder als het bestand te groot is
+- **Tip**: Neem contact op met PGN als het bestand te groot is
 
 **Probleem**: "Ongeldige bestandsindeling"
 - **Oplossing**: Controleer of het bestand echt CSV is
@@ -317,9 +316,6 @@ Na elke upload zijn de volgende bestanden beschikbaar:
 - **Beschikbaarheid**: 99.5% uptime garantie
 - **Backup**: Dagelijkse backups van alle data
 
----
-
-## Bijlagen
 
 
 
@@ -333,9 +329,7 @@ Na elke upload zijn de volgende bestanden beschikbaar:
 ### B. Versiegeschiedenis
 - **v2025.1**: Huidige versie, verbeterde beveiliging en UI
 - **v2024.1**: Verbeterde beveiliging, nieuwe UI
-- **v2023.2**: Google Authenticator ondersteuning
-- **v2023.1**: Portavita ondersteuning toegevoegd
-- **v2022.1**: Eerste productieversie
+-
 
 ---
 

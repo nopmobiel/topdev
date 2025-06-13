@@ -1,16 +1,25 @@
+# System files
 .DS_Store
+
+# Database files
+*.sql
 topdev.sql
-.env
 topdev_backup.sql
+
+# Environment files
+.env
+
+# Log files
+error.log
+
+# Session files
 /sessions
+
+# Upload directories
 /diensten
-error.log
-/diensten
-/diensten
-diensten/td-test/upload/nood.csv
-/diensten
+/diensten/*/upload/*
+!/diensten/*/upload/.gitkeep
+
+# CSV files
 *.csv
-error.log
-error.log
-error.log
-*.php
+
