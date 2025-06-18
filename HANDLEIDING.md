@@ -1,9 +1,5 @@
 # TOP Handleiding
 ## Trombosedienst Outsource Printing
-
-
----
-
 ## Inhoudsopgave
 
 1. [Inleiding](#inleiding)

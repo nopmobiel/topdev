@@ -1,15 +1,5 @@
 <?php
-session_start();
-
-// Redirect if not logged in or if DienstID is not set
-if (!isset($_SESSION['DienstID'])) {
-    header("Location: index.php");
-    exit;
-}
-
-// Include required files
-require_once 'settings.php';
-require_once 'version.php';
+// Public manual page - no authentication required
 
 // Read the manual content
 $manualContent = file_get_contents('HANDLEIDING.md');
@@ -30,31 +20,42 @@ $manualContent = file_get_contents('HANDLEIDING.md');
             background: #ffffff;
             border-radius: 4px;
             color: #000000;
+            border: 1px solid #ddd;
         }
-        .card-body {
+        .manual-container {
             background: #ffffff;
             color: #000000;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        body {
+            background: #f8f9fa;
+        }
+        .manual-header {
+            background-color: var(--secondary-color, #B22222);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+        .manual-header h1 {
+            margin: 0;
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <?php include 'menu.php'; ?>
-
-            <!-- Main Content -->
-            <main class="col-md-10 py-2 pl-4 pr-4">
-                <div class="form-container">
-                    <div class="form-header">
-                        <h1>TOP Handleiding</h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="manual-content">
-                            <?php echo htmlspecialchars($manualContent); ?>
-                        </div>
-                    </div>
-                </div>
-            </main>
+        <div class="manual-container">
+            <div class="manual-header">
+                <h1>TOP Handleiding</h1>
+            </div>
+            <div class="manual-content">
+                <?php echo htmlspecialchars($manualContent); ?>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
