@@ -184,7 +184,7 @@ function exporteerNaarDefinitiefPrintBestand($outputfile, $dienstID) {
 function addCounter2PrintFile($pad, $fileprintdata, $dienstID) {
     $targetfile = $pad . substr($fileprintdata, 0, 8) . ".dat";
 
-    $lines = file($pad . $fileprintdata);
+    $lines = file($pad . $fileprintdata, FILE_IGNORE_NEW_LINES);
     $fptarget = fopen($targetfile, "w");
     
     if (!$fptarget) {
@@ -193,17 +193,26 @@ function addCounter2PrintFile($pad, $fileprintdata, $dienstID) {
 
     $recordcounter = 0;
     foreach ($lines as $line) {
+        // Skip empty lines
+        if (trim($line) === '') {
+            continue;
+        }
+        
         $recordcounter++;
-        $teller = $dienstID;
-        $teller .= substr($fileprintdata, 2, 6);
-        $teller .= sprintf("%04d", $recordcounter);
-
-        $record = rtrim($line) . $teller . "\r\n";
-        fwrite($fptarget, $record);
+        
+        // Extract date correctly from filename like "print_20250619_103447.csv"
+        $datePart = substr($fileprintdata, 8, 6); // Skip "print_20" and take 6 chars
+        
+        $counterPart = str_pad($recordcounter, 4, "0", STR_PAD_LEFT);
+        $teller = $dienstID . $datePart . $counterPart;
+        
+        $newRecord = $line . ";" . $teller;
+        
+        fwrite($fptarget, $newRecord . "\n");
     }
-
+    
     fclose($fptarget);
-    return true;
+    return "Bestand $targetfile succesvol aangemaakt met " . ($recordcounter) . " records.";
 }
 
 function verwijderSlashes($fileworddata) {
@@ -289,9 +298,11 @@ function Zethelerecordintabelprint($inputfile, $outputfile, $dienstID) {
         $stmt = $pdo->prepare("UPDATE $tableName SET record = :record WHERE teller = :rownum");
 
         while (($buffer = fgets($fpInput)) !== false) {
-            $record = rtrim($buffer);
+            // Store the record as-is, without wrapping in quotes
+            $record = rtrim($buffer, "\r\n");
+            
+            // Only escape quotes within fields, don't wrap the entire record
             $record = str_replace('"', '""', $record);
-            $record = '"' . $record . '"';
 
             $result = $stmt->execute([':record' => $record, ':rownum' => $rownum]);
 

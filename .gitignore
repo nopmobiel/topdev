@@ -25,3 +25,6 @@ error.log
 
 testbestanden/Portavita.dat
 testbestanden/Trodis.dat
+*.csv
+diensten/td-test/upload/nood.csv
+diensten/td-test/upload/td-test.dat

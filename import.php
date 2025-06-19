@@ -27,14 +27,36 @@ function insertHeaderRecord($dienstID, $system) {
     }
 }
 
-
-
+function cleanEmptyLines($inputfile) {
+    $lines = file($inputfile, FILE_IGNORE_NEW_LINES);
+    $cleanLines = [];
+    
+    foreach ($lines as $line) {
+        if (trim($line) !== '') {
+            $cleanLines[] = $line;
+        }
+    }
+    
+    // Write back only non-empty lines with consistent line endings
+    $content = implode("\r\n", $cleanLines);
+    if (!empty($cleanLines)) {
+        $content .= "\r\n"; // Add final line ending
+    }
+    
+    file_put_contents($inputfile, $content);
+    
+    return count($cleanLines);
+}
 
 function importTrodis($inputfile, $tablename, $empty = true) {
     try {
         if (!file_exists($inputfile)) {
             throw new Exception("Input file not found: " . $inputfile);
         }
+
+        // Clean empty lines first
+        $actualLineCount = cleanEmptyLines($inputfile);
+        echo "<h3>DEBUG: Cleaned file now has $actualLineCount lines (removed empty lines)</h3>";
 
         $options = array(
             PDO::MYSQL_ATTR_LOCAL_INFILE => true,
@@ -49,6 +71,8 @@ function importTrodis($inputfile, $tablename, $empty = true) {
         if ($empty) {
             $queryDel = "TRUNCATE TABLE `$tablename`";
             $pdo->exec($queryDel);
+            // Reset the auto-increment counter to 1
+            $pdo->exec("ALTER TABLE `$tablename` AUTO_INCREMENT = 1");
         }
 
         // Construct the LOAD DATA INFILE query
@@ -59,6 +83,7 @@ function importTrodis($inputfile, $tablename, $empty = true) {
 
         // Execute the query
         $result = $pdo->exec($query);
+        echo "<h3>DEBUG: LOAD DATA INFILE imported $result records</h3>";
 
         if ($result === false) {
             throw new Exception("Failed to import data into table: " . $tablename);
@@ -93,6 +118,8 @@ function importAvita($inputFile, $tableName, $empty = true) {
         if ($empty) {
             $queryDel = "TRUNCATE TABLE `$tableName`";
             $pdo->exec($queryDel);
+            // Reset the auto-increment counter to 1
+            $pdo->exec("ALTER TABLE `$tableName` AUTO_INCREMENT = 1");
         }
 
         // Construct the LOAD DATA INFILE query
