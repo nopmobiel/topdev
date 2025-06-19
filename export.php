@@ -206,7 +206,7 @@ function addCounter2PrintFile($pad, $fileprintdata, $dienstID) {
         $counterPart = str_pad($recordcounter, 4, "0", STR_PAD_LEFT);
         $teller = $dienstID . $datePart . $counterPart;
         
-        $newRecord = $line . ";" . $teller;
+        $newRecord = $line . ";\"" . $teller . "\"";
         
         fwrite($fptarget, $newRecord . "\n");
     }
@@ -298,11 +298,11 @@ function Zethelerecordintabelprint($inputfile, $outputfile, $dienstID) {
         $stmt = $pdo->prepare("UPDATE $tableName SET record = :record WHERE teller = :rownum");
 
         while (($buffer = fgets($fpInput)) !== false) {
-            // Store the record as-is, without wrapping in quotes
+            // Store the record as-is, without additional quote escaping
             $record = rtrim($buffer, "\r\n");
             
-            // Only escape quotes within fields, don't wrap the entire record
-            $record = str_replace('"', '""', $record);
+            // Don't escape quotes - they're already properly formatted from import
+            // $record = str_replace('"', '""', $record);
 
             $result = $stmt->execute([':record' => $record, ':rownum' => $rownum]);
 
