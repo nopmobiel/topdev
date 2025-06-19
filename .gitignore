@@ -23,3 +23,5 @@ error.log
 # CSV files
 *.csv
 
+testbestanden/Portavita.dat
+testbestanden/Trodis.dat
