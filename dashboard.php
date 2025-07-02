@@ -78,6 +78,18 @@ if ($stmt = $mysqli->prepare($totalQuery)) {
 } else {
     die("Database error: Unable to prepare total count statement.");
 }
+
+// Fetch recent login activity
+$loginLogQuery = "SELECT Username, IPAddress, LEFT(UserAgent, 50) as UserAgent, LoginTime, LoginSuccess, FailureReason 
+                  FROM tblLoginLog 
+                  ORDER BY LoginTime DESC 
+                  LIMIT 50";
+$loginLogResult = null;
+if ($stmt = $mysqli->prepare($loginLogQuery)) {
+    $stmt->execute();
+    $loginLogResult = $stmt->get_result();
+    $stmt->close();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -303,13 +315,56 @@ if ($stmt = $mysqli->prepare($totalQuery)) {
             </tbody>
         </table>
 
-                 <div class="info-section" style="margin-top: 30px; padding: 20px; border-radius: 8px;">
+        <!-- Login Activity Section -->
+        <?php if ($loginLogResult && $loginLogResult->num_rows > 0): ?>
+        <div style="margin-top: 40px;">
+            <h3 style="color: #2d3748; margin-bottom: 15px;">Recente Login Activiteit (Laatste 50)</h3>
+            <table style="font-size: 0.9em;">
+                <thead>
+                    <tr>
+                        <th>Tijd</th>
+                        <th>Gebruiker</th>
+                        <th>IP Adres</th>
+                        <th>Status</th>
+                        <th>Reden (bij falen)</th>
+                        <th>User Agent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($logRow = $loginLogResult->fetch_assoc()): ?>
+                        <tr style="<?php echo $logRow['LoginSuccess'] ? 'background-color: #f0fff4;' : 'background-color: #fff5f5;'; ?>">
+                            <td><?php echo escape(date('d-m-Y H:i:s', strtotime($logRow['LoginTime']))); ?></td>
+                            <td><?php echo escape($logRow['Username']); ?></td>
+                            <td><?php echo escape($logRow['IPAddress']); ?></td>
+                            <td>
+                                <?php if ($logRow['LoginSuccess']): ?>
+                                    <span style="color: #38a169; font-weight: bold;">✓ Succesvol</span>
+                                <?php else: ?>
+                                    <span style="color: #e53e3e; font-weight: bold;">✗ Gefaald</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo escape($logRow['FailureReason'] ?? '-'); ?></td>
+                            <td style="font-size: 0.8em; color: #718096;"><?php echo escape($logRow['UserAgent'] ?? '-'); ?></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php else: ?>
+        <div style="margin-top: 40px; padding: 20px; background-color: #f7fafc; border-radius: 8px; border: 2px solid #e2e8f0;">
+            <h3 style="color: #2d3748; margin-bottom: 10px;">Login Activiteit</h3>
+            <p style="color: #718096;">Geen login activiteit gevonden. De tabel wordt automatisch aangemaakt bij de eerste login poging.</p>
+        </div>
+        <?php endif; ?>
+
+        <div class="info-section" style="margin-top: 30px; padding: 20px; border-radius: 8px;">
              <h4>Dashboard Informatie</h4>
              <ul>
                  <li><strong>Doel:</strong> Lezen en bijwerken van tblDienst tabel</li>
                  <li><strong>Beveiliging:</strong> Beschermd door htaccess/passwd (geen applicatie authenticatie)</li>
                  <li><strong>Beperkingen:</strong> Geen aanmaken of verwijderen van records toegestaan</li>
                  <li><strong>Beschermde Velden:</strong> Hash (wachtwoord), GoogleAuthSecret, Otp, OtpTimestamp kunnen niet worden gewijzigd</li>
+                 <li><strong>Login Logging:</strong> Alle login pogingen worden gelogd in tblLoginLog inclusief IP-adres en tijdstempel</li>
                  <li><strong>Laatst Bijgewerkt:</strong> <?php echo date('Y-m-d H:i:s'); ?></li>
              </ul>
          </div>

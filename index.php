@@ -33,6 +33,40 @@ if (!file_exists($sessionPath)) {
 }
 ini_set('session.save_path', $sessionPath);
 
+// Function to log login attempts
+function logLoginAttempt($username, $success, $failureReason = null) {
+    try {
+        $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        // Create table if it doesn't exist
+        $createTableSQL = "
+            CREATE TABLE IF NOT EXISTS tblLoginLog (
+                LogID INT AUTO_INCREMENT PRIMARY KEY,
+                Username VARCHAR(50),
+                IPAddress VARCHAR(45),
+                UserAgent TEXT,
+                LoginTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                LoginSuccess BOOLEAN,
+                FailureReason VARCHAR(100)
+            )
+        ";
+        $pdo->exec($createTableSQL);
+        
+        // Insert log entry
+        $stmt = $pdo->prepare("INSERT INTO tblLoginLog (Username, IPAddress, UserAgent, LoginSuccess, FailureReason) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $username,
+            $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
+            $success ? 1 : 0,
+            $failureReason
+        ]);
+    } catch (Exception $e) {
+        error_log("Failed to log login attempt: " . $e->getMessage());
+    }
+}
+
 $error_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -55,6 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = $_POST['password'];
 
         if (empty($username) || empty($password)) {
+            logLoginAttempt($username, false, 'Empty credentials');
             throw new Exception("Vul alstublieft alle velden in.");
         }
 
@@ -67,12 +102,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!$user) {
+                logLoginAttempt($username, false, 'User not found');
                 throw new Exception("Ongeldige gebruikersnaam of wachtwoord.");
             }
 
             if (!password_verify($password, $user['Hash'])) {
+                logLoginAttempt($username, false, 'Invalid password');
                 throw new Exception("Ongeldige gebruikersnaam of wachtwoord.");
             }
+
+            // Log successful login
+            logLoginAttempt($username, true);
 
             // Check if user has Google Authenticator enabled
             if (!empty($user['GoogleAuth']) && $user['GoogleAuth'] == 1) {

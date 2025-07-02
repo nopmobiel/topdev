@@ -5,6 +5,40 @@ session_start();
 require_once 'settings.php';
 require_once 'vendor/autoload.php';
 
+// Function to log login attempts
+function logLoginAttempt($username, $success, $failureReason = null) {
+    try {
+        $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        // Create table if it doesn't exist
+        $createTableSQL = "
+            CREATE TABLE IF NOT EXISTS tblLoginLog (
+                LogID INT AUTO_INCREMENT PRIMARY KEY,
+                Username VARCHAR(50),
+                IPAddress VARCHAR(45),
+                UserAgent TEXT,
+                LoginTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                LoginSuccess BOOLEAN,
+                FailureReason VARCHAR(100)
+            )
+        ";
+        $pdo->exec($createTableSQL);
+        
+        // Insert log entry
+        $stmt = $pdo->prepare("INSERT INTO tblLoginLog (Username, IPAddress, UserAgent, LoginSuccess, FailureReason) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $username,
+            $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
+            $success ? 1 : 0,
+            $failureReason
+        ]);
+    } catch (Exception $e) {
+        error_log("Failed to log login attempt: " . $e->getMessage());
+    }
+}
+
 // Check if temp_user is set
 if (!isset($_SESSION['temp_user']) || !isset($_SESSION['ga_required'])) {
     header("Location: index.php");
@@ -54,6 +88,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $_SESSION['Systeem'] = $user['Systeem'];
                         $_SESSION['User'] = $user['User'];
                         
+                        // Log successful 2FA login
+                        logLoginAttempt($username, true, 'Google Auth verified');
+                        
                         // Clean up temp variables
                         unset($_SESSION['temp_user']);
                         unset($_SESSION['ga_required']);
@@ -62,6 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         header("Location: upload.php");
                         exit();
                     } else {
+                        // Log failed 2FA attempt
+                        logLoginAttempt($username, false, 'Invalid Google Auth code');
                         $error = "Ongeldige verificatiecode. Probeer het opnieuw.";
                     }
                 }

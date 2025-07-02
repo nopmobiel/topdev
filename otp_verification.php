@@ -2,6 +2,41 @@
 // Start the session
 session_start();
 
+// Function to log login attempts
+function logLoginAttempt($username, $success, $failureReason = null) {
+    try {
+        require_once 'settings.php';
+        $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        // Create table if it doesn't exist
+        $createTableSQL = "
+            CREATE TABLE IF NOT EXISTS tblLoginLog (
+                LogID INT AUTO_INCREMENT PRIMARY KEY,
+                Username VARCHAR(50),
+                IPAddress VARCHAR(45),
+                UserAgent TEXT,
+                LoginTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                LoginSuccess BOOLEAN,
+                FailureReason VARCHAR(100)
+            )
+        ";
+        $pdo->exec($createTableSQL);
+        
+        // Insert log entry
+        $stmt = $pdo->prepare("INSERT INTO tblLoginLog (Username, IPAddress, UserAgent, LoginSuccess, FailureReason) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([
+            $username,
+            $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
+            $success ? 1 : 0,
+            $failureReason
+        ]);
+    } catch (Exception $e) {
+        error_log("Failed to log login attempt: " . $e->getMessage());
+    }
+}
+
 // Check if temp_user is set in session
 if (!isset($_SESSION['temp_user'])) {
     header("Location: index.php");
@@ -55,9 +90,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['User'] = $username;
                 $_SESSION['Dienstnaam'] = $username;
 
+                // Log successful OTP verification
+                logLoginAttempt($username, true, 'OTP verified');
+
                 header("Location: upload.php"); // Redirect to the dashboard
                 exit();
             } else {
+                // Log failed OTP attempt
+                logLoginAttempt($username, false, 'Invalid or expired OTP');
                 echo "<div class='alert alert-danger'>Ongeldige of verlopen PIN. <a href='index.php'>Klik hier om terug te gaan naar de startpagina</a></div>";
             }
         }
