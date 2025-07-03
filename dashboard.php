@@ -213,10 +213,13 @@ if ($stmt = $mysqli->prepare($loginLogQuery)) {
 </head>
 <body>
     <div class="dashboard-container">
-                 <div align="center">
-             <h2>PGN Dashboard Beheer diensten</h2>
-             <p>Totaal aantal diensten: <strong><?php echo escape($totalServices); ?></strong></p>
-         </div>
+        <div style="text-align: right; margin-bottom: 15px;">
+            <a href="export_factuur.php" class="btn btn-primary" style="text-decoration: none;">Export Factuurtabel (CSV)</a>
+        </div>
+        <div align="center">
+            <h2>PGN Dashboard</h2>
+            <p>Totaal aantal diensten: <strong><?php echo escape($totalServices); ?></strong></p>
+        </div>
 
                  <?php if (!empty($message)): ?>
              <div class="message <?php echo (strpos($message, 'Error') === 0 || strpos($message, 'Fout') === 0) ? 'error' : 'success'; ?>">
@@ -232,9 +235,9 @@ if ($stmt = $mysqli->prepare($loginLogQuery)) {
                      <th>E-mail</th>
                      <th>Dienstnaam</th>
                      <th>Systeem</th>
-                     <th>GoogleAuth</th>
-                     <th>Heeft Secret</th>
-                     <th>OTP Status</th>
+                     <th>Google Auth</th>
+                     <th>Secret</th>
+                     <th>2SV/2FA Status</th>
                      <th>Acties</th>
                  </tr>
             </thead>
@@ -360,11 +363,10 @@ if ($stmt = $mysqli->prepare($loginLogQuery)) {
         <div class="info-section" style="margin-top: 30px; padding: 20px; border-radius: 8px;">
              <h4>Dashboard Informatie</h4>
              <ul>
-                 <li><strong>Doel:</strong> Lezen en bijwerken van tblDienst tabel</li>
+                 <li><strong>Doel:</strong> Lezen en bijwerken van dienstentbel</li>
                  <li><strong>Beveiliging:</strong> Beschermd door htaccess/passwd (geen applicatie authenticatie)</li>
                  <li><strong>Beperkingen:</strong> Geen aanmaken of verwijderen van records toegestaan</li>
-                 <li><strong>Beschermde Velden:</strong> Hash (wachtwoord), GoogleAuthSecret, Otp, OtpTimestamp kunnen niet worden gewijzigd</li>
-                 <li><strong>Login Logging:</strong> Alle login pogingen worden gelogd in tblLoginLog inclusief IP-adres en tijdstempel</li>
+                 <li><strong>Login Logging:</strong> Alle login pogingen worden gelogd  inclusief IP-adres en tijdstempel</li>
                  <li><strong>Laatst Bijgewerkt:</strong> <?php echo date('Y-m-d H:i:s'); ?></li>
              </ul>
          </div>
