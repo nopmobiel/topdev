@@ -209,14 +209,14 @@ if (file_exists($printfile)) {
 // Step 19: Facturering (Invoicing)
 $factuurResult = factureer($dienstkortenaam, $lineCount);
 if ($factuurResult !== true) {
-    $message = "File successfully uploaded, processed and exported, but there was an error during invoicing: " . $factuurResult;
+    $message = "Bestand succesvol geüpload, verwerkt en geëxporteerd, maar er was een fout bij het factureren: " . $factuurResult;
     goto end_processing;
 }
 
 // Set success message here, before file deletion
-$message = "File successfully uploaded, processed, exported and invoiced. " . 
-           "The print file contains " . $printFileLineCount . " records. " .    
-           "Word, Emergency and print files (if available) have been exported.";
+$message = "Bestand succesvol geüpload, verwerkt, geëxporteerd en gefactureerd. " . 
+           "Het printbestand bevat " . $printFileLineCount . " regels. " .    
+           "Word, Nood en printbestanden (indien beschikbaar) zijn geëxporteerd.";
 
 // Step 20: Remove all CSV and .org files except for specific ones
 $filesToKeep = [
