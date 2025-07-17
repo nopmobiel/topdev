@@ -165,8 +165,13 @@ function exporteerNaarDefinitiefPrintBestand($outputfile, $dienstID) {
         $stmt = $pdo->query($query);
 
         $fp = fopen($tempFile, 'w');
+        $first = true;
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            fwrite($fp, $row['record'] . "\r\n");
+            if (!$first) {
+                fwrite($fp, "\r\n");
+            }
+            $first = false;
+            fwrite($fp, $row['record']);
         }
         fclose($fp);
 
@@ -192,6 +197,8 @@ function addCounter2PrintFile($pad, $fileprintdata, $dienstID) {
     }
 
     $recordcounter = 0;
+    $totalRecords = count(array_filter($lines, 'trim'));
+    
     foreach ($lines as $line) {
         // Skip empty lines
         if (trim($line) === '') {
@@ -208,7 +215,11 @@ function addCounter2PrintFile($pad, $fileprintdata, $dienstID) {
         
         $newRecord = $line . ";\"" . $teller . "\"";
         
-        fwrite($fptarget, $newRecord . "\n");
+        if ($recordcounter < $totalRecords) {
+            fwrite($fptarget, $newRecord . "\n");
+        } else {
+            fwrite($fptarget, $newRecord);
+        }
     }
     
     fclose($fptarget);
