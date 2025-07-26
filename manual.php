@@ -19,6 +19,22 @@
             line-height: 1.7;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
+        .manual-content a {
+            color: #2c5282;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .manual-content a:hover {
+            color: #2b6cb0;
+            border-bottom: 1px solid #2b6cb0;
+            text-decoration: none;
+        }
+        .manual-content a:focus {
+            outline: 2px solid #63b3ed;
+            outline-offset: 2px;
+            text-decoration: none;
+        }
         .manual-content h1 {
             color: #2c3e50;
             border-bottom: 3px solid #3498db;
