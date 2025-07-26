@@ -225,10 +225,26 @@
 
                 <h3>Stap 2: Verificatie (indien ingeschakeld)</h3>
                 
-                <h4>Google Authenticator (verplicht)</h4>
-                <p>Als u Google Authenticator heeft ingeschakeld:</p>
+                <h4>Google Authenticator of Microsoft Authenticator (verplicht)</h4>
+                <p>Download de app van uw keuze via:</p>
+                <ul>
+                    <li>Voor Android telefoons:
+                        <ul>
+                            <li><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Google Authenticator in Play Store</a></li>
+                            <li><a href="https://play.google.com/store/apps/details?id=com.azure.authenticator">Microsoft Authenticator in Play Store</a></li>
+                        </ul>
+                    </li>
+                    <li>Voor iPhones:
+                        <ul>
+                            <li><a href="https://apps.apple.com/app/google-authenticator/id388497605">Google Authenticator in App Store</a></li>
+                            <li><a href="https://apps.apple.com/app/microsoft-authenticator/id983156458">Microsoft Authenticator in App Store</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <p>Als u de Authenticator heeft ingeschakeld:</p>
                 <ol>
-                    <li>Open de Google Authenticator app op uw telefoon</li>
+                    <li>Open de Authenticator app op uw telefoon</li>
                     <li>Zoek de TOP-code voor uw dienst</li>
                     <li>Voer de 6-cijferige code in</li>
                     <li>Klik op <strong>"Verifiëren"</strong></li>
@@ -245,7 +261,7 @@
                 <h3>Eerste inlog</h3>
                 <p>Bij uw eerste inlog wordt u gevraagd om:</p>
                 <ul>
-                    <li>Google Authenticator in te stellen (verplicht)</li>
+                    <li>De Authenticator in te stellen (verplicht)</li>
                     <li>Contactgegevens te bevestigen</li>
                 </ul>
 
@@ -415,12 +431,12 @@
 
                 <h2 id="tweestapsverificatie">7. Tweestapsverificatie</h2>
                 
-                <h3>Google Authenticator (verplicht)</h3>
+                <h3>Authenticator App (verplicht)</h3>
                 
                 <h4>Instellen</h4>
                 <ol>
-                    <li>Ga naar <strong>"Google Authenticator instellen"</strong></li>
-                    <li>Download de Google Authenticator app op uw telefoon</li>
+                    <li>Ga naar <strong>"Authenticator instellen"</strong></li>
+                    <li>Download de Google Authenticator of Microsoft Authenticator app op uw telefoon</li>
                     <li>Scan de QR-code met de app</li>
                     <li>Voer de 6-cijferige code in ter verificatie</li>
                     <li>Klik op <strong>"Activeren"</strong></li>
@@ -429,7 +445,7 @@
                 <h4>Gebruik</h4>
                 <ol>
                     <li>Bij elke inlog wordt een code gevraagd</li>
-                    <li>Open Google Authenticator op uw telefoon</li>
+                    <li>Open de Authenticator app op uw telefoon</li>
                     <li>Voer de actuele 6-cijferige code in</li>
                     <li>Codes zijn 30 seconden geldig</li>
                 </ol>
